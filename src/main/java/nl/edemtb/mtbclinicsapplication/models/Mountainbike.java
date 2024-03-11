@@ -7,7 +7,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "mountainbikes")
-public class mountainBike {
+
+public class Mountainbike {
 
     @Id
     @GeneratedValue
@@ -20,6 +21,7 @@ public class mountainBike {
     private Boolean forAdult;
     private Boolean frontSuspension;
     private Boolean fullSuspension;
+
 
     public Long getId() {
         return id;
