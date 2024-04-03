@@ -14,14 +14,62 @@ public class Mountainbike {
     @GeneratedValue
     private Long id;
 
-    private String expertNiveau;
+    private String name;
     private String wheelSize;
     private String frameSize;
     private Integer gears;
+    private Integer pricePerDayPart;
+    private Integer amount;
     private Boolean forAdult;
-    private Boolean frontSuspension;
     private Boolean fullSuspension;
+    private Boolean available;
 
+    public Mountainbike(){
+    }
+    public Mountainbike(Long id, String name, String wheelSize, String frameSize, Integer gears, Integer amount, Integer pricePerDayPart, Boolean forAdult, Boolean fullSuspension, Boolean available) {
+        this.id = id;
+        this.name = name;
+        this.wheelSize = wheelSize;
+        this.frameSize = frameSize;
+        this.gears = gears;
+        this.amount = amount;
+        this.pricePerDayPart = pricePerDayPart;
+        this.forAdult = forAdult;
+        this.fullSuspension = fullSuspension;
+        this.available = available;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getPricePerDayPart() {
+        return pricePerDayPart;
+    }
+
+    public void setPricePerDayPart(Integer pricePerDayPart) {
+        this.pricePerDayPart = pricePerDayPart;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
 
     public Long getId() {
         return id;
@@ -29,14 +77,6 @@ public class Mountainbike {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getExpertNiveau() {
-        return expertNiveau;
-    }
-
-    public void setExpertNiveau(String expertNiveau) {
-        this.expertNiveau = expertNiveau;
     }
 
     public String getWheelSize() {
@@ -69,14 +109,6 @@ public class Mountainbike {
 
     public void setForAdult(Boolean forAdult) {
         this.forAdult = forAdult;
-    }
-
-    public Boolean getFrontSuspension() {
-        return frontSuspension;
-    }
-
-    public void setFrontSuspension(Boolean frontSuspension) {
-        this.frontSuspension = frontSuspension;
     }
 
     public Boolean getFullSuspension() {
