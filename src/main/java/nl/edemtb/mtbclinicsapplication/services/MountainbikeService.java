@@ -16,9 +16,8 @@ public class MountainbikeService {
                 this.mountainbikeRepository = mountainbikeRepository;}
 
         public List<Mountainbike> getAllMountainbikes() {
-                List<Mountainbike> mtbList = mountainbikeRepository.findAll();
 
-                return mtbList;
+            return mountainbikeRepository.findAll();
         }
 
 
@@ -27,7 +26,7 @@ public Mountainbike getMountainbikeById(Long id){
         if(mtbOptional.isPresent()){
             return mtbOptional.get();
         }else {
-                throw new RecordNotFoundException(" geen Mountainbike gevonden");
+                throw new RecordNotFoundException(" Geen Mountainbike gevonden");
         }
 }
 }
