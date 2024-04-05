@@ -24,20 +24,6 @@ public class Mountainbike {
     private Boolean fullSuspension;
     private Boolean available;
 
-    public Mountainbike(){
-    }
-    public Mountainbike(Long id, String name, String wheelSize, String frameSize, Integer gears, Integer amount, Integer pricePerDayPart, Boolean forAdult, Boolean fullSuspension, Boolean available) {
-        this.id = id;
-        this.name = name;
-        this.wheelSize = wheelSize;
-        this.frameSize = frameSize;
-        this.gears = gears;
-        this.amount = amount;
-        this.pricePerDayPart = pricePerDayPart;
-        this.forAdult = forAdult;
-        this.fullSuspension = fullSuspension;
-        this.available = available;
-    }
 
     public String getName() {
         return name;
