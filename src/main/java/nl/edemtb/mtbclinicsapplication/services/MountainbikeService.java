@@ -1,32 +1,46 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
+import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
+import nl.edemtb.mtbclinicsapplication.mappers.MountainbikeMapper;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MountainbikeService {
 
-        private final MountainbikeRepository mountainbikeRepository;
-        public MountainbikeService(MountainbikeRepository mountainbikeRepository) {
-                this.mountainbikeRepository = mountainbikeRepository;}
+    private final MountainbikeRepository mountainbikeRepository;
+    private final MountainbikeMapper mountainbikeMapper;
 
-        public List<Mountainbike> getAllMountainbikes() {
+    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper) {
+        this.mountainbikeRepository = mountainbikeRepository;
+        this.mountainbikeMapper = mountainbikeMapper;
+    }
 
-            return mountainbikeRepository.findAll();
+    public List<MountainbikeDto> getAllMountainbikes() {
+        List<Mountainbike> mtbList = mountainbikeRepository.findAll();
+        List<MountainbikeDto> mtbDtoList = new ArrayList<>();
+
+        for (Mountainbike mtb : mtbList) {
+            MountainbikeDto dto = mountainbikeMapper.transferToDto(mtb);
+            mtbDtoList.add(dto);
         }
+        return mtbDtoList;
+    }
 
 
-public Mountainbike getMountainbikeById(Long id){
+    public MountainbikeDto getMountainbikeById(Long id) {
         Optional<Mountainbike> mtbOptional = mountainbikeRepository.findById(id);
-        if(mtbOptional.isPresent()){
-            return mtbOptional.get();
-        }else {
-                throw new RecordNotFoundException(" Geen Mountainbike gevonden");
+        if (mtbOptional.isPresent()) {
+            Mountainbike mtb = mtbOptional.get();
+            return mountainbikeMapper.transferToDto(mtb);
+        } else {
+            throw new RecordNotFoundException(" Geen Mountainbike gevonden");
         }
-}
+    }
 }
