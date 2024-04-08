@@ -1,6 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
 import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Range;
 
 public class MountainbikeInputDto {
     @NotBlank
@@ -10,10 +11,10 @@ public class MountainbikeInputDto {
     private String wheelSize;
     @NotBlank(message = "Framesize is required")
     private String frameSize;
-    @NotBlank
-    @Size(min = 8, max = 12)
+    @NotNull
+    @Range(min = 8, max = 12)
     private Integer gears;
-    @NotBlank
+    @NotNull
     private Integer pricePerDayPart;
     @PositiveOrZero(message = "Mountainbike can not have a negative amount.")
     private Integer amount;

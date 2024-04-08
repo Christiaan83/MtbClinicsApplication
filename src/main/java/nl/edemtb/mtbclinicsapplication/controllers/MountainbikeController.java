@@ -1,5 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
+
+import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.services.MountainbikeService;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +25,7 @@ public class MountainbikeController {
 
     @GetMapping()
 
-    public ResponseEntity<List<MountainbikeDto>> getAllMountainbikes(){
+    public ResponseEntity<List<MountainbikeDto>> getAllMountainbikes() {
         List<MountainbikeDto> mtbs;
         mtbs = mountainbikeService.getAllMountainbikes();
         return ResponseEntity.ok(mtbs);
@@ -37,6 +40,26 @@ public class MountainbikeController {
         return ResponseEntity.ok().body(mtb);
     }
 
+    @PostMapping()
+    public ResponseEntity<Object> addMountainbike(@Valid @RequestBody MountainbikeInputDto mountainbikeInputDto) {
+        MountainbikeDto dto = mountainbikeService.addMountainbike(mountainbikeInputDto);
+
+        return ResponseEntity.created(null).body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteMountainbike(@PathVariable Long id){
+
+        mountainbikeService.deleteMountainbike(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MountainbikeDto> updateMountainbike(@PathVariable Long id, @RequestBody MountainbikeInputDto updatedMountainbike){
+
+        MountainbikeDto dto = mountainbikeService.updateMountainbike(id, updatedMountainbike);
+        return ResponseEntity.ok().body(dto);
+    }
 }
 
 
