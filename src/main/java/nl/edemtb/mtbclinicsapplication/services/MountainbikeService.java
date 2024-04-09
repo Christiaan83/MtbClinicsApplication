@@ -24,15 +24,10 @@ public class MountainbikeService {
         this.mountainbikeRepository = mountainbikeRepository;
         this.mountainbikeMapper = mountainbikeMapper;
     }
+
     public List<MountainbikeDto> getAllMountainbikes() {
         List<Mountainbike> mtbList = mountainbikeRepository.findAll();
-        List<MountainbikeDto> mtbDtoList = new ArrayList<>();
-
-        for (Mountainbike mtb : mtbList) {
-            MountainbikeDto dto = mountainbikeMapper.transferToDto(mtb);
-            mtbDtoList.add(dto);
-        }
-        return mtbDtoList;
+        return transferMtbListToDtoList(mtbList);
     }
 
 
@@ -43,6 +38,21 @@ public class MountainbikeService {
             return mountainbikeMapper.transferToDto(mtb);
         } else {
             throw new RecordNotFoundException(" Geen Mountainbike gevonden");
+        }
+    }
+
+    public List<MountainbikeDto> searchBySize(String size) {
+        List<Mountainbike> mtbList = mountainbikeRepository.findAllMountainbikesByFrameSizeEqualsIgnoreCase(size);
+        return transferMtbListToDtoList(mtbList);
+    }
+
+    public List<MountainbikeDto> searchByForAdult(boolean forAdult) {
+        List<Mountainbike> trueList = mountainbikeRepository.findByForAdultIsTrue();
+        List<Mountainbike> falseList = mountainbikeRepository.findByForAdultIsFalse();
+        if (!forAdult) {
+            return transferMtbListToDtoList(falseList);
+        } else {
+            return transferMtbListToDtoList(trueList);
         }
     }
 
@@ -76,5 +86,15 @@ public class MountainbikeService {
         } else {
             throw new RecordNotFoundException("Geen mountainbike gevonden met id: " + id);
         }
+    }
+
+    public List<MountainbikeDto> transferMtbListToDtoList(List<Mountainbike> mountainbikes) {
+        List<MountainbikeDto> mtbDtoList = new ArrayList<>();
+
+        for (Mountainbike mtb : mountainbikes) {
+            MountainbikeDto dto = mountainbikeMapper.transferToDto(mtb);
+            mtbDtoList.add(dto);
+        }
+        return mtbDtoList;
     }
 }
