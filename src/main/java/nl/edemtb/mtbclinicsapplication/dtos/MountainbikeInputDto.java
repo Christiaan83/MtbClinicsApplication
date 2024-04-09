@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Range;
 
 public class MountainbikeInputDto {
     @NotBlank
-    @Size(max = 30, message = "Name must be between 0-30 characters")
+    @Size(max = 20, message = "Name must be between 0-20 characters")
     private String name;
     @NotBlank(message = "Wheelsize is required")
     private String wheelSize;
