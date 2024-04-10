@@ -1,9 +1,14 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
+import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
+import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Route;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RouteMapper {
@@ -41,5 +46,15 @@ public class RouteMapper {
         dto.setDistance(route.getDistance());
         dto.setAvailable(route.getAvailable());
         return dto;
+    }
+
+    public List<RouteDto> transferRouteListToDtoList(List<Route> routes) {
+        List<RouteDto> routeDtoList = new ArrayList<>();
+
+        for (Route route : routes) {
+           RouteDto dto = transferToDto(route);
+           routeDtoList.add(dto);
+        }
+        return routeDtoList;
     }
 }
