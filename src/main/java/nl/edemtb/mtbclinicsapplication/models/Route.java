@@ -28,6 +28,7 @@ public class Route {
     private String startingPoint;
     private String place;
     private String province;
+    private String routeInformation;
     private Double distance;
     private Boolean available;
 
@@ -85,6 +86,14 @@ public class Route {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public String getRouteInformation() {
+        return routeInformation;
+    }
+
+    public void setRouteInformation(String routeInformation) {
+        this.routeInformation = routeInformation;
     }
 
     public Double getDistance() {
