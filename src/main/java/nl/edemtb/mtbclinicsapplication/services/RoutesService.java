@@ -79,6 +79,7 @@ public class RoutesService {
         if(routeRepository.findById(id).isEmpty()){
             throw new RecordNotFoundException("Geen route gevonden!");
         }
+
         routeMapper.routeInputMapper(id, inputDto);
     }
 }

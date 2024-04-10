@@ -1,10 +1,9 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Route;
+import nl.edemtb.mtbclinicsapplication.repositories.RouteRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,6 +11,12 @@ import java.util.List;
 
 @Component
 public class RouteMapper {
+
+    private final RouteRepository routeRepository;
+
+    public RouteMapper(RouteRepository routeRepository) {
+        this.routeRepository = routeRepository;
+    }
 
     public Route transferToRoute(RouteInputDto dto) {
         if (dto == null) {
@@ -56,5 +61,20 @@ public class RouteMapper {
            routeDtoList.add(dto);
         }
         return routeDtoList;
+    }
+
+    public void routeInputMapper(Long id, RouteInputDto inputDto){
+
+        Route route = routeRepository.findById(id).get();
+        route.setName(inputDto.getName());
+        route.setRouteType(inputDto.getRouteType());
+        route.setDifficulty(inputDto.getDifficulty());
+        route.setStartingPoint(inputDto.getStartingPoint());
+        route.setPlace(inputDto.getPlace());
+        route.setProvince(inputDto.getProvince());
+        route.setRouteInformation(inputDto.getRouteInformation());
+        route.setDistance(inputDto.getDistance());
+        route.setAvailable(inputDto.getAvailable());
+        routeRepository.save(route);
     }
 }
