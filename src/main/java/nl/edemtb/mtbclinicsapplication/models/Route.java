@@ -16,8 +16,8 @@ public class Route {
     @GeneratedValue(generator = "sequence-generator")
     @GenericGenerator(name = "sequence-generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {@Parameter(name = "sequence_name", value = "user_sequence"),
-                    @Parameter(name = "initial_value", value = "1011"),
+            parameters = {@Parameter(name = "sequence_route", value = "route_sequence"),
+                    @Parameter(name = "initial_value", value = "1008"),
                     @Parameter(name = "increment_size", value = "1")
             }
     )
