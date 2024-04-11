@@ -69,7 +69,7 @@ public class MountainbikeService {
         if (mountainbikeRepository.findById(id).isPresent()) {
             mountainbikeRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("geen mountainbike met " + id + " gevonden!");
+            throw new RecordNotFoundException("geen mountainbike met id: " + id + " gevonden!");
         }
     }
 
