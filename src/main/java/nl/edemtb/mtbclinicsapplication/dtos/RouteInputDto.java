@@ -3,15 +3,17 @@ package nl.edemtb.mtbclinicsapplication.dtos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
+import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 
 public class RouteInputDto {
     @NotBlank
     @Size(min = 2, max = 30, message = "Name must be between 2-30 characters")
     private String name;
     @NotBlank(message = "routeType is required")
-    private String routeType;
+    private RouteType routeType;
     @NotBlank(message = "difficulty is required")
-    private String difficulty;
+    private Difficulty difficulty;
     @NotBlank(message = "startingPoint is required")
     private String startingPoint;
     @NotBlank(message = "place is required")
@@ -31,19 +33,19 @@ public class RouteInputDto {
         this.name = name;
     }
 
-    public String getRouteType() {
+    public RouteType getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(String routeType) {
+    public void setRouteType(RouteType routeType) {
         this.routeType = routeType;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 

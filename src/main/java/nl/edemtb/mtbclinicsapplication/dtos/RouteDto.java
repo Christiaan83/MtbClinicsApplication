@@ -1,11 +1,14 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
+import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
+import nl.edemtb.mtbclinicsapplication.enums.RouteType;
+
 public class RouteDto {
 
     private Long id;
     private String name;
-    private String routeType;
-    private String difficulty;
+    private RouteType routeType;
+    private Difficulty difficulty;
     private String startingPoint;
     private String place;
     private String province;
@@ -29,19 +32,19 @@ public class RouteDto {
         this.name = name;
     }
 
-    public String getRouteType() {
+    public RouteType getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(String routeType) {
+    public void setRouteType(RouteType routeType) {
         this.routeType = routeType;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 

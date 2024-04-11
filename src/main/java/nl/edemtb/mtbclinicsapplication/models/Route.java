@@ -1,9 +1,9 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
+import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,11 +23,16 @@ public class Route {
     )
     private Long id;
     private String name;
-    private String routeType;
-    private String difficulty;
+
+    @Enumerated(EnumType.STRING)
+    private RouteType routeType;
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
     private String startingPoint;
     private String place;
     private String province;
+
+    @Column(length = Integer.MAX_VALUE)
     private String routeInformation;
     private Double distance;
     private Boolean available;
@@ -48,19 +53,19 @@ public class Route {
         this.name = name;
     }
 
-    public String getRouteType() {
+    public RouteType getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(String routeType) {
+    public void setRouteType(RouteType routeType) {
         this.routeType = routeType;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
