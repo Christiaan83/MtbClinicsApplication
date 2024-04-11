@@ -15,7 +15,7 @@ public class MountainbikeController {
 
 
     private final MountainbikeService mountainbikeService;
-    List<MountainbikeDto> mtbs;
+
 
 
     public MountainbikeController(MountainbikeService mountainbikeService) {
@@ -27,7 +27,7 @@ public class MountainbikeController {
 
     public ResponseEntity<List<MountainbikeDto>> getAllMountainbikes() {
 
-        mtbs = mountainbikeService.getAllMountainbikes();
+        var mtbs = mountainbikeService.getAllMountainbikes();
         return ResponseEntity.ok(mtbs);
     }
 
@@ -43,14 +43,14 @@ public class MountainbikeController {
 
     public ResponseEntity<List<MountainbikeDto>> searchBySize(@PathVariable("size") String size) {
 
-        mtbs = mountainbikeService.searchBySize(size);
+       var mtbs = mountainbikeService.searchBySize(size);
         return ResponseEntity.ok().body(mtbs);
     }
 
     @GetMapping("/search/for-adult/{boolean}")
     public ResponseEntity<List<MountainbikeDto>> searchByForAdult(@PathVariable("boolean") Boolean forAdult) {
 
-        mtbs = mountainbikeService.searchByForAdult(forAdult);
+        var mtbs = mountainbikeService.searchByForAdult(forAdult);
         return ResponseEntity.ok().body(mtbs);
     }
 
