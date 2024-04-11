@@ -2,8 +2,8 @@ package nl.edemtb.mtbclinicsapplication.services;
 
 import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
+import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
-import nl.edemtb.mtbclinicsapplication.helpers.RouteHelper;
 import nl.edemtb.mtbclinicsapplication.mappers.RouteMapper;
 import nl.edemtb.mtbclinicsapplication.models.Route;
 import nl.edemtb.mtbclinicsapplication.repositories.RouteRepository;
@@ -20,15 +20,13 @@ public class RoutesService {
 
     private final RouteMapper routeMapper;
 
-    List<Route> routeList;
-
     public RoutesService(RouteRepository routeRepository, RouteMapper routeMapper) {
         this.routeRepository = routeRepository;
         this.routeMapper = routeMapper;
     }
 
     public List<RouteDto> getAllRoutes() {
-        routeList = routeRepository.findAll();
+        var routeList = routeRepository.findAll();
         return routeMapper.transferRouteListToDtoList(routeList);
     }
 
@@ -38,27 +36,21 @@ public class RoutesService {
             Route route = routeOptional.get();
             return routeMapper.transferToDto(route);
         } else {
-            throw new RecordNotFoundException("Route niet met id: " + id +" niet gevonden.");
+            throw new RecordNotFoundException("Route niet met id: " + id + " niet gevonden.");
         }
     }
 
-    public List<RouteDto> searchByPlace(String place, boolean available){
-        RouteHelper.checkRouteAvailability(available);
-        routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
+    public List<RouteDto> searchByPlace(String place) {
+        var routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
         return routeMapper.transferRouteListToDtoList(routeList);
     }
 
-    public List<RouteDto> searchByRouteType(String routeType, boolean available) {
-        RouteHelper.checkRouteAvailability(available);
-        routeList = routeRepository.findRoutesByRouteTypeAndAvailable(routeType, true);
+
+    public List<RouteDto> search(String place, RouteType routeType, String difficulty) {
+        var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty);
         return routeMapper.transferRouteListToDtoList(routeList);
     }
 
-    public List<RouteDto> searchByDifficulty(String difficulty, boolean available){
-        RouteHelper.checkRouteAvailability(available);
-        routeList = routeRepository.findRoutesByDifficultyAndAvailable(difficulty, true);
-        return routeMapper.transferRouteListToDtoList(routeList);
-    }
 
     public RouteDto addRoute(RouteInputDto dto) {
         Route route = routeMapper.transferToRoute(dto);
@@ -69,14 +61,15 @@ public class RoutesService {
 
     public void deleteRoute(@RequestBody Long id) {
 
-        if (routeRepository.findById(id).isPresent()){
+        if (routeRepository.findById(id).isPresent()) {
             routeRepository.deleteById(id);
-        }else {
+        } else {
             throw new RecordNotFoundException("Geen route gevonden met id: " + id);
         }
     }
-    public void updateRoute(Long id, RouteInputDto inputDto){
-        if(routeRepository.findById(id).isEmpty()){
+
+    public void updateRoute(Long id, RouteInputDto inputDto) {
+        if (routeRepository.findById(id).isEmpty()) {
             throw new RecordNotFoundException("Geen route gevonden!");
         }
 
