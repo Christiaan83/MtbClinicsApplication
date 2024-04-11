@@ -10,9 +10,9 @@ public class RouteInputDto {
     @NotBlank
     @Size(min = 2, max = 30, message = "Name must be between 2-30 characters")
     private String name;
-    @NotBlank(message = "routeType is required")
+    @NotNull(message = "routeType is required")
     private RouteType routeType;
-    @NotBlank(message = "difficulty is required")
+    @NotNull(message = "difficulty is required")
     private Difficulty difficulty;
     @NotBlank(message = "startingPoint is required")
     private String startingPoint;

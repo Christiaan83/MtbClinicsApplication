@@ -2,6 +2,7 @@ package nl.edemtb.mtbclinicsapplication.services;
 
 import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
 import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
+import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RouteMapper;
@@ -42,12 +43,16 @@ public class RoutesService {
 
     public List<RouteDto> searchByPlace(String place) {
         var routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
+        if (routeList.isEmpty()){
+            throw new RecordNotFoundException("Er is geen route gevonden in " + place + ".");
+        }else{
         return routeMapper.transferRouteListToDtoList(routeList);
+        }
     }
 
 
-    public List<RouteDto> search(String place, RouteType routeType, String difficulty) {
-        var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty);
+    public List<RouteDto> search(String place, RouteType routeType, Difficulty difficulty, String province) {
+        var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty, province);
         return routeMapper.transferRouteListToDtoList(routeList);
     }
 
@@ -68,11 +73,11 @@ public class RoutesService {
         }
     }
 
-    public void updateRoute(Long id, RouteInputDto inputDto) {
+    public RouteDto updateRoute(Long id, RouteInputDto inputDto) {
         if (routeRepository.findById(id).isEmpty()) {
             throw new RecordNotFoundException("Geen route gevonden!");
-        }
-
-        routeMapper.routeInputMapper(id, inputDto);
+        }else{
+            return routeMapper.routeInputMapper(id, inputDto);
+    }
     }
 }

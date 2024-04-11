@@ -63,7 +63,7 @@ public class RouteMapper {
         return routeDtoList;
     }
 
-    public void routeInputMapper(Long id, RouteInputDto inputDto){
+    public RouteDto routeInputMapper(Long id, RouteInputDto inputDto){
 
         Route route = routeRepository.findById(id).get();
         route.setName(inputDto.getName());
@@ -76,5 +76,6 @@ public class RouteMapper {
         route.setDistance(inputDto.getDistance());
         route.setAvailable(inputDto.getAvailable());
         routeRepository.save(route);
+        return transferToDto(route);
     }
 }

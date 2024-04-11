@@ -1,5 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.repositories;
 
+import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.models.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,12 +13,15 @@ public interface RouteRepository extends JpaRepository <Route, Long>{
     List<Route> findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(String place, boolean available);
 
     @Query("select r from Route r " +
-            "where (:place is null or r.place = :place)" +
+
+            "where (lower(:place) is null or lower(r.place) = lower(:place))" +
             "and (:routeType is null or r.routeType = :routeType)" +
             "and (:difficulty is null or r.difficulty = :difficulty)" +
+            "and (lower(:province) is null or lower(r.province) = lower(:province))" +
             "and r.available")
     List<Route> findAvailableRoutes(
             String place,
             RouteType routeType,
-            String difficulty);
+            Difficulty difficulty,
+            String province);
 }
