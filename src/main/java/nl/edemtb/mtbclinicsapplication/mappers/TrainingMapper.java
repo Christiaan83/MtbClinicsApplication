@@ -1,6 +1,5 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingInpuDto;
 import nl.edemtb.mtbclinicsapplication.models.Training;
@@ -55,6 +54,20 @@ public class TrainingMapper {
             trainingDtoList.add(transferToDto(training));
         }
         return trainingDtoList;
+    }
+    public TrainingDto trainingInputMapper(Long id, TrainingInpuDto inputDto){
+
+        trainingRepository.findById(id);
+        Training training = trainingRepository.findById(id).get();
+        training.setLocation(inputDto.getLocation());
+        training.setPrice(inputDto.getPrice());
+        training.setStartTime(inputDto.getStartTime());
+        training.setEndTime(inputDto.getEndTime());
+        training.setDateList(inputDto.getDateList());
+        training.setTrainingInGroup(inputDto.getTrainingInGroup());
+        trainingRepository.save(training);
+        return transferToDto(training);
+
     }
 
 }
