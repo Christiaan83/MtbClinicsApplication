@@ -37,7 +37,7 @@ public class RoutesService {
             Route route = routeOptional.get();
             return routeMapper.transferToDto(route);
         } else {
-            throw new RecordNotFoundException("Route niet met id: " + id + " niet gevonden.");
+            throw new RecordNotFoundException("Route met id: " + id + " niet gevonden.");
         }
     }
 
@@ -55,7 +55,6 @@ public class RoutesService {
         var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty, province);
         return routeMapper.transferRouteListToDtoList(routeList);
     }
-
 
     public RouteDto addRoute(RouteInputDto dto) {
         Route route = routeMapper.transferToRoute(dto);
