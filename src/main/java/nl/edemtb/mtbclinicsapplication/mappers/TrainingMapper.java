@@ -4,10 +4,12 @@ import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingInpuDto;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class TrainingMapper {
 
     private final TrainingRepository trainingRepository;
@@ -16,7 +18,7 @@ public class TrainingMapper {
         this.trainingRepository = trainingRepository;
     }
 
-    public Training transferToTraining(TrainingInpuDto dto){
+    public Training transferToTraining(TrainingDto dto){
         if (dto==null) return null;
 
         Training training = new Training();
