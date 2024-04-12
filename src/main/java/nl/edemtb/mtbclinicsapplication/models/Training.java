@@ -39,7 +39,7 @@ public class Training {
     @ElementCollection
     @Column(name = "date")
     private List<LocalDate> dateList;
-    private boolean trainingInGroup;
+    private Boolean trainingInGroup;
 
     public boolean isTrainingInGroup() {
         return trainingInGroup;
@@ -95,6 +95,14 @@ public class Training {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Boolean getTrainingInGroup() {
+        return trainingInGroup;
+    }
+
+    public void setTrainingInGroup(Boolean trainingInGroup) {
+        this.trainingInGroup = trainingInGroup;
     }
 
     public Difficulty getDifficulty() {
