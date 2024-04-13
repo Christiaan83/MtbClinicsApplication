@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.TrainingInpuDto;
+import nl.edemtb.mtbclinicsapplication.dtos.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,8 @@ public class TrainingMapper {
         this.trainingRepository = trainingRepository;
     }
 
-    public Training transferToTraining(TrainingDto dto){
-        if (dto==null) return null;
+    public Training transferToTraining(TrainingInputDto dto) {
+        if (dto == null) return null;
 
         Training training = new Training();
         training.setName(dto.getName());
@@ -34,30 +34,33 @@ public class TrainingMapper {
         return training;
     }
 
-    public TrainingDto transferToDto(Training training){
+    public TrainingDto transferToDto(Training training) {
         if (training == null) return null;
 
-        TrainingDto Dto = new TrainingDto();
-        Dto.setName(training.getName());
-        Dto.setDifficulty(training.getDifficulty());
-        Dto.setLocation(training.getLocation());
-        Dto.setDescription(training.getDescription());
-        Dto.setPrice(training.getPrice());
-        Dto.setStartTime(training.getStartTime());
-        Dto.setEndTime(training.getEndTime());
-        Dto.setDateList(training.getDateList());
-        Dto.setTrainingInGroup(training.getTrainingInGroup());
-        return Dto;
+        TrainingDto dto = new TrainingDto();
+        dto.setId(training.getId());
+        dto.setName(training.getName());
+        dto.setDifficulty(training.getDifficulty());
+        dto.setLocation(training.getLocation());
+        dto.setDescription(training.getDescription());
+        dto.setPrice(training.getPrice());
+        dto.setStartTime(training.getStartTime());
+        dto.setEndTime(training.getEndTime());
+        dto.setDateList(training.getDateList());
+        dto.setTrainingInGroup(training.getTrainingInGroup());
+        return dto;
     }
-    public List<TrainingDto> transferTrainingListToDto(List<Training> trainings){
+
+    public List<TrainingDto> transferTrainingListToDto(List<Training> trainings) {
         List<TrainingDto> trainingDtoList = new ArrayList<>();
 
-        for (Training training : trainings){
+        for (Training training : trainings) {
             trainingDtoList.add(transferToDto(training));
         }
         return trainingDtoList;
     }
-    public TrainingDto trainingInputMapper(Long id, TrainingInpuDto inputDto){
+
+    public TrainingDto trainingInputMapper(Long id, TrainingInputDto inputDto) {
 
         trainingRepository.findById(id);
         Training training = trainingRepository.findById(id).get();
