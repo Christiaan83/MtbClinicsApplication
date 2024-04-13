@@ -1,14 +1,15 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
+import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.TrainingInpuDto;
+import nl.edemtb.mtbclinicsapplication.dtos.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
-import nl.edemtb.mtbclinicsapplication.mappers.RouteMapper;
 import nl.edemtb.mtbclinicsapplication.mappers.TrainingMapper;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,11 +37,11 @@ public class TrainingService {
             Training training = trainingOptional.get();
             return trainingMapper.transferToDto(training);
         } else {
-            throw new RecordNotFoundException("Training met id " + id + " niet gevonden!");
+            throw new RecordNotFoundException("Training met id: " + id + " niet gevonden!");
         }
     }
 
-    public TrainingDto addTraining(TrainingDto dto) {
+    public TrainingDto addTraining(TrainingInputDto dto) {
 
         Training training = trainingMapper.transferToTraining(dto);
         trainingRepository.save(training);
@@ -49,15 +50,16 @@ public class TrainingService {
     }
 
     public void deleteTraining(Long id) {
-        if (trainingRepository.findById(id).isPresent()) trainingRepository.deleteById(id);
+        if (trainingRepository.findById(id).isPresent())
+            trainingRepository.deleteById(id);
     }
 
-    public TrainingDto updateTraining(Long id, TrainingInpuDto inputDto) {
+    public TrainingDto updateTraining(Long id, TrainingInputDto inputDto) {
 
         if (trainingRepository.findById(id).isPresent()) {
             return trainingMapper.trainingInputMapper(id, inputDto);
         } else {
-            return null;
+            throw new RecordNotFoundException("Training met id:" + id + " niet gevonden");
         }
     }
 }
