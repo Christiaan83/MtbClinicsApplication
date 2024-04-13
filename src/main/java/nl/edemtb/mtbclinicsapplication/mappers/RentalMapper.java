@@ -55,10 +55,19 @@ public class RentalMapper {
 
         rentalRepository.findById(id);
         Rental rental = rentalRepository.findById(id).get();
-        rental.setStartTime(inputDto.getStartTime());
-        rental.setStartDate(inputDto.getStartDate());
-        rental.setEndDateTime(inputDto.getEndDateTime());
-        rental.setRentingWholeDay(inputDto.getRentingWholeDay());
+
+        if (inputDto.getStartTime() != null) {
+            rental.setStartTime(inputDto.getStartTime());
+        }
+        if (inputDto.getStartDate() != null) {
+            rental.setStartDate(inputDto.getStartDate());
+        }
+        if (inputDto.getEndDateTime() != null) {
+            rental.setEndDateTime(inputDto.getEndDateTime());
+        }
+        if (inputDto.getRentingWholeDay() != null) {
+            rental.setRentingWholeDay(inputDto.getRentingWholeDay());
+        }
         rentalRepository.save(rental);
         return transferToRentalDto(rental);
     }
