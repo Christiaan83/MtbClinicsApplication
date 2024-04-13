@@ -1,6 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import jakarta.validation.Valid;
+
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.dtos.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
@@ -9,7 +9,6 @@ import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
