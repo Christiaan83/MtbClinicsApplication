@@ -13,8 +13,8 @@ import org.hibernate.annotations.Parameter;
 public class Route {
 
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(name = "sequence-generator",
+    @GeneratedValue(generator = "sequence-generator1")
+    @GenericGenerator(name = "sequence-generator1",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {@Parameter(name = "sequence_route", value = "route_sequence"),
                     @Parameter(name = "initial_value", value = "1008"),

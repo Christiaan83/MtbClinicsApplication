@@ -35,6 +35,22 @@ De tweede heuvel loopt op de flanken van de Wijnberg waarbij je langs een veld m
 De derde heuvel (de Schapenberg) is het klapstuk van de route. Hier overwin je op een afstand van 2,4 kilometer ruim 100 hoogtemeters waarbij je ook nog eens verschillende lastige bruggetjes moet passeren.
 
 De toegang tot het terrein is geregeld via een hek met een toegangscode. Die code is te vinden op het routevignet dat verplicht en noodzakelijk is om toegang te krijgen tot de trails op Braambergen.
-De route Braambergen is met een korte verbindingsroute verbonden met de mountainbikeroute Almere-Kemphaan.', 7.0, false )
+De route Braambergen is met een korte verbindingsroute verbonden met de mountainbikeroute Almere-Kemphaan.', 7.0, false );
+
+INSERT INTO trainings ( id,name, difficulty, location,description, price, start_time, end_time, training_in_group)
+VALUES
+(1001, 'Mountainbike clinic beginner', 'EASY', 'De Fietser, Akulaan 2, 6717 XN Ede', 'In deze clinic ligt de nadruk op de basis van het mountainbiken. Je leert meer controle over de mountainbike en meer vertrouwen te krijgen. Er is veel aandacht voor balans en de juiste houding. De ideale clinic voor de beginnende mountainbiker of de gevorderde mountainbiker die er zeker van wil zijn dat de basis perfect is.', 67.50, '10:00:00', '12:00:00', true),
+
+(1002, 'Mountainbike clinic gevorderd','MODERATE', 'De Fietser, Akulaan 2, 6717 XN Ede', 'In deze clinic leer je de controle te behouden wanneer de situatie uitdagender wordt. We breiden de basis uit en gaan dieper in op de diverse technieken zoals balans, houding, de mountainbike het werk laten doen, klimmen en dalen met obstakels. De ideale clinic voor de gevorderde mountainbiker die de puntjes op de i wil zetten.',67.50, '10:00:00', '12:00:00', true),
+
+(1003,'Ouder - kind clinic', 'EASY','De Fietser, Akulaan 2, 6717 XN Ede','Mountainbiken met je zoon of dochter, hoe gaaf is dat? Het wordt nog leuker wanneer je beide beter leert mountainbiken. Deze mountainbike clinic is speciaal voor vader, moeder, opa of oma met (klein)zoon of (klein)dochter.
+Het niveau en zwaarte wordt aangepast op de kids, zodat dit voor iedereen goed haalbaar zal zijn.', 49.50,'13:30:00', '15:30:00', true ),
+
+(1004, 'Privéclinic','MODERATE', 'De Fietser, Akulaan 2, 6717 XN Ede','Heb je liever alle aandacht of wil je een specifiek onderwerp behandelen? Dan is een privéclinic een goede keuze.
+
+Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen. Een privéclinic staat niet in de agenda, maar kun je op afspraak met ons inplannen.', 250.00,'14:00:00', '16:30:00', false );
+
+INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003)
+
 
 
