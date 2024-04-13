@@ -17,15 +17,14 @@ import java.util.List;
 public class Training {
 
     @Id
-    @GeneratedValue(generator = "sequence-generator")
-    @GenericGenerator(name = "sequence-generator",
+    @GeneratedValue(generator = "sequence-generator2")
+    @GenericGenerator(name = "sequence-generator2",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {@Parameter(name = "sequence_training", value = "training_sequence"),
-                    @Parameter(name = "initial_value", value = "1008"),
+                    @Parameter(name = "initial_value", value = "1005"),
                     @Parameter(name = "increment_size", value = "1")
             }
-            )
-
+    )
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
@@ -37,17 +36,11 @@ public class Training {
     private LocalTime startTime;
     private LocalTime endTime;
     @ElementCollection
+    @CollectionTable(name = "entity_dates", joinColumns = @JoinColumn(name = "entity_id"))
     @Column(name = "date")
     private List<LocalDate> dateList;
     private Boolean trainingInGroup;
 
-    public boolean isTrainingInGroup() {
-        return trainingInGroup;
-    }
-
-    public void setTrainingInGroup(boolean trainingInGroup) {
-        this.trainingInGroup = trainingInGroup;
-    }
 
     public List<LocalDate> getDateList() {
         return dateList;
