@@ -19,7 +19,7 @@ public class Rental {
     @GenericGenerator(name = "sequence-generator3",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {@Parameter(name = "sequence_rental", value = "route_rental"),
-                    @Parameter(name = "initial_value", value = "1002"),
+                    @Parameter(name = "initial_value", value = "1003"),
                     @Parameter(name = "increment_size", value = "1")
             }
     )
