@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public class TrainingInpuDto {
+public class TrainingInputDto {
 
     @NotBlank
     @Size(min = 2, max = 30, message = "Name must be between 2-30 characters")
