@@ -50,7 +50,10 @@ Het niveau en zwaarte wordt aangepast op de kids, zodat dit voor iedereen goed h
 
 Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen. Een privéclinic staat niet in de agenda, maar kun je op afspraak met ons inplannen.', 250.00,'14:00:00', '16:30:00', false );
 
-INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003)
+INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003);
+INSERT INTO rentals (id, start_date, start_time, end_date_time, renting_whole_day)
+VALUES (1001,'2024-05-11','10:00:00', '2024-05-11 16:30:00', true ),
+       (1002,'2024-05-14','13:00:00', '2024-05-14 17:00:00', false );
 
 
 
