@@ -1,8 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
 import jakarta.validation.Valid;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.services.MountainbikeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
