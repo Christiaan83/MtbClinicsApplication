@@ -24,7 +24,7 @@ public class ContactFormMapper {
 
         return dto;
     }
-    public ContactForm transferTContactForm(ContactFormDto dto) {
+    public ContactForm transferToContactForm(ContactFormDto dto) {
         var contactForm = new ContactForm();
 
         contactForm.setId(dto.getId());

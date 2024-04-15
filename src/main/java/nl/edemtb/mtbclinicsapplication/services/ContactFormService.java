@@ -40,9 +40,9 @@ public class ContactFormService {
     }
     public ContactFormDto addContactForm(ContactFormDto contactFormDto) {
 
-        ContactForm cf = contactFormMapper.transferTContactForm(contactFormDto);
+        ContactForm cf = contactFormMapper.transferToContactForm(contactFormDto);
         contactFormRepository.save(cf);
-        return contactFormDto;
+        return contactFormMapper.transferToDto(cf);
     }
 
     public Boolean deleteContactFormById(Long id) {
