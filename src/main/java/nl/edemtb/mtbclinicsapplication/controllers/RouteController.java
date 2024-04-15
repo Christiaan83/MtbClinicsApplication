@@ -1,8 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
 import jakarta.validation.Valid;
-import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.route.RouteDto;
+import nl.edemtb.mtbclinicsapplication.dtos.route.RouteInputDto;
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.services.RoutesService;

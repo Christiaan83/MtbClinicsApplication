@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Range;

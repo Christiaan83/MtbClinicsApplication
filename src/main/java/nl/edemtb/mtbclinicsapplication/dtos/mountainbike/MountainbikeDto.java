@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
 public class MountainbikeDto {
     private Long id;

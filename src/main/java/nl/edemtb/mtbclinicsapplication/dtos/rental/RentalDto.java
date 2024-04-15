@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.rental;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

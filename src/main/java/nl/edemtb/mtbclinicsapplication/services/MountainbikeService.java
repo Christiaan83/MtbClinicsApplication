@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.MountainbikeMapper;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;

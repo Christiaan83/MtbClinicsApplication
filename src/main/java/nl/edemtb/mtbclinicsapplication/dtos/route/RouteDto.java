@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.route;
 
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;

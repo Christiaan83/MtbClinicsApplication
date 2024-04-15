@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RentalDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RentalInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.stereotype.Component;

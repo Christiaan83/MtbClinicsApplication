@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RentalDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RentalInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RentalMapper;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
@@ -21,6 +21,7 @@ public class RentalService {
         this.rentalRepository = rentalRepository;
         this.rentalMapper = rentalMapper;
     }
+
     public List<RentalDto> getAllRentals() {
         List<Rental> rentals = rentalRepository.findAll();
         return rentalMapper.transferRentalListToRentalDto(rentals);
@@ -44,6 +45,7 @@ public class RentalService {
 
         return rentalMapper.transferToRentalDto(rental);
     }
+
     public RentalDto updateRental(Long id, RentalInputDto dto) {
 
         if(!rentalRepository.existsById(id)) {

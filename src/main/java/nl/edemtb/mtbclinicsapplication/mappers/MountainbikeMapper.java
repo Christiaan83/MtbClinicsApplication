@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import org.springframework.stereotype.Component;
 
