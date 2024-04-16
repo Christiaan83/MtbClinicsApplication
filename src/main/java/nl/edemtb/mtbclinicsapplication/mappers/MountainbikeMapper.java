@@ -41,6 +41,7 @@ public class MountainbikeMapper {
         dto.setForAdult(mountainbike.getForAdult());
         dto.setFullSuspension(mountainbike.getFullSuspension());
         dto.setAvailable(mountainbike.getAvailable());
+        dto.setPicture(mountainbike.getPicture());
         return dto;
     }
 }

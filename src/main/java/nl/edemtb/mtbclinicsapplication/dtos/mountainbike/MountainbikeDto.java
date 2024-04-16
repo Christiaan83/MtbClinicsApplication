@@ -1,5 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
+import nl.edemtb.mtbclinicsapplication.models.Picture;
+
 public class MountainbikeDto {
     private Long id;
 
@@ -12,7 +14,15 @@ public class MountainbikeDto {
     private Boolean forAdult;
     private Boolean fullSuspension;
     private Boolean available;
+    private Picture picture;
 
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;

@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -107,7 +108,7 @@ public class MountainbikeService {
     }
 
     @Transactional
-    public Resource getPictureFromMountainbike(Long id){
+    public Resource getPictureFromMountainbike(Long id) throws FileNotFoundException {
         Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
         if(optionalMtb.isEmpty()){
             throw new RecordNotFoundException("Mountainbike " + id+ " not found.");
@@ -119,7 +120,7 @@ public class MountainbikeService {
         return pictureService.downLoadPicture(picture.getFileName());
     }
     @Transactional
-    public Mountainbike assignPhotoToMountainbike(String filename,Long id){
+    public Mountainbike assignPictureToMountainbike(String filename, Long id){
         Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
         Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
 
