@@ -5,15 +5,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Photos")
-public class Photo {
+@Table(name = "pictures")
+public class Picture {
 
     @Id
     private String fileName;
 
-    public Photo(){}
+    public Picture(){}
 
-    public Photo(String fileName) {
+    public Picture(String fileName) {
         this.fileName = fileName;
     }
 
