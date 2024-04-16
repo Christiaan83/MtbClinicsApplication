@@ -9,6 +9,7 @@ import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
+import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,13 +26,15 @@ public class MountainbikeService {
     private final MountainbikeMapper mountainbikeMapper;
     private final PictureService pictureService;
     private final PictureUploadRepository uploadRepository;
+    private final RentalRepository rentalRepository;
 
 
-    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository) {
+    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository, RentalRepository rentalRepository) {
         this.mountainbikeRepository = mountainbikeRepository;
         this.mountainbikeMapper = mountainbikeMapper;
         this.pictureService = pictureService;
         this.uploadRepository = uploadRepository;
+        this.rentalRepository = rentalRepository;
     }
 
     public List<MountainbikeDto> getAllMountainbikes() {
@@ -132,5 +135,18 @@ public class MountainbikeService {
         }else{
             throw new RecordNotFoundException("Mountainbike or picture not found.");
         }
+    }
+    public void assignRentalToMountainbike(Long id, Long rentalId){
+        var optionalMtb = mountainbikeRepository.findById(id);
+        var optionalRental = rentalRepository.findById(rentalId);
+
+        if(optionalMtb.isPresent() && optionalRental.isPresent()){
+            var mountainbike = optionalMtb.get();
+            var mountainbikeRental = optionalRental.get();
+
+            mountainbike.setRental(mountainbikeRental);
+            mountainbikeRepository.save(mountainbike);
+        }else {
+            throw new RecordNotFoundException("Mountainbike or rental not found.");}
     }
 }

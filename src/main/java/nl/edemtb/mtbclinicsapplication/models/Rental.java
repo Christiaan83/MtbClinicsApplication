@@ -1,15 +1,14 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "rentals")
@@ -28,6 +27,20 @@ public class Rental {
     LocalTime startTime;
     LocalDateTime endDateTime;
     Boolean rentingWholeDay;
+
+    @OneToMany(mappedBy = "rental")
+    @JsonIgnore List<Mountainbike> mountainbike;
+
+    @OneToOne
+    UnregisteredUser UnregisteredUser;
+
+    public nl.edemtb.mtbclinicsapplication.models.UnregisteredUser getUnregisteredUser() {
+        return UnregisteredUser;
+    }
+
+    public void setUnregisteredUser(nl.edemtb.mtbclinicsapplication.models.UnregisteredUser unregisteredUser) {
+        UnregisteredUser = unregisteredUser;
+    }
 
     public Long getId() {
         return id;

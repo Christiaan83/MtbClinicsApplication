@@ -107,7 +107,7 @@ public class MountainbikeController {
     }
 
     @GetMapping("/{id}/picture")
-    public ResponseEntity<Resource> getStudentPhoto(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
+    public ResponseEntity<Resource> getMtbPicture(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
 
         Resource resource = mountainbikeService.getPictureFromMountainbike(id);
 
@@ -124,6 +124,10 @@ public class MountainbikeController {
                 .contentType(MediaType.parseMediaType(image))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
                 .body(resource);
+    }
+    @PutMapping("/{id}/rental/{rentalId}")
+    public void assignRentalToMountainbike(@PathVariable("id") Long id, @PathVariable("rentalId") Long rentalId) {
+        mountainbikeService.assignRentalToMountainbike(id, rentalId);
     }
 
 }

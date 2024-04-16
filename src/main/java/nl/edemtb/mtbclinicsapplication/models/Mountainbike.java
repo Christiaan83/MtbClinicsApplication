@@ -31,7 +31,17 @@ public class Mountainbike {
     private Boolean available;
     @OneToOne
     Picture picture;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rental_id")
+    private Rental rental;
 
+    public Rental getRental() {
+        return rental;
+    }
+
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
 
     public Picture getPicture() {
         return picture;
