@@ -47,6 +47,7 @@ public class RouteMapper {
         dto.setStartingPoint(route.getStartingPoint());
         dto.setPlace(route.getPlace());
         dto.setProvince(route.getProvince());
+        dto.setPicture(route.getPicture());
         dto.setRouteInformation(route.getRouteInformation());
         dto.setDistance(route.getDistance());
         dto.setAvailable(route.getAvailable());

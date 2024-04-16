@@ -16,6 +16,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,7 +89,7 @@ public class RoutesService {
     }
     }
     @Transactional
-    public Resource getPictureFromRoute(Long id){
+    public Resource getPictureFromRoute(Long id) throws FileNotFoundException {
         Optional<Route> optionalRoute = routeRepository.findById(id);
         if(optionalRoute.isEmpty()){
             throw new RecordNotFoundException("Route with id: " + id + " not found.");
