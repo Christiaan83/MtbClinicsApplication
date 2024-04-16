@@ -29,7 +29,17 @@ public class Mountainbike {
     private Boolean forAdult;
     private Boolean fullSuspension;
     private Boolean available;
+    @OneToOne
+    Picture picture;
 
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
     public String getName() {
         return name;

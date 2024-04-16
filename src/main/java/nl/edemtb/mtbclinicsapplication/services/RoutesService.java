@@ -1,13 +1,18 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
+import jakarta.transaction.Transactional;
 import nl.edemtb.mtbclinicsapplication.dtos.route.RouteDto;
 import nl.edemtb.mtbclinicsapplication.dtos.route.RouteInputDto;
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RouteMapper;
+import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
+import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.models.Route;
+import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.RouteRepository;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,12 +23,15 @@ import java.util.Optional;
 public class RoutesService {
 
     private final RouteRepository routeRepository;
-
     private final RouteMapper routeMapper;
+    private final PictureService pictureService;
+    private final PictureUploadRepository uploadRepository;
 
-    public RoutesService(RouteRepository routeRepository, RouteMapper routeMapper) {
+    public RoutesService(RouteRepository routeRepository, RouteMapper routeMapper, PictureService pictureService, PictureUploadRepository uploadRepository) {
         this.routeRepository = routeRepository;
         this.routeMapper = routeMapper;
+        this.pictureService = pictureService;
+        this.uploadRepository = uploadRepository;
     }
 
     public List<RouteDto> getAllRoutes() {
@@ -78,5 +86,31 @@ public class RoutesService {
         }else{
             return routeMapper.routeInputMapper(id, inputDto);
     }
+    }
+    @Transactional
+    public Resource getPictureFromRoute(Long id){
+        Optional<Route> optionalRoute = routeRepository.findById(id);
+        if(optionalRoute.isEmpty()){
+            throw new RecordNotFoundException("Route with id: " + id + " not found.");
+        }
+        Picture picture = optionalRoute.get().getPicture();
+        if(picture == null){
+            throw new RecordNotFoundException("Route with id: " + id + " had no photo.");
+        }
+        return pictureService.downLoadPicture(picture.getFileName());
+    }
+    @Transactional
+    public Route assignPhotoToRoute(String filename,Long id){
+        Optional<Route> optionalRoute = routeRepository.findById(id);
+        Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
+
+        if(optionalRoute.isPresent() && optionalPicture.isPresent()){
+            Picture picture = optionalPicture.get();
+            Route route = optionalRoute.get();
+            route.setPicture(picture);
+            return routeRepository.save(route);
+        }else{
+            throw new RecordNotFoundException("Mountainbike or picture not found.");
+        }
     }
 }
