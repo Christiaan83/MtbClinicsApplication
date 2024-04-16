@@ -5,11 +5,13 @@ import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.ContactFormMapper;
 import nl.edemtb.mtbclinicsapplication.models.ContactForm;
 import nl.edemtb.mtbclinicsapplication.repositories.ContactFormRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ContactFormService {
 
     private final ContactFormRepository contactFormRepository;
@@ -38,7 +40,7 @@ public class ContactFormService {
             throw new RecordNotFoundException("Geen contact formulier gevonden");
         }
     }
-    public ContactFormDto addContactForm(ContactFormDto contactFormDto) {
+    public ContactFormDto saveContactForm(ContactFormDto contactFormDto) {
 
         ContactForm cf = contactFormMapper.transferToContactForm(contactFormDto);
         contactFormRepository.save(cf);

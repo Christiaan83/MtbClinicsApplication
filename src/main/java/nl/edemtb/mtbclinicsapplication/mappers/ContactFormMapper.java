@@ -3,7 +3,9 @@ package nl.edemtb.mtbclinicsapplication.mappers;
 import nl.edemtb.mtbclinicsapplication.dtos.ContactFormDto;
 import nl.edemtb.mtbclinicsapplication.models.ContactForm;
 import nl.edemtb.mtbclinicsapplication.repositories.ContactFormRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ContactFormMapper {
 
     private final ContactFormRepository contactFormRepository;

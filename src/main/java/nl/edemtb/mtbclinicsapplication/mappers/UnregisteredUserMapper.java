@@ -3,7 +3,9 @@ package nl.edemtb.mtbclinicsapplication.mappers;
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.UnregisteredUserRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UnregisteredUserMapper {
 
     private final UnregisteredUserRepository unregisteredUserRepository;

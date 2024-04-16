@@ -5,11 +5,13 @@ import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.UnregisteredUserMapper;
 import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.UnregisteredUserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UnregisteredUserService {
 
     private final UnregisteredUserRepository unregisteredUserRepository;
@@ -36,7 +38,7 @@ public class UnregisteredUserService {
         if (unregisteredUser.isPresent()) {
             return unregisteredUserMapper.transferToDto(unregisteredUser.get());
         } else {
-            throw new RecordNotFoundException(" Unregistered User not found");
+            throw new RecordNotFoundException(" Unregistered user not found");
         }
     }
 
@@ -58,7 +60,7 @@ public class UnregisteredUserService {
     public UnregisteredUserDto updateUnregisteredUser(Long id, UnregisteredUserDto dto) {
 
         if (!unregisteredUserRepository.existsById(id)) {
-            throw new RecordNotFoundException(" Unregistered User not found");
+            throw new RecordNotFoundException(" Unregistered user not found");
         }
         return unregisteredUserMapper.inputMapper(id, dto);
     }
