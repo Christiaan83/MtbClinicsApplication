@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "mountainbikes")
 
@@ -29,7 +31,27 @@ public class Mountainbike {
     private Boolean forAdult;
     private Boolean fullSuspension;
     private Boolean available;
+    @OneToOne
+    Picture picture;
 
+    @ManyToMany(mappedBy = "mountainbikes")
+    private Set<Rental> rentals;
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
+    }
 
     public String getName() {
         return name;

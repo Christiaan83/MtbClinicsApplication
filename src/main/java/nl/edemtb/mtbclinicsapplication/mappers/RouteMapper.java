@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RouteDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RouteInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.route.RouteDto;
+import nl.edemtb.mtbclinicsapplication.dtos.route.RouteInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Route;
 import nl.edemtb.mtbclinicsapplication.repositories.RouteRepository;
 import org.springframework.stereotype.Component;
@@ -47,6 +47,7 @@ public class RouteMapper {
         dto.setStartingPoint(route.getStartingPoint());
         dto.setPlace(route.getPlace());
         dto.setProvince(route.getProvince());
+        dto.setPicture(route.getPicture());
         dto.setRouteInformation(route.getRouteInformation());
         dto.setDistance(route.getDistance());
         dto.setAvailable(route.getAvailable());

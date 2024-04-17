@@ -1,14 +1,20 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
+import jakarta.transaction.Transactional;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.MountainbikeMapper;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
+import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
+import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
+import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +24,17 @@ public class MountainbikeService {
 
     private final MountainbikeRepository mountainbikeRepository;
     private final MountainbikeMapper mountainbikeMapper;
+    private final PictureService pictureService;
+    private final PictureUploadRepository uploadRepository;
+    private final RentalRepository rentalRepository;
 
 
-    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper) {
+    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository, RentalRepository rentalRepository) {
         this.mountainbikeRepository = mountainbikeRepository;
         this.mountainbikeMapper = mountainbikeMapper;
+        this.pictureService = pictureService;
+        this.uploadRepository = uploadRepository;
+        this.rentalRepository = rentalRepository;
     }
 
     public List<MountainbikeDto> getAllMountainbikes() {
@@ -96,5 +108,32 @@ public class MountainbikeService {
             mtbDtoList.add(dto);
         }
         return mtbDtoList;
+    }
+
+    @Transactional
+    public Resource getPictureFromMountainbike(Long id) throws FileNotFoundException {
+        Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
+        if(optionalMtb.isEmpty()){
+            throw new RecordNotFoundException("Mountainbike " + id+ " not found.");
+        }
+        Picture picture = optionalMtb.get().getPicture();
+        if(picture == null){
+            throw new RecordNotFoundException("Mountainbike" + id + " had no photo.");
+        }
+        return pictureService.downLoadPicture(picture.getFileName());
+    }
+    @Transactional
+    public Mountainbike assignPictureToMountainbike(String filename, Long id){
+        Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
+        Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
+
+        if(optionalMtb.isPresent() && optionalPicture.isPresent()){
+            Picture picture = optionalPicture.get();
+            Mountainbike mtb = optionalMtb.get();
+            mtb.setPicture(picture);
+            return mountainbikeRepository.save(mtb);
+        }else{
+            throw new RecordNotFoundException("Mountainbike or picture not found.");
+        }
     }
 }

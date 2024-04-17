@@ -1,12 +1,14 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.MountainbikeInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
+import nl.edemtb.mtbclinicsapplication.services.RentalService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MountainbikeMapper {
+
 
     public Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
         if (dto == null) {
@@ -41,6 +43,8 @@ public class MountainbikeMapper {
         dto.setForAdult(mountainbike.getForAdult());
         dto.setFullSuspension(mountainbike.getFullSuspension());
         dto.setAvailable(mountainbike.getAvailable());
+        dto.setPicture(mountainbike.getPicture());
+
         return dto;
     }
 }

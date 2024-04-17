@@ -36,6 +36,17 @@ public class Route {
     private String routeInformation;
     private Double distance;
     private Boolean available;
+    @OneToOne
+    Picture picture;
+
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;

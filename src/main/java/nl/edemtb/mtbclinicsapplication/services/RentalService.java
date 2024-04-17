@@ -1,26 +1,39 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RentalDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RentalInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RentalMapper;
+import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
+import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
+import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
+import nl.edemtb.mtbclinicsapplication.repositories.UnregisteredUserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RentalService {
 
     private final RentalRepository rentalRepository;
     private final RentalMapper rentalMapper;
+    private final MountainbikeRepository mountainbikeRepository;
+    private final UnregisteredUserRepository unregisteredUserRepository;
+    private final MountainbikeService mountainbikeService;
 
-    public RentalService(RentalRepository rentalRepository, RentalMapper rentalMapper) {
+    public RentalService(RentalRepository rentalRepository, RentalMapper rentalMapper, MountainbikeRepository mountainbikeRepository, UnregisteredUserRepository unregisteredUserRepository, MountainbikeService mountainbikeService) {
         this.rentalRepository = rentalRepository;
         this.rentalMapper = rentalMapper;
+        this.mountainbikeRepository = mountainbikeRepository;
+        this.unregisteredUserRepository = unregisteredUserRepository;
+        this.mountainbikeService = mountainbikeService;
     }
+
     public List<RentalDto> getAllRentals() {
         List<Rental> rentals = rentalRepository.findAll();
         return rentalMapper.transferRentalListToRentalDto(rentals);
@@ -44,6 +57,7 @@ public class RentalService {
 
         return rentalMapper.transferToRentalDto(rental);
     }
+
     public RentalDto updateRental(Long id, RentalInputDto dto) {
 
         if(!rentalRepository.existsById(id)) {
@@ -57,4 +71,23 @@ public class RentalService {
             rentalRepository.deleteById(id);
         }
     }
+    public void createRental(Long unregisteredUserId, Set<Long> mountainbikeIds) {
+        UnregisteredUser unregisteredUser = unregisteredUserRepository.findById(unregisteredUserId).orElseThrow(RecordNotFoundException::new);
+        Set<Mountainbike> mountainbikes = new HashSet<>();
+        for (Long mountainbikeId : mountainbikeIds) {
+            Mountainbike mountainbike = mountainbikeRepository.findById(mountainbikeId).orElseThrow(RecordNotFoundException::new);
+            mountainbikes.add(mountainbike);
+        }
+
+        Rental rental = new Rental();
+        rental.setUnregisteredUser(unregisteredUser);
+        rental.setMountainbikes(mountainbikes);
+        rentalRepository.save(rental);
+    }
+
+    public List<Rental> getRentalsByUserId(Long userId) {
+        UnregisteredUser user = unregisteredUserRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException("User not found with id: " + userId));
+        return rentalRepository.findByUnregisteredUser(user);
+    }
+
 }

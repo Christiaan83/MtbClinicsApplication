@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.rental;
 
 import jakarta.validation.constraints.NotNull;
 

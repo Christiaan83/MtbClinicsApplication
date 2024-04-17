@@ -1,4 +1,4 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.training;
 
 
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;

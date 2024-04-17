@@ -1,7 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.TrainingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.TrainingInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
+import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
 import org.springframework.stereotype.Component;

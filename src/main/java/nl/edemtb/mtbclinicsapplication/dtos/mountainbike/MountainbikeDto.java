@@ -1,27 +1,39 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.Range;
+import nl.edemtb.mtbclinicsapplication.models.Picture;
 
-public class MountainbikeInputDto {
-    @NotBlank
-    @Size(max = 20, message = "Name must be between 0-20 characters")
+
+public class MountainbikeDto {
+    private Long id;
+
     private String name;
-    @NotBlank(message = "Wheelsize is required")
     private String wheelSize;
-    @NotBlank(message = "Framesize is required")
     private String frameSize;
-    @NotNull
-    @Range(min = 8, max = 12)
     private Integer gears;
-    @NotNull
     private Integer pricePerDayPart;
-    @PositiveOrZero(message = "Mountainbike can not have a negative amount.")
     private Integer amount;
     private Boolean forAdult;
     private Boolean fullSuspension;
     private Boolean available;
+    private Picture picture;
 
+
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

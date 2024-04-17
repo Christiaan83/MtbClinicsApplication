@@ -1,29 +1,38 @@
-package nl.edemtb.mtbclinicsapplication.dtos;
+package nl.edemtb.mtbclinicsapplication.dtos.route;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
+import nl.edemtb.mtbclinicsapplication.models.Picture;
 
-public class RouteInputDto {
-    @NotBlank
-    @Size(min = 2, max = 30, message = "Name must be between 2-30 characters")
+public class RouteDto {
+
+    private Long id;
     private String name;
-    @NotNull(message = "routeType is required")
     private RouteType routeType;
-    @NotNull(message = "difficulty is required")
     private Difficulty difficulty;
-    @NotBlank(message = "startingPoint is required")
     private String startingPoint;
-    @NotBlank(message = "place is required")
     private String place;
-    @NotBlank(message = "province is required")
     private String province;
     private String routeInformation;
-    @NotNull
     private Double distance;
     private Boolean available;
+    private Picture picture;
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

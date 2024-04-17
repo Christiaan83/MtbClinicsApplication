@@ -1,7 +1,9 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.RentalDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RentalInputDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
+import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
+import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.stereotype.Component;
@@ -13,10 +15,14 @@ import java.util.List;
 public class RentalMapper {
 
     private final RentalRepository rentalRepository;
+    private final MountainbikeMapper mountainbikeMapper;
+    private final UnregisteredUserMapper unregisteredUserMapper;
 
 
-    public RentalMapper(RentalRepository rentalRepository) {
+    public RentalMapper(RentalRepository rentalRepository, MountainbikeMapper mountainbikeMapper, UnregisteredUserMapper unregisteredUserMapper) {
         this.rentalRepository = rentalRepository;
+        this.mountainbikeMapper = mountainbikeMapper;
+        this.unregisteredUserMapper = unregisteredUserMapper;
     }
 
     public Rental transferToRental(RentalInputDto dto) {
@@ -39,6 +45,7 @@ public class RentalMapper {
         dto.setStartDate(rental.getStartDate());
         dto.setEndDateTime(rental.getEndDateTime());
         dto.setRentingWholeDay(rental.getRentingWholeDay());
+
         return dto;
     }
 
