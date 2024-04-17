@@ -71,18 +71,23 @@ public class RentalService {
             rentalRepository.deleteById(id);
         }
     }
-    public Rental createRental(RentalDto rentalDTO) {
-        UnregisteredUser unregisteredUser = unregisteredUserRepository.findById(rentalDTO.getUnregisteredUserId()).orElseThrow();
+    public void createRental(Long unregisteredUserId, Set<Long> mountainbikeIds) {
+        UnregisteredUser unregisteredUser = unregisteredUserRepository.findById(unregisteredUserId).orElseThrow(RecordNotFoundException::new);
         Set<Mountainbike> mountainbikes = new HashSet<>();
-        for (Long mountainbikeId : rentalDTO.getMountainbikeIds()) {
-            Mountainbike mountainbike = mountainbikeRepository.findById(mountainbikeId).orElseThrow();
+        for (Long mountainbikeId : mountainbikeIds) {
+            Mountainbike mountainbike = mountainbikeRepository.findById(mountainbikeId).orElseThrow(RecordNotFoundException::new);
             mountainbikes.add(mountainbike);
         }
 
         Rental rental = new Rental();
         rental.setUnregisteredUser(unregisteredUser);
         rental.setMountainbikes(mountainbikes);
-        return rentalRepository.save(rental);
+        rentalRepository.save(rental);
+    }
+
+    public List<Rental> getRentalsByUserId(Long userId) {
+        UnregisteredUser user = unregisteredUserRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException("User not found with id: " + userId));
+        return rentalRepository.findByUnregisteredUser(user);
     }
 
 }
