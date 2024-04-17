@@ -9,12 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MountainbikeMapper {
 
-    private final RentalMapper rentalMapper;
-
-    public MountainbikeMapper(RentalMapper rentalMapper) {
-        this.rentalMapper = rentalMapper;
-    }
-
 
     public Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
         if (dto == null) {
@@ -51,9 +45,6 @@ public class MountainbikeMapper {
         dto.setAvailable(mountainbike.getAvailable());
         dto.setPicture(mountainbike.getPicture());
 
-        if(mountainbike.getRental() != null){
-            dto.setRentalDto(rentalMapper.transferToRentalDto(mountainbike.getRental()));
-        }
         return dto;
     }
 }

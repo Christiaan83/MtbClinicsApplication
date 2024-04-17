@@ -1,21 +1,23 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.List;
 
 @Entity
 @Table(name = "unregistered_users")
 public class UnregisteredUser extends BasicUser{
 
-    @OneToOne(mappedBy = "UnregisteredUser")
-    Rental rental;
+    @OneToMany(mappedBy = "unregisteredUser")
+    private List<Rental> rentals;
 
-    public Rental getRental() {
-        return rental;
+    public List<Rental> getRentals() {
+        return rentals;
     }
 
-    public void setRental(Rental rental) {
-        this.rental = rental;
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
     }
 }

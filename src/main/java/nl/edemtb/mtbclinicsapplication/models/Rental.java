@@ -1,6 +1,5 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -8,7 +7,9 @@ import org.hibernate.annotations.Parameter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rentals")
@@ -23,23 +24,35 @@ public class Rental {
             }
     )
     private Long id;
-    LocalDate startDate;
-    LocalTime startTime;
-    LocalDateTime endDateTime;
-    Boolean rentingWholeDay;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDateTime endDateTime;
+    private Boolean rentingWholeDay;
 
-    @OneToMany(mappedBy = "rental")
-    @JsonIgnore List<Mountainbike> mountainbike;
+    @ManyToMany
+    @JoinTable(name = "rental_mountainbikes",
+    joinColumns = @JoinColumn(name = "rental_id"),
+    inverseJoinColumns =@JoinColumn(name = "mountainbike_id"))
+    private Set<Mountainbike> mountainbikes;
 
-    @OneToOne
-    UnregisteredUser UnregisteredUser;
+    @ManyToOne
+    @JoinColumn( name = "unregistered_user_id")
+    private UnregisteredUser unregisteredUser;
 
-    public nl.edemtb.mtbclinicsapplication.models.UnregisteredUser getUnregisteredUser() {
-        return UnregisteredUser;
+    public Set<Mountainbike> getMountainbikes() {
+        return mountainbikes;
     }
 
-    public void setUnregisteredUser(nl.edemtb.mtbclinicsapplication.models.UnregisteredUser unregisteredUser) {
-        UnregisteredUser = unregisteredUser;
+    public void setMountainbikes(Set<Mountainbike> mountainbikes) {
+        this.mountainbikes = mountainbikes;
+    }
+
+    public UnregisteredUser getUnregisteredUser() {
+        return unregisteredUser;
+    }
+
+    public void setUnregisteredUser(UnregisteredUser unregisteredUser) {
+        this.unregisteredUser = unregisteredUser;
     }
 
     public Long getId() {

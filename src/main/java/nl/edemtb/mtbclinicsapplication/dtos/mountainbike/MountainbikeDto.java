@@ -1,8 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
-import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
-import nl.edemtb.mtbclinicsapplication.models.Rental;
+
 
 public class MountainbikeDto {
     private Long id;
@@ -18,15 +17,7 @@ public class MountainbikeDto {
     private Boolean available;
     private Picture picture;
 
-    private RentalDto rentalDto;
 
-    public RentalDto getRentalDto() {
-        return rentalDto;
-    }
-
-    public void setRentalDto(RentalDto rentalDto) {
-        this.rentalDto = rentalDto;
-    }
 
     public Picture getPicture() {
         return picture;

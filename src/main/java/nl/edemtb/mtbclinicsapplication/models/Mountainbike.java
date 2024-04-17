@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "mountainbikes")
 
@@ -31,17 +33,9 @@ public class Mountainbike {
     private Boolean available;
     @OneToOne
     Picture picture;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rental_id")
-    private Rental rental;
 
-    public Rental getRental() {
-        return rental;
-    }
-
-    public void setRental(Rental rental) {
-        this.rental = rental;
-    }
+    @ManyToMany(mappedBy = "mountainbikes")
+    private Set<Rental> rentals;
 
     public Picture getPicture() {
         return picture;
@@ -49,6 +43,14 @@ public class Mountainbike {
 
     public void setPicture(Picture picture) {
         this.picture = picture;
+    }
+
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
     }
 
     public String getName() {

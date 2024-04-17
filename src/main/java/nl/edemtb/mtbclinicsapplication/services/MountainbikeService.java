@@ -136,17 +136,4 @@ public class MountainbikeService {
             throw new RecordNotFoundException("Mountainbike or picture not found.");
         }
     }
-    public void assignRentalToMountainbike(Long id, Long rentalId){
-        var optionalMtb = mountainbikeRepository.findById(id);
-        var optionalRental = rentalRepository.findById(rentalId);
-
-        if(optionalMtb.isPresent() && optionalRental.isPresent()){
-            var mountainbike = optionalMtb.get();
-            var mountainbikeRental = optionalRental.get();
-
-            mountainbike.setRental(mountainbikeRental);
-            mountainbikeRepository.save(mountainbike);
-        }else {
-            throw new RecordNotFoundException("Mountainbike or rental not found.");}
-    }
 }

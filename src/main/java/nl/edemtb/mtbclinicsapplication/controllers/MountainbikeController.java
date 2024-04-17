@@ -125,10 +125,7 @@ public class MountainbikeController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
                 .body(resource);
     }
-    @PutMapping("/{id}/rental/{rentalId}")
-    public void assignRentalToMountainbike(@PathVariable("id") Long id, @PathVariable("rentalId") Long rentalId) {
-        mountainbikeService.assignRentalToMountainbike(id, rentalId);
-    }
+
 
 }
 
