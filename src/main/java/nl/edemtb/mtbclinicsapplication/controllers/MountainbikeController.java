@@ -1,5 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
@@ -61,10 +62,13 @@ public class MountainbikeController {
         return ResponseEntity.ok().body(mtbs);
     }
 
-    @GetMapping("/search/for-adult/{boolean}")
-    public ResponseEntity<List<MountainbikeDto>> searchByForAdult(@PathVariable("boolean") Boolean forAdult) {
-
-        var mtbs = mountainbikeService.searchByForAdult(forAdult);
+    @GetMapping("/search")
+    public ResponseEntity<List<MountainbikeDto>> searchBySizeAndForAdult(
+            @RequestParam() @Nullable String size,
+            @RequestParam() @Nullable Boolean forAdult,
+            @RequestParam() @Nullable Boolean fullSuspension
+    ) {
+        var mtbs = mountainbikeService.searchBySizeAndForAdult(size, forAdult, fullSuspension);
         return ResponseEntity.ok().body(mtbs);
     }
 

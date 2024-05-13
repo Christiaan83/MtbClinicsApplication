@@ -58,15 +58,11 @@ public class MountainbikeService {
         return transferMtbListToDtoList(mtbList);
     }
 
-    public List<MountainbikeDto> searchByForAdult(boolean forAdult) {
-        List<Mountainbike> trueList = mountainbikeRepository.findByForAdultIsTrue();
-        List<Mountainbike> falseList = mountainbikeRepository.findByForAdultIsFalse();
-        if (!forAdult) {
-            return transferMtbListToDtoList(falseList);
-        } else {
-            return transferMtbListToDtoList(trueList);
+    public List<MountainbikeDto> searchBySizeAndForAdult(String size, Boolean forAdult, Boolean fullSuspension) {
+       List<Mountainbike> mtblist = mountainbikeRepository.searchBySizeAndForAdult(size, forAdult, fullSuspension);
+
+            return transferMtbListToDtoList(mtblist);
         }
-    }
 
     public MountainbikeDto addMountainbike(MountainbikeInputDto dto) {
 

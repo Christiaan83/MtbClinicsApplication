@@ -3,8 +3,9 @@ package nl.edemtb.mtbclinicsapplication.mappers;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
-import nl.edemtb.mtbclinicsapplication.services.RentalService;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class MountainbikeMapper {
@@ -27,7 +28,7 @@ public class MountainbikeMapper {
         return mountainbike;
     }
 
-    public MountainbikeDto transferToDto(Mountainbike mountainbike) {
+    public static MountainbikeDto transferToDto(Mountainbike mountainbike) {
         if (mountainbike == null) {
             return null;
         }
