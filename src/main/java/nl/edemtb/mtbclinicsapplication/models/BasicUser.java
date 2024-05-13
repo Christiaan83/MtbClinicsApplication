@@ -27,7 +27,6 @@ abstract class BasicUser {
     @Email
     private String email;
     @NotNull
-    @Pattern(regexp = "^\\(?([+]31|0031|0)-?6(\\s?|-)([0-9]\\s{0,3}){8}$")
     private Integer mobileNumber;
 
 
