@@ -7,9 +7,7 @@ import org.hibernate.annotations.Parameter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "rentals")
@@ -29,23 +27,13 @@ public class Rental {
     private LocalDateTime endDateTime;
     private Boolean rentingWholeDay;
 
-    @ManyToMany
-    @JoinTable(name = "rental_mountainbikes",
-    joinColumns = @JoinColumn(name = "rental_id"),
-    inverseJoinColumns =@JoinColumn(name = "mountainbike_id"))
-    private Set<Mountainbike> mountainbikes;
+    @ManyToOne
+    @JoinTable(name= "mountainbike_id")
+    private Mountainbike mountainbike;
 
     @ManyToOne
-    @JoinColumn( name = "unregistered_user_id")
+    @JoinTable(name = "unregistered_user_id")
     private UnregisteredUser unregisteredUser;
-
-    public Set<Mountainbike> getMountainbikes() {
-        return mountainbikes;
-    }
-
-    public void setMountainbikes(Set<Mountainbike> mountainbikes) {
-        this.mountainbikes = mountainbikes;
-    }
 
     public UnregisteredUser getUnregisteredUser() {
         return unregisteredUser;
@@ -53,6 +41,14 @@ public class Rental {
 
     public void setUnregisteredUser(UnregisteredUser unregisteredUser) {
         this.unregisteredUser = unregisteredUser;
+    }
+
+    public Mountainbike getMountainbike() {
+        return mountainbike;
+    }
+
+    public void setMountainbike(Mountainbike mountainbike) {
+        this.mountainbike = mountainbike;
     }
 
     public Long getId() {

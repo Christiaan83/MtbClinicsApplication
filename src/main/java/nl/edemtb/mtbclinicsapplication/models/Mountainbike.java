@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,8 +35,16 @@ public class Mountainbike {
     @OneToOne
     Picture picture;
 
-    @ManyToMany(mappedBy = "mountainbikes")
-    private Set<Rental> rentals;
+    @OneToMany(mappedBy = "mountainbike")
+    private List<Rental> rentals;
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
 
     public Picture getPicture() {
         return picture;
@@ -45,13 +54,6 @@ public class Mountainbike {
         this.picture = picture;
     }
 
-    public Set<Rental> getRentals() {
-        return rentals;
-    }
-
-    public void setRentals(Set<Rental> rentals) {
-        this.rentals = rentals;
-    }
 
     public String getName() {
         return name;

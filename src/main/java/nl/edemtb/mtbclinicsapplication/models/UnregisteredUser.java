@@ -1,6 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
