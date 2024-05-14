@@ -11,8 +11,8 @@ VALUES (1001, 'Hardtail S', ' 29 inch', 'small','MTB_S.jpg',  10, 10, 30, true, 
        (1006, 'Full Suspension M', ' 29 inch', 'medium','Full_M.jpg', 12, 5, 35, true, true, true),
        (1007, 'Full Suspension L', ' 29 inch', 'large','Full_L.jpg', 12, 5, 35, true, true, true),
        (1008, 'Full Suspension XL', ' 29 inch', 'extra-large', 'Full_XL.jpg', 12, 5, 35, true, true, true),
-       (1009, 'Kids 20 inch', ' 20 inch', 'small', 'Kid20.jpg', 9, 5, 35, false, true, true),
-       (1010, 'Kids 24 inch', ' 24 inch', 'large', 'Kid24.jpg', 10, 5, 35, false, true, true);
+       (1009, 'Kids 20 inch', ' 20 inch', 'small', 'Kid20.jpg', 9, 5, 25, false, null, true),
+       (1010, 'Kids 24 inch', ' 24 inch', 'large', 'Kid24.jpg', 10, 5, 25, false, false, true);
 
 INSERT INTO routes (id, name, route_type, difficulty, starting_point, place, province, picture_file_name, route_information, distance, available)
 VALUES (1001, 'MTB-route Ede', 'ADULT', 'MODERATE','De Fietser, Akulaan 2, 6717 XN in Ede.', 'Ede', 'Gelderland', 'MTB_route_Ede.jpg',
@@ -27,7 +27,7 @@ De route in Ede heeft een speciale bewegwijzering voor kinderen. De markering is
 De route is een onderdeel van de mountainbikeroutes Ede (rood) en Lunteren (paars) en dus eenvoudig te combineren. Vanaf het startpunt kun je een verbindingsroute volgen naar Ede (rood/groene bordjes).', 4.6, true),
     (1003, 'MTB-Route Otterlo', 'ADULT', 'DIFFICULT','Otterlo Events, Mosselsepad 28, 6731 SM in Otterlo.', 'Otterlo', 'Gelderland', 'MTB_Route_Otterlo.jpg','De start van de route is gelegen nabij Otterlo Events. Na wat snelle singletracks kom je aan de achterkant van ’s Heeren Loo uit. Je gaat door het hek en volgt de route over het park. Voorbij de hoofdingang ga je links richting het inmiddels beruchte stukje van MTB Zuid-Veluwe AREA 51. Deze sectie, die wordt gedeeld met de MTBroute Lunteren, kenmerkt zich door steile klimmetjes en snelle afdalingen. Aan het einde van deze pittige track ga je rechtdoor over de brug om route Otterlo te blijven volgen.
 Na de brug volgt een deel met hoge kombochten en verrassende hoogteverschillen. Aansluitend steekt de route de Koeweg over. Let hier goed op voor loslopende grazers. Vervolgens steek je de Koeweg weer over en gaat het rechtsaf richting Otterlo. Vlak voor het wildrooster steek je de Koeweg opnieuw over (let op: dit is een druk fietspad) en rijd je over een lange singletrack. Na het bruggetje loopt de singletrack verder langs de paardenrenbaan. Daarna wordt de route terug gelust over een breed zandpad wat deels over een camping loopt. Je eindigt bij het startpunt waar een warme kop koffie en de inmiddels beroemde MTB-koek voor je klaarligt.', 13.3, true ),
-    (1004, 'Kinder MTB-route Rheden', 'CHILD', 'MODERATE','Bosque, Harderwijkerweg 28, 6961 GE in Eerbeek','Rheden', 'Gelderland','KinderRoute_Rheden.jpg' ,'De Kinderroute van Rheden is onderdeel van de mountainbikeroute Rheden, die ook wel bekent staat onder de naam Veluwezoom. Dit deel van de route is speciaal aangelegd voor kinderen, is bijna 4 kilometer lang en zit vol technische uitdagingen waar zowel kinderen als volwassenen hun vaardigheden kunnen oefenen. De bochten zijn zo aangelegd dat ze goed te nemen zijn met een kleinere fiets. De lus is te herkennen aan de bordjes met daarop OERRR. Dat is het kinderprogramma van Natuurmonumenten. ', 3.3, true),
+    (1004, 'Kinder MTB-route Rheden', 'CHILD', 'MODERATE','Bosque, Harderwijkerweg 28, 6961 GE in Eerbeek','Rheden', 'Gelderland','KinderRoute_Rheden.jpg' ,'De Kinderroute van Rheden is onderdeel van de mountainbikeroute Rheden, die ook wel bekend staat onder de naam Veluwezoom. Dit deel van de route is speciaal aangelegd voor kinderen, is bijna 4 kilometer lang en zit vol technische uitdagingen waar zowel kinderen als volwassenen hun vaardigheden kunnen oefenen. De bochten zijn zo aangelegd dat ze goed te nemen zijn met een kleinere fiets. De lus is te herkennen aan de bordjes met daarop OERRR. Dat is het kinderprogramma van Natuurmonumenten. ', 3.3, true),
     (1005, 'MTB-Route Amerongen', 'ADULT','DIFFICULT', 'Parkeerplaats Bergweg 10 in Amerongen.','Amerongen', 'Utrecht', 'MTB_Route_Amerongen.jpg','De route Amerongen ligt in het deel dat van oorsprong 2 landgoederen waren: het Amerongse bos en het Zuilensteinse bos. De route loopt afwisselend over vlakke en heuvelachtige delen van de Utrechtse Heuvelrug. De route is een afwisselende route met veel singletracks, brede lange klimmen en leuke uitdagende afdalingen.
 Deze route kan gecombineerd worden met de routes in Rhenen, Kwintelooijen en Leersum.', 18.4, true ),
     (1006, 'MTB-Route Deventer', 'ADULT', 'EASY', 'Start route Oostermaet, 33 kilometer: Kanaaldijk West, 7433 PS in Schalkhaar', 'Deventer', 'Overijssel','MTB_Route_Deventer.jpg' , 'De mountainbikeroute Deventer bestaat uit drie lussen. De korte lus (Wechelerveld) heeft een lengte van 4 kilometer.
@@ -58,6 +58,8 @@ INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-
 INSERT INTO rentals (id, start_date, start_time, end_date_time, renting_whole_day)
 VALUES (1001,'2024-05-11','10:00:00', '2024-05-11 16:30:00', true ),
        (1002,'2024-05-14','13:00:00', '2024-05-14 17:00:00', false );
+
+INSERT INTO unregistered_users(id, first_name, last_name, email, mobile_number) VALUES (1001, 'Christiaan', 'Zielman', 'c.zielman@mtbclinics-ede.com', 0650425689)
 
 
 
