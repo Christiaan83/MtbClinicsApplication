@@ -2,6 +2,8 @@ package nl.edemtb.mtbclinicsapplication.dtos.rental;
 
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
+import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,23 +19,23 @@ public class RentalDto {
     private LocalDateTime endDateTime;
     private Boolean rentingWholeDay;
 
-    private Long unregisteredUserId;
-    private Set<Long> mountainbikeIds;
+    private MountainbikeDto mountainbikeDto;
+    private UnregisteredUserDto unregisteredUserDto;
 
-    public Long getUnregisteredUserId() {
-        return unregisteredUserId;
+    public UnregisteredUserDto getUnregisteredUserDto() {
+        return unregisteredUserDto;
     }
 
-    public void setUnregisteredUserId(Long unregisteredUserId) {
-        this.unregisteredUserId = unregisteredUserId;
+    public void setUnregisteredUserDto(UnregisteredUserDto unregisteredUserDto) {
+        this.unregisteredUserDto = unregisteredUserDto;
     }
 
-    public Set<Long> getMountainbikeIds() {
-        return mountainbikeIds;
+    public MountainbikeDto getMountainbikeDto() {
+        return mountainbikeDto;
     }
 
-    public void setMountainbikeIds(Set<Long> mountainbikeIds) {
-        this.mountainbikeIds = mountainbikeIds;
+    public void setMountainbikeDto(MountainbikeDto mountainbikeDto) {
+        this.mountainbikeDto = mountainbikeDto;
     }
 
     public Long getId() {
@@ -75,5 +77,6 @@ public class RentalDto {
     public void setRentingWholeDay(Boolean rentingWholeDay) {
         this.rentingWholeDay = rentingWholeDay;
     }
+
 
 }

@@ -30,7 +30,6 @@ public class UnregisteredUserMapper {
     public UnregisteredUser transferToUnregisteredUser(UnregisteredUserDto dto) {
         UnregisteredUser unregisteredUser = new UnregisteredUser();
 
-        unregisteredUser.setId(dto.getId());
         unregisteredUser.setFirstName(dto.getFirstName());
         unregisteredUser.setLastName(dto.getLastName());
         unregisteredUser.setEmail(dto.getEmail());

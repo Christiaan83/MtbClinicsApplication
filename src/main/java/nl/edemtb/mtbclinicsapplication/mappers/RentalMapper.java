@@ -26,7 +26,7 @@ public class RentalMapper {
     }
 
     public Rental transferToRental(RentalInputDto dto) {
-        if(dto == null) return null;
+        if (dto == null) return null;
 
         Rental rental = new Rental();
         rental.setStartTime(dto.getStartTime());
@@ -37,7 +37,7 @@ public class RentalMapper {
     }
 
     public RentalDto transferToRentalDto(Rental rental) {
-        if(rental == null) return null;
+        if (rental == null) return null;
 
         RentalDto dto = new RentalDto();
         dto.setId(rental.getId());
@@ -46,19 +46,27 @@ public class RentalMapper {
         dto.setEndDateTime(rental.getEndDateTime());
         dto.setRentingWholeDay(rental.getRentingWholeDay());
 
+        if (rental.getMountainbike() != null) {
+            dto.setMountainbikeDto(mountainbikeMapper.transferToDto(rental.getMountainbike()));
+        }
+
+        if (rental.getUnregisteredUser() != null) {
+            dto.setUnregisteredUserDto(unregisteredUserMapper.transferToDto(rental.getUnregisteredUser()));
+        }
+
         return dto;
     }
 
     public List<RentalDto> transferRentalListToRentalDto(List<Rental> rentals) {
         List<RentalDto> rentalDtoList = new ArrayList<>();
 
-        for(Rental rental : rentals) {
+        for (Rental rental : rentals) {
             rentalDtoList.add(transferToRentalDto(rental));
         }
         return rentalDtoList;
     }
 
-    public RentalDto rentalInputMapper(Long id,RentalInputDto inputDto) {
+    public RentalDto rentalInputMapper(Long id, RentalInputDto inputDto) {
 
         rentalRepository.findById(id);
         Rental rental = rentalRepository.findById(id).get();

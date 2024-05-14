@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
-    List<Rental> findByUnregisteredUser(UnregisteredUser unregisteredUser);
 }
