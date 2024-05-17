@@ -1,9 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.stereotype.Component;
@@ -31,7 +29,7 @@ public class RentalMapper {
         Rental rental = new Rental();
         rental.setStartTime(dto.getStartTime());
         rental.setStartDate(dto.getStartDate());
-        rental.setEndDateTime(dto.getEndDateTime());
+        rental.setEndTime(dto.getEndTime());
         rental.setRentingWholeDay(dto.getRentingWholeDay());
         return rental;
     }
@@ -43,7 +41,7 @@ public class RentalMapper {
         dto.setId(rental.getId());
         dto.setStartTime(rental.getStartTime());
         dto.setStartDate(rental.getStartDate());
-        dto.setEndDateTime(rental.getEndDateTime());
+        dto.setEndTime(rental.getEndTime());
         dto.setRentingWholeDay(rental.getRentingWholeDay());
 
         if (rental.getMountainbike() != null) {
@@ -77,8 +75,8 @@ public class RentalMapper {
         if (inputDto.getStartDate() != null) {
             rental.setStartDate(inputDto.getStartDate());
         }
-        if (inputDto.getEndDateTime() != null) {
-            rental.setEndDateTime(inputDto.getEndDateTime());
+        if (inputDto.getEndTime() != null) {
+            rental.setEndTime(inputDto.getEndTime());
         }
         if (inputDto.getRentingWholeDay() != null) {
             rental.setRentingWholeDay(inputDto.getRentingWholeDay());

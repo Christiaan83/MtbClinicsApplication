@@ -2,21 +2,17 @@ package nl.edemtb.mtbclinicsapplication.dtos.rental;
 
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
 
 public class RentalDto {
 
     private Long id;
     private LocalDate startDate;
     private LocalTime startTime;
-    private LocalDateTime endDateTime;
+    private LocalTime endTime;
     private Boolean rentingWholeDay;
 
     private MountainbikeDto mountainbikeDto;
@@ -62,12 +58,12 @@ public class RentalDto {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public Boolean getRentingWholeDay() {

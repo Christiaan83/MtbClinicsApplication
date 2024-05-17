@@ -7,7 +7,6 @@ import org.hibernate.annotations.Parameter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 @Entity
 @Table(name = "rentals")
@@ -24,7 +23,7 @@ public class Rental {
     private Long id;
     private LocalDate startDate;
     private LocalTime startTime;
-    private LocalDateTime endDateTime;
+    private LocalTime endTime;
     private Boolean rentingWholeDay;
 
     @ManyToOne
@@ -75,12 +74,12 @@ public class Rental {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public Boolean getRentingWholeDay() {

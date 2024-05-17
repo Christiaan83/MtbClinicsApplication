@@ -13,7 +13,7 @@ public class RentalInputDto {
     @NotNull(message = "startTime is required")
     LocalTime startTime;
     @NotNull(message = "endDateTime is required")
-    LocalDateTime endDateTime;
+    LocalTime endTime;
     Boolean rentingWholeDay;
 
     public LocalDate getStartDate() {
@@ -32,12 +32,12 @@ public class RentalInputDto {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public Boolean getRentingWholeDay() {
