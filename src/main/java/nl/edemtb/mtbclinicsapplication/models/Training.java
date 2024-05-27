@@ -40,7 +40,16 @@ public class Training {
     @Column(name = "date")
     private List<LocalDate> dateList;
     private Boolean trainingInGroup;
+    @OneToOne
+    Picture picture;
 
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
     public List<LocalDate> getDateList() {
         return dateList;
