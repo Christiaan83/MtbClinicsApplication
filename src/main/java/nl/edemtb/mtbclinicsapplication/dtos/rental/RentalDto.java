@@ -4,36 +4,33 @@ import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
 
 public class RentalDto {
 
     private Long id;
     private LocalDate startDate;
     private LocalTime startTime;
-    private LocalDateTime endDateTime;
+    private LocalTime endTime;
     private Boolean rentingWholeDay;
 
-    private Long unregisteredUserId;
-    private Set<Long> mountainbikeIds;
+    private MountainbikeDto mountainbikeDto;
+    private UnregisteredUserDto unregisteredUserDto;
 
-    public Long getUnregisteredUserId() {
-        return unregisteredUserId;
+    public UnregisteredUserDto getUnregisteredUserDto() {
+        return unregisteredUserDto;
     }
 
-    public void setUnregisteredUserId(Long unregisteredUserId) {
-        this.unregisteredUserId = unregisteredUserId;
+    public void setUnregisteredUserDto(UnregisteredUserDto unregisteredUserDto) {
+        this.unregisteredUserDto = unregisteredUserDto;
     }
 
-    public Set<Long> getMountainbikeIds() {
-        return mountainbikeIds;
+    public MountainbikeDto getMountainbikeDto() {
+        return mountainbikeDto;
     }
 
-    public void setMountainbikeIds(Set<Long> mountainbikeIds) {
-        this.mountainbikeIds = mountainbikeIds;
+    public void setMountainbikeDto(MountainbikeDto mountainbikeDto) {
+        this.mountainbikeDto = mountainbikeDto;
     }
 
     public Long getId() {
@@ -60,12 +57,12 @@ public class RentalDto {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public Boolean getRentingWholeDay() {
@@ -75,5 +72,6 @@ public class RentalDto {
     public void setRentingWholeDay(Boolean rentingWholeDay) {
         this.rentingWholeDay = rentingWholeDay;
     }
+
 
 }

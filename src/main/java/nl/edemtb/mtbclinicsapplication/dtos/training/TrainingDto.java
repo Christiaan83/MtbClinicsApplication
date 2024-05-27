@@ -2,6 +2,7 @@ package nl.edemtb.mtbclinicsapplication.dtos.training;
 
 
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
+import nl.edemtb.mtbclinicsapplication.models.Picture;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,6 +20,15 @@ public class TrainingDto {
     private LocalTime endTime;
     private List<LocalDate> dateList;
     private Boolean trainingInGroup;
+    private Picture picture;
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;

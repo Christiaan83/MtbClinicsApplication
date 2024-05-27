@@ -1,9 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
-import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.stereotype.Component;
@@ -26,25 +24,33 @@ public class RentalMapper {
     }
 
     public Rental transferToRental(RentalInputDto dto) {
-        if(dto == null) return null;
+        if (dto == null) return null;
 
         Rental rental = new Rental();
         rental.setStartTime(dto.getStartTime());
         rental.setStartDate(dto.getStartDate());
-        rental.setEndDateTime(dto.getEndDateTime());
+        rental.setEndTime(dto.getEndTime());
         rental.setRentingWholeDay(dto.getRentingWholeDay());
         return rental;
     }
 
     public RentalDto transferToRentalDto(Rental rental) {
-        if(rental == null) return null;
+        if (rental == null) return null;
 
         RentalDto dto = new RentalDto();
         dto.setId(rental.getId());
         dto.setStartTime(rental.getStartTime());
         dto.setStartDate(rental.getStartDate());
-        dto.setEndDateTime(rental.getEndDateTime());
+        dto.setEndTime(rental.getEndTime());
         dto.setRentingWholeDay(rental.getRentingWholeDay());
+
+        if (rental.getMountainbike() != null) {
+            dto.setMountainbikeDto(mountainbikeMapper.transferToDto(rental.getMountainbike()));
+        }
+
+        if (rental.getUnregisteredUser() != null) {
+            dto.setUnregisteredUserDto(unregisteredUserMapper.transferToDto(rental.getUnregisteredUser()));
+        }
 
         return dto;
     }
@@ -52,13 +58,13 @@ public class RentalMapper {
     public List<RentalDto> transferRentalListToRentalDto(List<Rental> rentals) {
         List<RentalDto> rentalDtoList = new ArrayList<>();
 
-        for(Rental rental : rentals) {
+        for (Rental rental : rentals) {
             rentalDtoList.add(transferToRentalDto(rental));
         }
         return rentalDtoList;
     }
 
-    public RentalDto rentalInputMapper(Long id,RentalInputDto inputDto) {
+    public RentalDto rentalInputMapper(Long id, RentalInputDto inputDto) {
 
         rentalRepository.findById(id);
         Rental rental = rentalRepository.findById(id).get();
@@ -69,8 +75,8 @@ public class RentalMapper {
         if (inputDto.getStartDate() != null) {
             rental.setStartDate(inputDto.getStartDate());
         }
-        if (inputDto.getEndDateTime() != null) {
-            rental.setEndDateTime(inputDto.getEndDateTime());
+        if (inputDto.getEndTime() != null) {
+            rental.setEndTime(inputDto.getEndTime());
         }
         if (inputDto.getRentingWholeDay() != null) {
             rental.setRentingWholeDay(inputDto.getRentingWholeDay());

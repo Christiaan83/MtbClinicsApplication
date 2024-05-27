@@ -8,6 +8,7 @@ public class UnregisteredUserDto {
     private String email;
     private Integer mobileNumber;
 
+
     public Long getId() {
         return id;
     }

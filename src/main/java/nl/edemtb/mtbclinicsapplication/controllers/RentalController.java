@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
+import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.services.RentalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RequestMapping("/rentals")
@@ -54,13 +56,9 @@ public class RentalController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{userId}/create")
-    public ResponseEntity<Rental> createRental(@PathVariable Long userId, @RequestBody RentalDto rentalDto) {
-        rentalService.createRental(userId, rentalDto.getMountainbikeIds());
-        return ResponseEntity.created(null).build();
+    @PutMapping("/{id}/mountainbike/{mtbId}/user/{userId}")
+    public void assignMountainBikeAndUnregisteredUserToRental(@PathVariable("id") Long id, @PathVariable("mtbId") Long mtbId, @PathVariable("userId") Long userId) {
+        rentalService.assignMtbAndUnregisteredUserToRental(id, mtbId, userId);
     }
-    @GetMapping("/users/{userId}/rentals")
-    public List<Rental> getRentalsByUserId(@PathVariable Long userId) {
-        return rentalService.getRentalsByUserId(userId);
-    }
-}
+
+  }
