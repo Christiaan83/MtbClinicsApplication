@@ -52,7 +52,7 @@ VALUES
 Het niveau en zwaarte wordt aangepast op de kids, zodat dit voor iedereen goed haalbaar zal zijn.', 49.50,'13:30:00', '15:30:00', true ),
 (1004, 'Privé clinic','MODERATE', 'De Fietser, Akulaan 2, 6717 XN Ede', 'clinic-private.jpg','Heb je liever alle aandacht of wil je een specifiek onderwerp behandelen? Dan is een privéclinic een goede keuze.
 
-Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen. Een privéclinic staat niet in de agenda, maar kun je op afspraak met ons inplannen.', 125.00,'14:00:00', '16:30:00', false );
+Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen. git ', 125.00,'14:00:00', '16:30:00', false );
 
 INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003);
 INSERT INTO rentals (id, start_date, start_time, end_time, renting_whole_day)
