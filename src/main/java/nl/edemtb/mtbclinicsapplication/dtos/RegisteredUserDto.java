@@ -1,5 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
+import nl.edemtb.mtbclinicsapplication.models.Authority;
+import java.util.Set;
+
 public class RegisteredUserDto {
 
     private String username;
@@ -8,8 +11,23 @@ public class RegisteredUserDto {
     private String lastName;
     private String email;
     private Integer mobileNumber;
-    private String userRole;
     private Boolean isActive;
+    private String apikey;
+    public Set<Authority> authorities;
+
+    public String getApikey() {
+        return apikey;
+    }
+
+    public void setApikey(String apikey) {this.apikey = apikey;}
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 
     public String getUsername() {
         return username;
@@ -59,13 +77,6 @@ public class RegisteredUserDto {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
 
     public Boolean getActive() {
         return isActive;

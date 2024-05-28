@@ -1,6 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
+import nl.edemtb.mtbclinicsapplication.exceptions.BadRequestException;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
+import nl.edemtb.mtbclinicsapplication.exceptions.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,5 +24,17 @@ public class ExceptionController {
         return new ResponseEntity<>("Dit id staat niet in de database", HttpStatus.NOT_FOUND);
 
     }
+    @ExceptionHandler(value = BadRequestException.class)
+    public ResponseEntity<String> exception(BadRequestException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = UsernameNotFoundException.class)
+    public ResponseEntity<String> exception(UsernameNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
+
 
 }
