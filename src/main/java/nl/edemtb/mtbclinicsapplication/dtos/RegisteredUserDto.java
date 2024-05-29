@@ -77,7 +77,6 @@ public class RegisteredUserDto {
         this.mobileNumber = mobileNumber;
     }
 
-
     public Boolean getActive() {
         return isActive;
     }

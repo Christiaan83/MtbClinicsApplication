@@ -2,11 +2,13 @@ package nl.edemtb.mtbclinicsapplication.services;
 
 import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
+import nl.edemtb.mtbclinicsapplication.mappers.RegisteredUserMapper;
 import nl.edemtb.mtbclinicsapplication.models.Authority;
 import nl.edemtb.mtbclinicsapplication.models.RegisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.RegisteredUserRepository;
 import nl.edemtb.mtbclinicsapplication.utils.RandomStringGenerator;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,13 @@ import java.util.Set;
 @Service
 public class RegisteredUserService {
     private final RegisteredUserRepository registeredUserRepository;
+    private final RegisteredUserMapper registeredUserMapper;
 
-    public RegisteredUserService(RegisteredUserRepository registeredUserRepository) {
+
+    public RegisteredUserService(RegisteredUserRepository registeredUserRepository, PasswordEncoder passwordEncoder, RegisteredUserMapper registeredUserMapper) {
         this.registeredUserRepository = registeredUserRepository;
 
+        this.registeredUserMapper = registeredUserMapper;
     }
 
 
@@ -27,7 +32,7 @@ public class RegisteredUserService {
         List<RegisteredUserDto> collection = new ArrayList<>();
         List<RegisteredUser> list = registeredUserRepository.findAll();
         for (RegisteredUser registeredUser : list) {
-            collection.add(fromRegisteredUser(registeredUser));
+            collection.add(registeredUserMapper.fromRegisteredUser(registeredUser));
         }
         return collection;
     }
@@ -36,7 +41,7 @@ public class RegisteredUserService {
         RegisteredUserDto dto = new RegisteredUserDto();
         Optional<RegisteredUser> registeredUser = registeredUserRepository.findById(username);
         if (registeredUser.isPresent()){
-            dto = fromRegisteredUser(registeredUser.get());
+            dto = registeredUserMapper.fromRegisteredUser(registeredUser.get());
         }else {
             throw new UsernameNotFoundException(username);
         }
@@ -50,7 +55,7 @@ public class RegisteredUserService {
     public String createRegisteredUser(RegisteredUserDto registeredUserDto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         registeredUserDto.setApikey(randomString);
-        RegisteredUser newRegisteredUser = registeredUserRepository.save(toRegisteredUser(registeredUserDto));
+        RegisteredUser newRegisteredUser = registeredUserRepository.save(registeredUserMapper.toRegisteredUser(registeredUserDto));
         return newRegisteredUser.getUsername();
     }
 
@@ -68,7 +73,7 @@ public class RegisteredUserService {
     public Set<Authority> getAuthorities(String username) {
         if (!registeredUserRepository.existsById(username)) throw new UsernameNotFoundException(username);
         RegisteredUser registeredUser = registeredUserRepository.findById(username).get();
-        RegisteredUserDto registereduserDto = fromRegisteredUser(registeredUser);
+        RegisteredUserDto registereduserDto = registeredUserMapper.fromRegisteredUser(registeredUser);
         return registereduserDto.getAuthorities();
     }
 
@@ -88,39 +93,5 @@ public class RegisteredUserService {
         registeredUserRepository.save(registeredUser);
     }
 
-    public static RegisteredUserDto fromRegisteredUser(RegisteredUser registereduser){
-
-        var registeredUserDto = new RegisteredUserDto();
-
-        registeredUserDto.setUsername(registereduser.getUsername());
-        registeredUserDto.setPassword(registereduser.getPassword());
-        registeredUserDto.setFirstName(registereduser.getFirstName());
-        registeredUserDto.setLastName(registereduser.getLastName());
-        registeredUserDto.setActive(registereduser.getActive());
-        registeredUserDto.setApikey(registereduser.getApikey());
-        registeredUserDto.setEmail(registereduser.getEmail());
-        registeredUserDto.setMobileNumber(registereduser.getMobileNumber());
-        registeredUserDto.setAuthorities(registereduser.getAuthorities());
-
-        return registeredUserDto;
-    }
-
-    public RegisteredUser toRegisteredUser(RegisteredUserDto userDto) {
-
-        var registeredUser = new RegisteredUser();
-
-        registeredUser.setUsername(userDto.getUsername());
-        registeredUser.setPassword(userDto.getPassword());
-        registeredUser.setFirstName(userDto.getFirstName());
-        registeredUser.setLastName(userDto.getLastName());
-        registeredUser.setActive(userDto.getActive());
-        registeredUser.setApikey(userDto.getApikey());
-        registeredUser.setEmail(userDto.getEmail());
-        registeredUser.setMobileNumber(userDto.getMobileNumber());
-        registeredUser.setAuthorities(userDto.getAuthorities());
-        registeredUser.setApikey(userDto.getApikey());
-
-        return registeredUser;
-    }
 
 }

@@ -19,9 +19,7 @@ import java.security.Principal;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-
     private final CustomUserDetailsService userDetailsService;
-
     private final JwtUtil jwtUtl;
 
     public AuthenticationController(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, JwtUtil jwtUtl) {

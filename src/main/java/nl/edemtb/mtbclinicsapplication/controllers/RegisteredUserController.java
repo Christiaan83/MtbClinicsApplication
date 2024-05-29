@@ -1,8 +1,9 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
-import nl.novi.techiteasy1121.dtos.UserDto;
-import nl.novi.techiteasy1121.exceptions.BadRequestException;
-import nl.novi.techiteasy1121.services.UserService;
+
+import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
+import nl.edemtb.mtbclinicsapplication.exceptions.BadRequestException;
+import nl.edemtb.mtbclinicsapplication.services.RegisteredUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,24 +17,24 @@ import java.util.Map;
 @RequestMapping(value = "/users")
 public class RegisteredUserController {
 
-    private final UserService userService;
+    private final RegisteredUserService registeredUserService;
 
-    public RegisteredUserController(UserService userService) {
-        this.userService = userService;
+    public RegisteredUserController(RegisteredUserService registeredUserService) {
+        this.registeredUserService = registeredUserService;
     }
 
     @GetMapping(value = "")
-    public ResponseEntity<List<UserDto>> getUsers() {
+    public ResponseEntity<List<RegisteredUserDto>> getUsers() {
 
-        List<UserDto> userDtos = userService.getUsers();
+        List<RegisteredUserDto> registeredUserDtos = registeredUserService.getRegisteredUsers();
 
-        return ResponseEntity.ok().body(userDtos);
+        return ResponseEntity.ok().body(registeredUserDtos);
     }
 
     @GetMapping(value = "/{username}")
-    public ResponseEntity<UserDto> getUser(@PathVariable("username") String username) {
+    public ResponseEntity<RegisteredUserDto> getUser(@PathVariable("username") String username) {
 
-        UserDto optionalUser = userService.getUser(username);
+        RegisteredUserDto optionalUser = registeredUserService.getUser(username);
 
 
         return ResponseEntity.ok().body(optionalUser);
@@ -41,13 +42,10 @@ public class RegisteredUserController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<UserDto> createKlant(@RequestBody UserDto dto) {;
+    public ResponseEntity<RegisteredUserDto> createUser(@RequestBody RegisteredUserDto dto) {;
 
-        // Let op: het password van een nieuwe gebruiker wordt in deze code nog niet encrypted opgeslagen.
-        // Je kan dus (nog) niet inloggen met een nieuwe user.
-
-        String newUsername = userService.createUser(dto);
-        userService.addAuthority(newUsername, "ROLE_USER");
+        String newUsername = registeredUserService.createRegisteredUser(dto);
+        registeredUserService.addAuthority(newUsername, "ROLE_USER");
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(newUsername).toUri();
@@ -56,29 +54,29 @@ public class RegisteredUserController {
     }
 
     @PutMapping(value = "/{username}")
-    public ResponseEntity<UserDto> updateKlant(@PathVariable("username") String username, @RequestBody UserDto dto) {
+    public ResponseEntity<RegisteredUserDto> updateUser(@PathVariable("username") String username, @RequestBody RegisteredUserDto dto) {
 
-        userService.updateUser(username, dto);
+        registeredUserService.updateUser(username, dto);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{username}")
-    public ResponseEntity<Object> deleteKlant(@PathVariable("username") String username) {
-        userService.deleteUser(username);
+    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
+        registeredUserService.deleteRegisteredUser(username);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/{username}/authorities")
     public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
+        return ResponseEntity.ok().body(registeredUserService.getAuthorities(username));
     }
 
     @PostMapping(value = "/{username}/authorities")
     public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
         try {
             String authorityName = (String) fields.get("authority");
-            userService.addAuthority(username, authorityName);
+            registeredUserService.addAuthority(username, authorityName);
             return ResponseEntity.noContent().build();
         }
         catch (Exception ex) {
@@ -88,7 +86,7 @@ public class RegisteredUserController {
 
     @DeleteMapping(value = "/{username}/authorities/{authority}")
     public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
-        userService.removeAuthority(username, authority);
+        registeredUserService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
     }
 
