@@ -36,7 +36,6 @@ public class RegisteredUserController {
 
         RegisteredUserDto optionalUser = registeredUserService.getUser(username);
 
-
         return ResponseEntity.ok().body(optionalUser);
 
     }
