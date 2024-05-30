@@ -63,9 +63,9 @@ public class BookingService {
         }
     }
 
-    public void assignTrainingAndUserToBooking(Long trainingId, String username) {
+    public void assignTrainingAndUserToBooking(Long id, Long trainingId, String username) {
 
-        var optionalBooking = bookingRepository.findById(trainingId);
+        var optionalBooking = bookingRepository.findById(id);
         var optionalTraining = trainingRepository.findById(trainingId);
         var optionalUser = registeredUserRepository.findById(username);
 
