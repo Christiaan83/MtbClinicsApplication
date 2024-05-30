@@ -1,4 +1,5 @@
 package nl.edemtb.mtbclinicsapplication.config;
+
 import nl.edemtb.mtbclinicsapplication.filter.JwtRequestFilter;
 import nl.edemtb.mtbclinicsapplication.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,6 @@ public class SpringSecurityConfig {
     }
 
 
-
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         var auth = new DaoAuthenticationProvider();
@@ -40,7 +40,7 @@ public class SpringSecurityConfig {
 
 
     @Bean
-    protected SecurityFilterChain filter (HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -48,25 +48,17 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                // Wanneer je deze uncomments, staat je hele security open. Je hebt dan alleen nog een jwt nodig.
-//                .requestMatchers("/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST,"/users/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/cimodules").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/cimodules/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/remotecontrollers").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/remotecontrollers/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/televisions").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/televisions/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/wallbrackets").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/wallbrackets/**").hasRole("ADMIN")
-                // Je mag meerdere paths tegelijk definieren
-                .requestMatchers("/cimodules", "/remotecontrollers", "/televisions", "/wallbrackets").hasAnyRole("ADMIN", "USER")
-                .requestMatchers("/authenticated").authenticated()
-                .requestMatchers("/authenticate").permitAll()
-                .anyRequest().denyAll()
+                                .requestMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/users/{username}").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET,
+                                        "/contact-form/{id}","/mountainbikes","/mountainbikes/**", "/rentals/{id}", "/routes", "/routes/**",
+                                        "/trainings","/trainings/**", "/unregistered-users/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/contact-form", "/unregistered-users", "/users", "/rentals").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/rentals/{id}/mountainbike/{mtbId}/user/{userId}").permitAll()
+
+                                .requestMatchers("/authenticated").authenticated()
+                                .requestMatchers("/authenticate").permitAll()
+                                .anyRequest().hasRole("ADMIN")
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
