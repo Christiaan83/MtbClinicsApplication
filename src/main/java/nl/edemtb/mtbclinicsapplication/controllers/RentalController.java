@@ -44,14 +44,14 @@ public class RentalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RentalDto> updateRental(@PathVariable Long id, @RequestBody RentalInputDto updateRental) {
+    public ResponseEntity<RentalDto> updateRental(@PathVariable("id") Long id, @RequestBody RentalInputDto updateRental) {
 
         RentalDto dto = rentalService.updateRental(id, updateRental);
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteRental(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteRental(@PathVariable("id") Long id) {
         rentalService.deleteRental(id);
         return ResponseEntity.noContent().build();
     }
