@@ -4,6 +4,7 @@ import nl.edemtb.mtbclinicsapplication.dtos.AuthenticationRequest;
 import nl.edemtb.mtbclinicsapplication.dtos.AuthenticationResponse;
 import nl.edemtb.mtbclinicsapplication.services.CustomUserDetailsService;
 import nl.edemtb.mtbclinicsapplication.utils.JwtUtil;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -53,7 +54,10 @@ public class AuthenticationController {
 
         final String jwt = jwtUtl.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
+                .body("Token generated");
     }
 
 }
