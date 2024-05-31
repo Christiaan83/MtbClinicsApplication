@@ -53,7 +53,7 @@ public class BookingController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/training{trainingId}/user{username}")
+    @PutMapping("/{id}/training/{trainingId}/user/{username}")
 
     public void assignTrainingAndUserToBooking(@PathVariable("id") Long id, @PathVariable("trainingId") Long trainingId, @PathVariable("username") String username) {
         bookingService.assignTrainingAndUserToBooking(id, trainingId, username);
