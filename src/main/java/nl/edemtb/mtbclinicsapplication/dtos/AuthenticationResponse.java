@@ -2,14 +2,14 @@ package nl.edemtb.mtbclinicsapplication.dtos;
 
 public class AuthenticationResponse {
 
-    private final String jwt;
+    private final String accessToken;
 
-    public AuthenticationResponse(String jwt) {
-        this.jwt = jwt;
+    public AuthenticationResponse(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getJwt() {
-        return jwt;
+        return accessToken;
     }
 
 }

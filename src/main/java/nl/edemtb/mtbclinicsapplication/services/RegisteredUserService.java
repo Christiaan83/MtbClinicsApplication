@@ -55,6 +55,7 @@ public class RegisteredUserService {
     public String createRegisteredUser(RegisteredUserDto registeredUserDto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         registeredUserDto.setApikey(randomString);
+        registeredUserDto.setActive(true);
         RegisteredUser newRegisteredUser = registeredUserRepository.save(registeredUserMapper.toRegisteredUser(registeredUserDto));
         return newRegisteredUser.getUsername();
     }
