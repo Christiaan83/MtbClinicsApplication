@@ -43,6 +43,17 @@ public class Training {
     @OneToOne
     Picture picture;
 
+    @OneToMany(mappedBy = "training")
+    private List<Booking> bookings;
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     public Picture getPicture() {
         return picture;
     }

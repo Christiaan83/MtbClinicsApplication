@@ -1,9 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,6 +20,30 @@ public class Booking {
     )
     private Long id;
     private LocalDate bookingDate;
+
+    @ManyToOne
+    @JoinTable(name = "training_id")
+    private Training training;
+
+    @ManyToOne
+    @JoinTable(name = "registered_user_id")
+    private RegisteredUser user;
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public RegisteredUser getUser() {
+        return user;
+    }
+
+    public void setUser(RegisteredUser user) {
+        this.user = user;
+    }
 
     public LocalDate getBookingDate() {
         return bookingDate;

@@ -6,6 +6,8 @@ import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -14,22 +16,17 @@ public class BookingMapper {
 
 
     private final BookingRepository bookingRepository;
+    private final TrainingMapper trainingMapper;
+    private final RegisteredUserMapper registeredUserMapper;
 
-    public BookingMapper(BookingRepository bookingRepository) {
+    public BookingMapper(BookingRepository bookingRepository, TrainingMapper trainingMapper, RegisteredUserMapper registeredUserMapper) {
         this.bookingRepository = bookingRepository;
-    }
-
-
-    public BookingDto transferToBookingDto(Booking booking) {
-        if (booking == null) return null;
-
-        BookingDto dto = new BookingDto();
-        dto.setBookingDate(booking.getBookingDate());
-
-        return dto;
+        this.trainingMapper = trainingMapper;
+        this.registeredUserMapper = registeredUserMapper;
     }
 
     public Booking transferToBooking(BookingDto bookingDto) {
+        if (bookingDto == null) return null;
 
         Booking booking = new Booking();
         booking.setBookingDate(bookingDto.getBookingDate());
@@ -38,7 +35,33 @@ public class BookingMapper {
 
     }
 
-    public BookingDto inputMapper(Long id, BookingDto bookingDto) {
+    public BookingDto transferToBookingDto(Booking booking) {
+        if (booking == null) return null;
+
+        BookingDto dto = new BookingDto();
+        dto.setBookingDate(booking.getBookingDate());
+
+        if (booking.getTraining() != null) {
+            dto.setTrainingDto(trainingMapper.transferToDto(booking.getTraining()));
+        }
+        if (booking.getUser() != null){
+            dto.setUserDto(registeredUserMapper.fromRegisteredUser(booking.getUser()));
+        }
+
+        return dto;
+    }
+
+  public List<BookingDto> transferToBookingDtoList(List<Booking> bookings) {
+        if (bookings == null) return null;
+        List<BookingDto> dtos = new ArrayList<>();
+
+        for (Booking booking : bookings) {
+            dtos.add(transferToBookingDto(booking));
+        }
+      return dtos;
+  }
+
+    public BookingDto bookingInputMapper(Long id, BookingDto bookingDto) {
 
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
 

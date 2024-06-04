@@ -52,14 +52,17 @@ VALUES
 Het niveau en zwaarte wordt aangepast op de kids, zodat dit voor iedereen goed haalbaar zal zijn.', 49.50,'13:30:00', '15:30:00', true ),
 (1004, 'Privé clinic','MODERATE', 'De Fietser, Akulaan 2, 6717 XN Ede', 'clinic-private.jpg','Heb je liever alle aandacht of wil je een specifiek onderwerp behandelen? Dan is een privéclinic een goede keuze.
 
-Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen. git ', 125.00,'14:00:00', '16:30:00', false );
+Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen.', 250.00,'14:00:00', '16:30:00', false );
 
 INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003);
 INSERT INTO rentals (id, start_date, start_time, end_time, renting_whole_day)
 VALUES (1001,'2024-05-11','10:00:00', '16:30:00', true ),
        (1002,'2024-05-14','13:00:00', '17:00:00', false );
 
-INSERT INTO unregistered_users(id, first_name, last_name, email, mobile_number) VALUES (1001, 'Christiaan', 'Zielman', 'c.zielman@mtbclinics-ede.com', 0650425689)
+INSERT INTO unregistered_users(id, first_name, last_name, email, mobile_number) VALUES (1001, 'Christiaan', 'Zielman', 'c.zielman@mtbclinics-ede.com', 0650425689);
 
+INSERT INTO registered_users (username, password, first_name, last_name, email, mobile_number, is_active )
+VALUES('admin','$2a$12$U6cIRWm1ps9KZ/1//6RisuQ/q.KngzrykxENEfsgnTUcTRjTx/WPC', 'Christiaan', 'Zielman', 'christiaan@mtb-ede.nl', '0650412077', true),
+      ('piet2004','$2a$12$K5DKU9rnazAvpDEwbLnO9uIiSMN5dJGk9BS/jVwLwE2NJ4EBsq89K', 'Piet', 'de Groot', 'piet@gmail.com', '0649872065', true );
 
-
+INSERT INTO authorities (username, authority) VALUES ('admin', 'ROLE_ADMIN'), ('admin', 'ROLE_USER'), ('piet2004', 'ROLE_USER');
