@@ -20,6 +20,8 @@ public class Booking {
     )
     private Long id;
     private LocalDate bookingDate;
+    @Lob
+    private String message;
 
     @ManyToOne
     @JoinTable(name = "training_id")
@@ -28,6 +30,14 @@ public class Booking {
     @ManyToOne
     @JoinTable(name = "registered_user_id")
     private RegisteredUser user;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Training getTraining() {
         return training;

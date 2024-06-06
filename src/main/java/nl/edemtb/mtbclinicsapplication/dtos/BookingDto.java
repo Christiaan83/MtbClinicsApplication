@@ -6,11 +6,30 @@ import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import java.time.LocalDate;
 
 public class BookingDto {
+
+    private Long id;
     @NotNull(message = "bookingDate is required")
     private LocalDate bookingDate;
+    private String message;
 
     private TrainingDto trainingDto;
     private RegisteredUserDto  userDto;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public TrainingDto getTrainingDto() {
         return trainingDto;

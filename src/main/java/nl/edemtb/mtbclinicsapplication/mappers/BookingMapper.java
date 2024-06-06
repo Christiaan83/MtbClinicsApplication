@@ -30,6 +30,7 @@ public class BookingMapper {
 
         Booking booking = new Booking();
         booking.setBookingDate(bookingDto.getBookingDate());
+        booking.setMessage(bookingDto.getMessage());
 
         return booking;
 
@@ -39,7 +40,9 @@ public class BookingMapper {
         if (booking == null) return null;
 
         BookingDto dto = new BookingDto();
+        dto.setId(booking.getId());
         dto.setBookingDate(booking.getBookingDate());
+        dto.setMessage(booking.getMessage());
 
         if (booking.getTraining() != null) {
             dto.setTrainingDto(trainingMapper.transferToDto(booking.getTraining()));
@@ -68,6 +71,7 @@ public class BookingMapper {
         if (optionalBooking.isPresent()) {
             Booking booking = optionalBooking.get();
             booking.setBookingDate(bookingDto.getBookingDate());
+            booking.setMessage(bookingDto.getMessage());
 
             Booking savedBooking = bookingRepository.save(booking);
             return transferToBookingDto(savedBooking);
