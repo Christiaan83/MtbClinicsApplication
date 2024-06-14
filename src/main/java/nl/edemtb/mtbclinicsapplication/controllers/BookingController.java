@@ -2,11 +2,11 @@ package nl.edemtb.mtbclinicsapplication.controllers;
 
 import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
-import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.services.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RequestMapping("/bookings")
@@ -31,6 +31,11 @@ public class BookingController {
 
         BookingDto booking = bookingService.getBookingById(id);
         return ResponseEntity.ok(booking);
+    }
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Collection<BookingDto>> getBookingsByUsername(@PathVariable("username") String username) {
+        Collection<BookingDto> bookings = bookingService.getBookingsByUsername(username);
+        return ResponseEntity.ok(bookings);
     }
 
     @PostMapping()

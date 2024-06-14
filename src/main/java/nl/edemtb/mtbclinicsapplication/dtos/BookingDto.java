@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public class BookingDto {
 
+
     private Long id;
     @NotNull(message = "bookingDate is required")
     private LocalDate bookingDate;

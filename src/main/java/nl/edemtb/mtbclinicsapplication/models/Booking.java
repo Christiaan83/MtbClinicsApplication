@@ -24,11 +24,11 @@ public class Booking {
     private String message;
 
     @ManyToOne
-    @JoinTable(name = "training_id")
+    @JoinColumn(name = "training_id")
     private Training training;
 
     @ManyToOne
-    @JoinTable(name = "registered_user_id")
+    @JoinColumn(name = "registered_user_id")
     private RegisteredUser user;
 
     public String getMessage() {
