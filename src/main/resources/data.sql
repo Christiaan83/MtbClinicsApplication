@@ -54,11 +54,6 @@ Het niveau en zwaarte wordt aangepast op de kids, zodat dit voor iedereen goed h
 
 Tijdens een privéclinic kunnen we ieder thema behandelen van jouw keuze. Wij bekijken wat je al kunt en wat je nog wilt leren. Aan de hand daarvan vullen we de clinic in. Je kunt alleen of met 2 personen deelnemen.', 250.00,'14:00:00', '16:30:00', false );
 
-INSERT INTO entity_dates(date, entity_id) VALUES ('2024-05-11', 1001),('2024-05-18', 1001), ('2024-05-25', 1001), ('2024-05-11', 1002),('2024-05-18', 1002), ('2024-05-25', 1002), ('2024-05-11', 1003),('2024-05-18', 1003), ('2024-05-25', 1003);
-INSERT INTO rentals (id, start_date, start_time, end_time, renting_whole_day)
-VALUES (1001,'2024-05-11','10:00:00', '16:30:00', true ),
-       (1002,'2024-05-14','13:00:00', '17:00:00', false );
-
 INSERT INTO unregistered_users(id, first_name, last_name, email, mobile_number) VALUES (1001, 'Christiaan', 'Zielman', 'c.zielman@mtbclinics-ede.com', 0650425689);
 
 INSERT INTO registered_users (username, password, first_name, last_name, email, mobile_number, is_active )
@@ -66,3 +61,22 @@ VALUES('admin','$2a$12$U6cIRWm1ps9KZ/1//6RisuQ/q.KngzrykxENEfsgnTUcTRjTx/WPC', '
       ('piet2004','$2a$12$K5DKU9rnazAvpDEwbLnO9uIiSMN5dJGk9BS/jVwLwE2NJ4EBsq89K', 'Piet', 'de Groot', 'piet@gmail.com', '0649872065', true );
 
 INSERT INTO authorities (username, authority) VALUES ('admin', 'ROLE_ADMIN'), ('admin', 'ROLE_USER'), ('piet2004', 'ROLE_USER');
+
+INSERT INTO rentals (id, start_date, start_time, end_time, renting_whole_day)
+VALUES (1001,'2024-05-11','10:00:00', '16:30:00', true ),
+       (1002,'2024-05-14','13:00:00', '17:00:00', false );
+
+INSERT INTO mountainbike_id(id, mountainbike_id)
+VALUES (1001,1002), (1002, 1001);
+
+INSERT INTO unregistered_user_id(id, unregistered_user_id)
+VALUES (1001,1001), (1002, 1001);
+
+INSERT INTO bookings (id, booking_date, message, training_id, registered_user_id)
+VALUES (1001, '2024-06-23', '98070', 1003, 'admin'),
+       (1002, '2024-06-24', '98072', 1002, 'piet2004');
+
+INSERT INTO contact_forms (id, first_name, last_name, email, mobile_number, message)
+VALUES (1001, 'Jan', 'den Bosch', 'jan@email.com', 0679564679, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' ),
+       (1002, 'Petra', 'de Haan', 'dehaanpetra@email.nl', 0612345678, 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.' );
+
