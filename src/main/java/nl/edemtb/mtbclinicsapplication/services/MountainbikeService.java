@@ -26,15 +26,14 @@ public class MountainbikeService {
     private final MountainbikeMapper mountainbikeMapper;
     private final PictureService pictureService;
     private final PictureUploadRepository uploadRepository;
-    private final RentalRepository rentalRepository;
 
 
-    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository, RentalRepository rentalRepository) {
+
+    public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository) {
         this.mountainbikeRepository = mountainbikeRepository;
         this.mountainbikeMapper = mountainbikeMapper;
         this.pictureService = pictureService;
         this.uploadRepository = uploadRepository;
-        this.rentalRepository = rentalRepository;
     }
 
     public List<MountainbikeDto> getAllMountainbikes() {
@@ -49,7 +48,7 @@ public class MountainbikeService {
             Mountainbike mtb = mtbOptional.get();
             return mountainbikeMapper.transferToDto(mtb);
         } else {
-            throw new RecordNotFoundException(" Geen Mountainbike gevonden");
+            throw new RecordNotFoundException(" No mountainbike found with id " + id);
         }
     }
 
@@ -77,7 +76,7 @@ public class MountainbikeService {
         if (mountainbikeRepository.findById(id).isPresent()) {
             mountainbikeRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("geen mountainbike met id: " + id + " gevonden!");
+            throw new RecordNotFoundException(" No mountainbike found with id " + id);
         }
     }
 
@@ -87,12 +86,21 @@ public class MountainbikeService {
 
             Mountainbike mtb = mountainbikeRepository.findById(id).get();
 
-            mtb.setAmount(inputDto.getAmount());
+            if(inputDto.getAmount() != null) {
+                mtb.setAmount(inputDto.getAmount());
+            }
+            if(inputDto.getAvailable() != null) {
+                mtb.setAvailable(inputDto.getAvailable());
+            }
+            if(inputDto.getPricePerDayPart() != null){
+                mtb.setPricePerDayPart(inputDto.getPricePerDayPart());
+            }
             mtb.setAvailable(mtb.getAmount() >= 1);
+
             mountainbikeRepository.save(mtb);
             return mountainbikeMapper.transferToDto(mtb);
         } else {
-            throw new RecordNotFoundException("Geen mountainbike gevonden met id: " + id);
+            throw new RecordNotFoundException(" No mountainbike found with id " + id);
         }
     }
 
@@ -107,7 +115,7 @@ public class MountainbikeService {
     }
 
     @Transactional
-    public Resource getPictureFromMountainbike(Long id) throws FileNotFoundException {
+    public Resource getPictureFromMountainbike(Long id) {
         Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
         if(optionalMtb.isEmpty()){
             throw new RecordNotFoundException("Mountainbike " + id+ " not found.");
