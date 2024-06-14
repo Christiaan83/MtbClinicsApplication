@@ -29,7 +29,6 @@ public class TrainingMapper {
         training.setPrice(dto.getPrice());
         training.setStartTime(dto.getStartTime());
         training.setEndTime(dto.getEndTime());
-        training.setDateList(dto.getDateList());
         training.setTrainingInGroup(dto.getTrainingInGroup());
         return training;
     }
@@ -46,7 +45,6 @@ public class TrainingMapper {
         dto.setPrice(training.getPrice());
         dto.setStartTime(training.getStartTime());
         dto.setEndTime(training.getEndTime());
-        dto.setDateList(training.getDateList());
         dto.setTrainingInGroup(training.getTrainingInGroup());
         return dto;
     }
@@ -68,7 +66,6 @@ public class TrainingMapper {
         training.setPrice(inputDto.getPrice());
         training.setStartTime(inputDto.getStartTime());
         training.setEndTime(inputDto.getEndTime());
-        training.setDateList(inputDto.getDateList());
         training.setTrainingInGroup(inputDto.getTrainingInGroup());
         trainingRepository.save(training);
         return transferToDto(training);

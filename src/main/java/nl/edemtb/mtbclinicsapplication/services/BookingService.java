@@ -1,16 +1,20 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
+import jakarta.transaction.Transactional;
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
+import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
+import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
+import nl.edemtb.mtbclinicsapplication.exceptions.UsernameNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.BookingMapper;
 import nl.edemtb.mtbclinicsapplication.models.Booking;
+import nl.edemtb.mtbclinicsapplication.models.RegisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.RegisteredUserRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookingService {
@@ -81,4 +85,16 @@ public class BookingService {
             throw new RecordNotFoundException();
         }
     }
+    @Transactional()
+    public Collection<BookingDto> getBookingsByUsername(String username) {
+        Set<BookingDto> bookingDtos = new HashSet<>();
+        List<Booking> bookings = bookingRepository.findAllByUser_username(username); // Assuming 'user' is the name of the relation in Booking to RegisteredUser
+
+        for (Booking booking : bookings) {
+            bookingDtos.add(bookingMapper.transferToBookingDto(booking));
+        }
+
+        return bookingDtos;
+    }
+
 }

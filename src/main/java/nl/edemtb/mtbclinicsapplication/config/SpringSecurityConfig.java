@@ -48,8 +48,9 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.PUT, "/users/{username}").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/users/**","/bookings","bookings/{id}","bookings/user/{username}").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/users/{username}", "/bookings", "/bookings/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.POST,"/bookings", "/bookings/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(HttpMethod.GET,
                                         "/contact-form/{id}","/mountainbikes","/mountainbikes/**", "/rentals/{id}", "/routes", "/routes/**",
                                         "/trainings","/trainings/**", "/unregistered-users/{id}").permitAll()

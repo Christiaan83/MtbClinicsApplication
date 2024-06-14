@@ -26,8 +26,6 @@ public class TrainingInputDto {
     private LocalTime startTime;
     @NotNull (message = "endTime is required")
     private LocalTime endTime;
-    @NotNull (message = "List of dates is required")
-    private List<LocalDate> dateList;
     private Boolean trainingInGroup;
 
     public String getName() {
@@ -86,13 +84,6 @@ public class TrainingInputDto {
         this.endTime = endTime;
     }
 
-    public List<LocalDate> getDateList() {
-        return dateList;
-    }
-
-    public void setDateList(List<LocalDate> dateList) {
-        this.dateList = dateList;
-    }
 
     public Boolean getTrainingInGroup() {
         return trainingInGroup;

@@ -1,6 +1,8 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
+import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
+import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;
@@ -30,6 +32,7 @@ public class BookingMapper {
 
         Booking booking = new Booking();
         booking.setBookingDate(bookingDto.getBookingDate());
+        booking.setMessage(bookingDto.getMessage());
 
         return booking;
 
@@ -39,7 +42,9 @@ public class BookingMapper {
         if (booking == null) return null;
 
         BookingDto dto = new BookingDto();
+        dto.setId(booking.getId());
         dto.setBookingDate(booking.getBookingDate());
+        dto.setMessage(booking.getMessage());
 
         if (booking.getTraining() != null) {
             dto.setTrainingDto(trainingMapper.transferToDto(booking.getTraining()));
@@ -68,6 +73,7 @@ public class BookingMapper {
         if (optionalBooking.isPresent()) {
             Booking booking = optionalBooking.get();
             booking.setBookingDate(bookingDto.getBookingDate());
+            booking.setMessage(bookingDto.getMessage());
 
             Booking savedBooking = bookingRepository.save(booking);
             return transferToBookingDto(savedBooking);
@@ -75,5 +81,6 @@ public class BookingMapper {
             throw new RecordNotFoundException("Booking with id " + id + " not found");
         }
     }
+
 }
 

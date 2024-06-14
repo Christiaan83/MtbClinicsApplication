@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "registered_users")
-public class RegisteredUser extends BasicUser{
+public class RegisteredUser extends BasicUser {
 
     @Id
     @Column(nullable = false, unique = true)
@@ -18,12 +18,7 @@ public class RegisteredUser extends BasicUser{
     @Column(nullable = false, unique = true, length = 255)
     private String password;
 
-    @OneToMany(
-            targetEntity = Authority.class,
-            mappedBy = "username",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Authority.class, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
     @Column(nullable = false)
@@ -31,7 +26,7 @@ public class RegisteredUser extends BasicUser{
     @Column
     private String apikey;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
     public List<Booking> getBookings() {
@@ -77,12 +72,15 @@ public class RegisteredUser extends BasicUser{
     public Set<Authority> getAuthorities() {
         return authorities;
     }
+
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+
     public void addAuthority(Authority authority) {
         this.authorities.add(authority);
     }
+
     public void removeAuthority(Authority authority) {
         this.authorities.remove(authority);
     }

@@ -10,6 +10,7 @@ import nl.edemtb.mtbclinicsapplication.utils.RandomStringGenerator;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,6 @@ public class RegisteredUserService {
 
     public RegisteredUserService(RegisteredUserRepository registeredUserRepository, PasswordEncoder passwordEncoder, RegisteredUserMapper registeredUserMapper) {
         this.registeredUserRepository = registeredUserRepository;
-
         this.registeredUserMapper = registeredUserMapper;
     }
 
@@ -40,17 +40,14 @@ public class RegisteredUserService {
     public RegisteredUserDto getUser(String username) {
         RegisteredUserDto dto = new RegisteredUserDto();
         Optional<RegisteredUser> registeredUser = registeredUserRepository.findById(username);
-        if (registeredUser.isPresent()){
+        if (registeredUser.isPresent()) {
             dto = registeredUserMapper.fromRegisteredUser(registeredUser.get());
-        }else {
+        } else {
             throw new UsernameNotFoundException(username);
         }
         return dto;
     }
 
-    public boolean registeredUserExists(String username) {
-        return registeredUserRepository.existsById(username);
-    }
 
     public String createRegisteredUser(RegisteredUserDto registeredUserDto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
@@ -65,10 +62,12 @@ public class RegisteredUserService {
     }
 
     public void updateUser(String username, RegisteredUserDto newUser) {
-        if (!registeredUserRepository.existsById(username)) throw new RecordNotFoundException();
-        RegisteredUser user = registeredUserRepository.findById(username).get();
-        user.setPassword(newUser.getPassword());
-        registeredUserRepository.save(user);
+
+        if (!registeredUserRepository.existsById(username)) {
+            throw new RecordNotFoundException("User with username:" + username + "not found");
+        } else {
+            registeredUserMapper.userInputMapper(username, newUser);
+        }
     }
 
     public Set<Authority> getAuthorities(String username) {
@@ -93,6 +92,5 @@ public class RegisteredUserService {
         registeredUser.removeAuthority(authorityToRemove);
         registeredUserRepository.save(registeredUser);
     }
-
 
 }

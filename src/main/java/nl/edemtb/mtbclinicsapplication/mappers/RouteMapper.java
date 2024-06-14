@@ -67,15 +67,33 @@ public class RouteMapper {
     public RouteDto routeInputMapper(Long id, RouteInputDto inputDto){
 
         Route route = routeRepository.findById(id).get();
-        route.setName(inputDto.getName());
-        route.setRouteType(inputDto.getRouteType());
-        route.setDifficulty(inputDto.getDifficulty());
-        route.setStartingPoint(inputDto.getStartingPoint());
-        route.setPlace(inputDto.getPlace());
-        route.setProvince(inputDto.getProvince());
-        route.setRouteInformation(inputDto.getRouteInformation());
-        route.setDistance(inputDto.getDistance());
-        route.setAvailable(inputDto.getAvailable());
+        if (inputDto.getName() != null) {
+            route.setName(inputDto.getName());
+        }
+        if (inputDto.getRouteType() != null) {
+            route.setRouteType(inputDto.getRouteType());
+        }
+        if (inputDto.getDifficulty() != null) {
+            route.setDifficulty(inputDto.getDifficulty());
+        }
+        if (inputDto.getStartingPoint() != null) {
+            route.setStartingPoint(inputDto.getStartingPoint());
+        }
+        if (inputDto.getPlace() != null) {
+            route.setPlace(inputDto.getPlace());
+        }
+        if (inputDto.getProvince() != null) {
+            route.setProvince(inputDto.getProvince());
+        }
+        if (inputDto.getRouteInformation() != null) {
+            route.setRouteInformation(inputDto.getRouteInformation());
+        }
+        if (inputDto.getDistance() != null) {
+            route.setDistance(inputDto.getDistance());
+        }
+        if (inputDto.getAvailable() != null) {
+            route.setAvailable(inputDto.getAvailable());
+        }
         routeRepository.save(route);
         return transferToDto(route);
     }
