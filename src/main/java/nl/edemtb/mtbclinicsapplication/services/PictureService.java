@@ -35,7 +35,7 @@ public class PictureService {
     public String storePicture(MultipartFile file) throws IOException{
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
+        Path filePath = fileStoragePath.resolve(fileName);
 
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
