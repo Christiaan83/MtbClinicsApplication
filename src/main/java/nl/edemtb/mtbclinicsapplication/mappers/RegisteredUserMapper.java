@@ -3,16 +3,19 @@ package nl.edemtb.mtbclinicsapplication.mappers;
 import nl.edemtb.mtbclinicsapplication.config.PasswordConfiguration;
 import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.models.RegisteredUser;
+import nl.edemtb.mtbclinicsapplication.repositories.RegisteredUserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RegisteredUserMapper {
 
     private final PasswordConfiguration passwordConfiguration;
+    private final RegisteredUserRepository registeredUserRepository;
 
 
-    public RegisteredUserMapper(PasswordConfiguration passwordConfiguration) {
+    public RegisteredUserMapper(PasswordConfiguration passwordConfiguration, RegisteredUserRepository registeredUserRepository) {
         this.passwordConfiguration = passwordConfiguration;
+        this.registeredUserRepository = registeredUserRepository;
     }
 
 
@@ -46,7 +49,37 @@ public RegisteredUser toRegisteredUser(RegisteredUserDto userDto) {
     registeredUser.setEmail(userDto.getEmail());
     registeredUser.setMobileNumber(userDto.getMobileNumber());
     registeredUser.setApikey(userDto.getApikey());
+    registeredUser.setAuthorities(userDto.getAuthorities());
 
     return registeredUser;
+}
+
+
+public void userInputMapper(String username, RegisteredUserDto newUser) {
+
+    RegisteredUser user = registeredUserRepository.findById(username).get();
+    if (newUser.getPassword() != null) {
+        user.setPassword(passwordConfiguration.passwordEncoder().encode(newUser.getPassword()));
+    }
+    if (newUser.getFirstName() != null) {
+        user.setFirstName(newUser.getFirstName());
+    }
+    if (newUser.getLastName() != null) {
+        user.setLastName(newUser.getLastName());
+    }
+    if (newUser.getEmail() != null) {
+        user.setEmail(newUser.getEmail());
+    }
+    if (newUser.getUsername() != null) {
+        user.setUsername(newUser.getUsername());
+    }
+    if (newUser.getMobileNumber() != null) {
+        user.setMobileNumber(newUser.getMobileNumber());
+    }
+    if (newUser.getActive() != null) {
+        user.setActive(newUser.getActive());
+    }
+    registeredUserRepository.save(user);
+    fromRegisteredUser(user);
 }
 }
