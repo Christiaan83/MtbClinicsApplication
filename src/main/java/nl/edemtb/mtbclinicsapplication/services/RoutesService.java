@@ -46,19 +46,18 @@ public class RoutesService {
             Route route = routeOptional.get();
             return routeMapper.transferToDto(route);
         } else {
-            throw new RecordNotFoundException("Route met id: " + id + " niet gevonden.");
+            throw new RecordNotFoundException("Route with id: " + id + " not found.");
         }
     }
 
     public List<RouteDto> searchByPlace(String place) {
         var routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
-        if (routeList.isEmpty()){
-            throw new RecordNotFoundException("Er is geen route gevonden in " + place + ".");
-        }else{
-        return routeMapper.transferRouteListToDtoList(routeList);
+        if (routeList.isEmpty()) {
+            throw new RecordNotFoundException("No route found in " + place + ".");
+        } else {
+            return routeMapper.transferRouteListToDtoList(routeList);
         }
     }
-
 
     public List<RouteDto> search(String place, RouteType routeType, Difficulty difficulty, String province) {
         var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty, province);
@@ -77,41 +76,43 @@ public class RoutesService {
         if (routeRepository.findById(id).isPresent()) {
             routeRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("Geen route gevonden met id: " + id);
+            throw new RecordNotFoundException("No route found with id: " + id);
         }
     }
 
     public RouteDto updateRoute(Long id, RouteInputDto inputDto) {
         if (routeRepository.findById(id).isEmpty()) {
-            throw new RecordNotFoundException("Geen route gevonden!");
-        }else{
+            throw new RecordNotFoundException("No route found!");
+        } else {
             return routeMapper.routeInputMapper(id, inputDto);
+        }
     }
-    }
+
     @Transactional
     public Resource getPictureFromRoute(Long id) throws FileNotFoundException {
         Optional<Route> optionalRoute = routeRepository.findById(id);
-        if(optionalRoute.isEmpty()){
+        if (optionalRoute.isEmpty()) {
             throw new RecordNotFoundException("Route with id: " + id + " not found.");
         }
         Picture picture = optionalRoute.get().getPicture();
-        if(picture == null){
+        if (picture == null) {
             throw new RecordNotFoundException("Route with id: " + id + " had no photo.");
         }
         return pictureService.downLoadPicture(picture.getFileName());
     }
+
     @Transactional
-    public Route assignPhotoToRoute(String filename,Long id){
+    public Route assignPhotoToRoute(String filename, Long id) {
         Optional<Route> optionalRoute = routeRepository.findById(id);
         Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
 
-        if(optionalRoute.isPresent() && optionalPicture.isPresent()){
+        if (optionalRoute.isPresent() && optionalPicture.isPresent()) {
             Picture picture = optionalPicture.get();
             Route route = optionalRoute.get();
             route.setPicture(picture);
             return routeRepository.save(route);
-        }else{
-            throw new RecordNotFoundException("Mountainbike or picture not found.");
+        } else {
+            throw new RecordNotFoundException("Route or picture not found.");
         }
     }
 }
