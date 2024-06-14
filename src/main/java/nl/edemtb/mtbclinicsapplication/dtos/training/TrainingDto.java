@@ -18,7 +18,6 @@ public class TrainingDto {
     private Double price;
     private LocalTime startTime;
     private LocalTime endTime;
-    private List<LocalDate> dateList;
     private Boolean trainingInGroup;
     private Picture picture;
 
@@ -92,14 +91,6 @@ public class TrainingDto {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
-    }
-
-    public List<LocalDate> getDateList() {
-        return dateList;
-    }
-
-    public void setDateList(List<LocalDate> dateList) {
-        this.dateList = dateList;
     }
 
     public Boolean getTrainingInGroup() {

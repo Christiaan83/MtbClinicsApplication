@@ -35,10 +35,6 @@ public class Training {
     private Double price;
     private LocalTime startTime;
     private LocalTime endTime;
-    @ElementCollection
-    @CollectionTable(name = "entity_dates", joinColumns = @JoinColumn(name = "entity_id"))
-    @Column(name = "date")
-    private List<LocalDate> dateList;
     private Boolean trainingInGroup;
     @OneToOne
     Picture picture;
@@ -60,14 +56,6 @@ public class Training {
 
     public void setPicture(Picture picture) {
         this.picture = picture;
-    }
-
-    public List<LocalDate> getDateList() {
-        return dateList;
-    }
-
-    public void setDateList(List<LocalDate> dateList) {
-        this.dateList = dateList;
     }
 
     public LocalTime getEndTime() {
