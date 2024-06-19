@@ -31,12 +31,12 @@ Deze full-stack applicatie is ontworpen om het beheer van mountainbike clinics e
 + Pas de databasegegevens aan in application.properties.
 + Bouw en run het project.
 
-### 3. Frontend:
+### 3. Front-end:
 
-+ Clone de front-end git repository naar je front end IDE
-+ Volge instructies van de front end readme
-+ Link naar de front end repository: https://github.com/Christiaan83/frontend-mtb-clinics-ede
++ Clone de front-end git repository naar je front-end IDE
++ Volge instructies van de front-end readme
++ Link naar de front-end repository: https://github.com/Christiaan83/frontend-mtb-clinics-ede
   
 
 ## API Endpoints
-Zie documentatie in Endpionts.pdf voor een volledige lijst van alle beschikbare endpoints.
+Zie documentatie in 'Endpoints MTB Clinics.pdf' voor een volledige lijst van alle beschikbare endpoints.
