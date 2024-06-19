@@ -38,7 +38,7 @@ public class MountainbikeService {
 
     public List<MountainbikeDto> getAllMountainbikes() {
         List<Mountainbike> mtbList = mountainbikeRepository.findAll();
-        return transferMtbListToDtoList(mtbList);
+        return mountainbikeMapper.transferMtbListToDtoList(mtbList);
     }
 
 
@@ -52,15 +52,11 @@ public class MountainbikeService {
         }
     }
 
-    public List<MountainbikeDto> searchBySize(String size) {
-        List<Mountainbike> mtbList = mountainbikeRepository.findAllMountainbikesByFrameSizeEqualsIgnoreCase(size);
-        return transferMtbListToDtoList(mtbList);
-    }
 
     public List<MountainbikeDto> searchBySizeAndForAdult(String size, Boolean forAdult, Boolean fullSuspension) {
        List<Mountainbike> mtblist = mountainbikeRepository.searchBySizeAndForAdult(size, forAdult, fullSuspension);
 
-            return transferMtbListToDtoList(mtblist);
+            return mountainbikeMapper.transferMtbListToDtoList(mtblist);
         }
 
     public MountainbikeDto addMountainbike(MountainbikeInputDto dto) {
@@ -102,16 +98,6 @@ public class MountainbikeService {
         } else {
             throw new RecordNotFoundException(" No mountainbike found with id " + id);
         }
-    }
-
-    public List<MountainbikeDto> transferMtbListToDtoList(List<Mountainbike> mountainbikes) {
-        List<MountainbikeDto> mtbDtoList = new ArrayList<>();
-
-        for (Mountainbike mtb : mountainbikes) {
-            MountainbikeDto dto = mountainbikeMapper.transferToDto(mtb);
-            mtbDtoList.add(dto);
-        }
-        return mtbDtoList;
     }
 
     @Transactional
