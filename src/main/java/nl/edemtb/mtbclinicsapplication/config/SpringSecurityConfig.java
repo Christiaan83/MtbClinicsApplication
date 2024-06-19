@@ -48,11 +48,11 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers(HttpMethod.GET, "/users/**","/bookings","bookings/{id}","bookings/user/{username}").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/users/**","bookings/{id}","/users/{username}/authorities","bookings/user/{username}").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/users/{username}", "/bookings", "/bookings/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(HttpMethod.POST,"/bookings", "/bookings/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers(HttpMethod.GET,
-                                        "/contact-form/{id}","/mountainbikes","/mountainbikes/**", "/rentals/{id}", "/routes", "/routes/**",
+                                        "/mountainbikes","/mountainbikes/**", "/rentals/{id}", "/routes", "/routes/**",
                                         "/trainings","/trainings/**", "/unregistered-users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/contact-form", "/unregistered-users", "/users", "/rentals").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/rentals/{id}/mountainbike/{mtbId}/user/{userId}").permitAll()
