@@ -50,14 +50,6 @@ public class RoutesService {
         }
     }
 
-    public List<RouteDto> searchByPlace(String place) {
-        var routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
-        if (routeList.isEmpty()) {
-            throw new RecordNotFoundException("No route found in " + place + ".");
-        } else {
-            return routeMapper.transferRouteListToDtoList(routeList);
-        }
-    }
 
     public List<RouteDto> search(String place, RouteType routeType, Difficulty difficulty, String province) {
         var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty, province);

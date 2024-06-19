@@ -32,8 +32,7 @@ public class RouteController {
     private final PictureService pictureService;
 
 
-
-    public RouteController(RoutesService routesService, PictureService pictureService){
+    public RouteController(RoutesService routesService, PictureService pictureService) {
         this.routesService = routesService;
         this.pictureService = pictureService;
 
@@ -41,23 +40,17 @@ public class RouteController {
 
     @GetMapping()
 
-    public ResponseEntity<List<RouteDto>> getAllRoutes(){
+    public ResponseEntity<List<RouteDto>> getAllRoutes() {
         var routes = routesService.getAllRoutes();
         return ResponseEntity.ok(routes);
     }
 
     @GetMapping("/{id}")
 
-    public ResponseEntity<RouteDto> getRouteById(@PathVariable("id") Long id){
+    public ResponseEntity<RouteDto> getRouteById(@PathVariable("id") Long id) {
 
         RouteDto route = routesService.getRouteById(id);
         return ResponseEntity.ok().body(route);
-    }
-
-    @GetMapping("/search/{place}")
-    public ResponseEntity<List<RouteDto>> findRouteByPlace(@PathVariable("place") String place) {
-        var routes = routesService.searchByPlace(place);
-        return ResponseEntity.ok().body(routes);
     }
 
     @GetMapping("/search")
@@ -70,16 +63,17 @@ public class RouteController {
         var routes = routesService.search(place, routeType, difficulty, province);
         return ResponseEntity.ok(routes);
     }
+
     @PostMapping()
-    public ResponseEntity<Object> addRoute(@Valid @RequestBody RouteInputDto inputDto){
+    public ResponseEntity<Object> addRoute(@Valid @RequestBody RouteInputDto inputDto) {
         var dto = routesService.addRoute(inputDto);
         return ResponseEntity.created(null).body(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteRoute(@PathVariable Long id){
-         routesService.deleteRoute(id);
-         return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteRoute(@PathVariable Long id) {
+        routesService.deleteRoute(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
@@ -91,7 +85,7 @@ public class RouteController {
 
     @PostMapping("/{id}/picture")
     public ResponseEntity<Route> addPhotoToRoute(@PathVariable("id") Long id,
-                                               @RequestBody MultipartFile file)
+                                                 @RequestBody MultipartFile file)
             throws IOException {
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/routes/")
@@ -104,13 +98,14 @@ public class RouteController {
         return ResponseEntity.created(URI.create(url)).body(route);
 
     }
+
     @GetMapping("/{id}/picture")
     public ResponseEntity<Resource> getStudentPhoto(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
         Resource resource = routesService.getPictureFromRoute(id);
 
         String image;
 
-        try{
+        try {
             image = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
 
