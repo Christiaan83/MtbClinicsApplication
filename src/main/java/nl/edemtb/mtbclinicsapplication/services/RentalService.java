@@ -72,7 +72,7 @@ public class RentalService {
         }
     }
 
-    public void assignMtbAndUnregisteredUserToRental(Long id, Long mountainbikeId, Long unregisteredUserId) {
+    public Rental assignMtbAndUnregisteredUserToRental(Long id, Long mountainbikeId, Long unregisteredUserId) {
 
         var optionalRental = rentalRepository.findById(id);
         var optionalMountainbike = mountainbikeRepository.findById(mountainbikeId);
@@ -89,10 +89,11 @@ public class RentalService {
             int currentAmount = mountainbike.getAmount();
             mountainbike.setAmount(currentAmount - 1);
 
-            rentalRepository.save(rental);
+            return rentalRepository.save(rental);
         } else {
             throw new RecordNotFoundException();
         }
+
     }
 
 }

@@ -57,8 +57,13 @@ public class RentalController {
     }
 
     @PutMapping("/{id}/mountainbike/{mtbId}/user/{userId}")
-    public void assignMountainBikeAndUnregisteredUserToRental(@PathVariable("id") Long id, @PathVariable("mtbId") Long mtbId, @PathVariable("userId") Long userId) {
-        rentalService.assignMtbAndUnregisteredUserToRental(id, mtbId, userId);
+    public ResponseEntity<Rental> assignMountainBikeAndUnregisteredUserToRental(
+            @PathVariable("id") Long id,
+            @PathVariable("mtbId") Long mtbId,
+            @PathVariable("userId") Long userId) {
+
+        Rental updateRental = rentalService.assignMtbAndUnregisteredUserToRental(id, mtbId, userId);
+        return ResponseEntity.ok().body(updateRental);
     }
 
   }

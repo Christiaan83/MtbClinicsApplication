@@ -67,21 +67,21 @@ public class BookingService {
         }
     }
 
-    public void assignTrainingAndUserToBooking(Long id, Long trainingId, String username) {
+    public Booking assignTrainingAndUserToBooking(Long id, Long trainingId, String username) {
 
         var optionalBooking = bookingRepository.findById(id);
         var optionalTraining = trainingRepository.findById(trainingId);
         var optionalUser = registeredUserRepository.findById(username);
 
-        if(optionalBooking.isPresent() && optionalTraining.isPresent() && optionalUser.isPresent() ){
+        if (optionalBooking.isPresent() && optionalTraining.isPresent() && optionalUser.isPresent()) {
             var booking = optionalBooking.get();
             var training = optionalTraining.get();
             var user = optionalUser.get();
 
             booking.setTraining(training);
             booking.setUser(user);
-            bookingRepository.save(booking);
-        }else {
+            return bookingRepository.save(booking);
+        } else {
             throw new RecordNotFoundException();
         }
     }
