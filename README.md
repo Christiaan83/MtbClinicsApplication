@@ -22,12 +22,12 @@ Deze full-stack applicatie is ontworpen om het beheer van mountainbike clinics e
 ### 1. Database Setup:
 
 + Installeer en open PgAdmin 4.
-+ Maak een nieuwe database aan (bijv. mtb_clinic_db).
++ Maak een nieuwe database aan (bv. mtb_clinic_db).
 + Noteer de databasegegevens (naam, gebruikersnaam, wachtwoord).
 
 ### 2. Backend Setup:
 
-+ Open het project in IntelliJ IDEA.
++ Clone het project naar je backend IDE (bv. IntelliJ IDEA)
 + Pas de databasegegevens aan in application.properties.
 + Bouw en run het project.
 
