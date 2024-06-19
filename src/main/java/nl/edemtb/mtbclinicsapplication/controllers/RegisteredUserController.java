@@ -57,7 +57,7 @@ public class RegisteredUserController {
 
         registeredUserService.updateUser(username, dto);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{username}")
@@ -76,7 +76,7 @@ public class RegisteredUserController {
         try {
             String authorityName = (String) fields.get("authority");
             registeredUserService.addAuthority(username, authorityName);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
         catch (Exception ex) {
             throw new BadRequestException();
