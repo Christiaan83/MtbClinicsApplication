@@ -58,9 +58,7 @@ public RegisteredUser toRegisteredUser(RegisteredUserDto userDto) {
 public void userInputMapper(String username, RegisteredUserDto newUser) {
 
     RegisteredUser user = registeredUserRepository.findById(username).get();
-    if (newUser.getPassword() != null) {
-        user.setPassword(passwordConfiguration.passwordEncoder().encode(newUser.getPassword()));
-    }
+
     if (newUser.getFirstName() != null) {
         user.setFirstName(newUser.getFirstName());
     }
