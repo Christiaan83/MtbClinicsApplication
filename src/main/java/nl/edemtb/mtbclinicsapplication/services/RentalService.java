@@ -2,6 +2,7 @@ package nl.edemtb.mtbclinicsapplication.services;
 
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
 import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
+import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
@@ -40,11 +41,11 @@ public class RentalService {
     public RentalDto getRentalById(Long id) {
         Optional<Rental> rentalOptional = rentalRepository.findById(id);
 
-        if(rentalOptional.isPresent()) {
+        if (rentalOptional.isPresent()) {
             Rental rental = rentalOptional.get();
             return rentalMapper.transferToRentalDto(rental);
-        }else {
-            throw new RecordNotFoundException("Rental niet gevonden");
+        } else {
+            throw new RecordNotFoundException("Rental not found");
         }
     }
 
@@ -58,34 +59,39 @@ public class RentalService {
 
     public RentalDto updateRental(Long id, RentalInputDto dto) {
 
-        if(!rentalRepository.existsById(id)) {
-            throw new RecordNotFoundException("Rental niet gevonden");
-        }else {
+        if (!rentalRepository.existsById(id)) {
+            throw new RecordNotFoundException("Rental not found");
+        } else {
             return rentalMapper.rentalInputMapper(id, dto);
         }
     }
+
     public void deleteRental(Long id) {
-        if(rentalRepository.findById(id).isPresent()) {
+        if (rentalRepository.findById(id).isPresent()) {
             rentalRepository.deleteById(id);
         }
     }
 
-    public void assignMtbAndUnregisteredUserToRental(Long id ,Long mountainbikeId, Long unregisteredUserId) {
+    public void assignMtbAndUnregisteredUserToRental(Long id, Long mountainbikeId, Long unregisteredUserId) {
 
         var optionalRental = rentalRepository.findById(id);
         var optionalMountainbike = mountainbikeRepository.findById(mountainbikeId);
         var optionalUnregisteredUser = unregisteredUserRepository.findById(unregisteredUserId);
 
-        if(optionalRental.isPresent() && optionalMountainbike.isPresent() && optionalUnregisteredUser.isPresent() ) {
+        if (optionalRental.isPresent() && optionalMountainbike.isPresent() && optionalUnregisteredUser.isPresent()) {
             var rental = optionalRental.get();
             var mountainbike = optionalMountainbike.get();
             var unregisteredUser = optionalUnregisteredUser.get();
 
             rental.setMountainbike(mountainbike);
             rental.setUnregisteredUser(unregisteredUser);
+
+            int currentAmount = mountainbike.getAmount();
+            mountainbike.setAmount(currentAmount - 1);
+
             rentalRepository.save(rental);
         } else {
-           throw new RecordNotFoundException();
+            throw new RecordNotFoundException();
         }
     }
 
