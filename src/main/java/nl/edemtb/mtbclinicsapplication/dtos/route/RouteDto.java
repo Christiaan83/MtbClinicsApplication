@@ -18,6 +18,23 @@ public class RouteDto {
     private Boolean available;
     private Picture picture;
 
+    public RouteDto() {
+    }
+
+    public RouteDto(Long id, String name, RouteType routeType, Difficulty difficulty, String startingPoint, String place, String province, String routeInformation, Double distance, Boolean available, Picture picture) {
+        this.id = id;
+        this.name = name;
+        this.routeType = routeType;
+        this.difficulty = difficulty;
+        this.startingPoint = startingPoint;
+        this.place = place;
+        this.province = province;
+        this.routeInformation = routeInformation;
+        this.distance = distance;
+        this.available = available;
+        this.picture = picture;
+    }
+
     public Picture getPicture() {
         return picture;
     }
