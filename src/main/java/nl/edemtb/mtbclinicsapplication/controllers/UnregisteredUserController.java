@@ -1,7 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.services.UnregisteredUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

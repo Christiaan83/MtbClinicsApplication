@@ -12,7 +12,7 @@ import java.util.List;
 public class MountainbikeMapper {
 
 
-    public Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
+    public static Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
         if (dto == null) {
             return null;
         }

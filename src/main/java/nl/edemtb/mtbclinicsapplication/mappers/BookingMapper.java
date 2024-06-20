@@ -1,8 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;

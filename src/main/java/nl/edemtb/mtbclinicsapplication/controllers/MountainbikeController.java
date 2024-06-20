@@ -103,7 +103,7 @@ public class MountainbikeController {
     }
 
     @GetMapping("/{id}/picture")
-    public ResponseEntity<Resource> getMtbPicture(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
+    public ResponseEntity<Resource> getMtbPicture(@PathVariable("id") Long id, HttpServletRequest request) {
 
         Resource resource = mountainbikeService.getPictureFromMountainbike(id);
 

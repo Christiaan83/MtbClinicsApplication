@@ -4,12 +4,10 @@ import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.services.RentalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RequestMapping("/rentals")

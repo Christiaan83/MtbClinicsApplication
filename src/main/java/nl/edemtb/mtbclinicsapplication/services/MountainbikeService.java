@@ -9,13 +9,10 @@ import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
-import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

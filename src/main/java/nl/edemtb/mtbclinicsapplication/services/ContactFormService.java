@@ -47,12 +47,10 @@ public class ContactFormService {
         return contactFormMapper.transferToDto(cf);
     }
 
-    public Boolean deleteContactFormById(Long id) {
+    public void deleteContactFormById(Long id) {
 
         if(contactFormRepository.existsById(id)) {
             contactFormRepository.deleteById(id);
-            return true;
         }
-        return false;
     }
 }

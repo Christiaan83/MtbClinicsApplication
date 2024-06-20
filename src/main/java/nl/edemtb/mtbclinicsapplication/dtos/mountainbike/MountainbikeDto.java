@@ -2,10 +2,8 @@ package nl.edemtb.mtbclinicsapplication.dtos.mountainbike;
 
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 
-
 public class MountainbikeDto {
     private Long id;
-
     private String name;
     private String wheelSize;
     private String frameSize;

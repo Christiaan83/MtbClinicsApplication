@@ -7,7 +7,6 @@ import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.TrainingMapper;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
-import nl.edemtb.mtbclinicsapplication.models.Route;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;

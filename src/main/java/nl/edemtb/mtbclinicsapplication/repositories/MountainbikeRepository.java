@@ -1,8 +1,5 @@
 package nl.edemtb.mtbclinicsapplication.repositories;
 
-import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
-import nl.edemtb.mtbclinicsapplication.enums.RouteType;
-import nl.edemtb.mtbclinicsapplication.models.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import org.springframework.data.jpa.repository.Query;

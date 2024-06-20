@@ -1,15 +1,10 @@
 package nl.edemtb.mtbclinicsapplication.services;
 
-import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeDto;
-import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RentalMapper;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.MountainbikeRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.RentalRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.UnregisteredUserRepository;
