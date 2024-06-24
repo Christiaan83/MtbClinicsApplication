@@ -3,26 +3,23 @@ package nl.edemtb.mtbclinicsapplication.services;
 import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingInputDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
+import nl.edemtb.mtbclinicsapplication.mappers.TrainingMapper;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.models.Training;
 import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
-import nl.edemtb.mtbclinicsapplication.services.PictureService;
-import nl.edemtb.mtbclinicsapplication.services.TrainingService;
-import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,19 +29,23 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class TrainingServiceUnitTest {
 
-    @Mock
+    @MockBean
     private TrainingRepository trainingRepository;
 
-    @Mock
+    @MockBean
+    private TrainingMapper trainingMapper;
+
+    @MockBean
     private PictureService pictureService;
 
-    @Mock
+    @MockBean
     private PictureUploadRepository uploadRepository;
 
-    @InjectMocks
+    @Autowired
     private TrainingService trainingService;
 
     private Training training1;
@@ -53,6 +54,8 @@ public class TrainingServiceUnitTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
+
         training1 = new Training();
         training1.setId(1L);
         training1.setName("Training1");
@@ -81,6 +84,7 @@ public class TrainingServiceUnitTest {
         // Arrange
         List<Training> trainings = Arrays.asList(training1, training2);
         when(trainingRepository.findAll()).thenReturn(trainings);
+        when(trainingMapper.transferTrainingListToDto(trainings)).thenReturn(Arrays.asList(new TrainingDto(), new TrainingDto()));
 
         // Act
         List<TrainingDto> result = trainingService.getAllTrainings();
@@ -88,20 +92,14 @@ public class TrainingServiceUnitTest {
         // Assert
         assertThat(result).isNotNull();
         assertThat(result).hasSize(2);
-        // Additional asserts to verify the conversion logic
-        assertThat(result.get(0).getId()).isEqualTo(1L);
-        assertThat(result.get(1).getId()).isEqualTo(2L);
     }
 
     @Test
     public void testGetTrainingById() {
         // Arrange
-        TrainingDto expectedDto = new TrainingDto();
-        expectedDto.setId(1L);
-        expectedDto.setName("Training1");
-        expectedDto.setLocation("Location1");
-        expectedDto.setPrice(100.0);
-        expectedDto.setTrainingInGroup(true);
+        TrainingDto dto = new TrainingDto();
+        dto.setId(1L);
+        when(trainingMapper.transferToDto(training1)).thenReturn(dto);
 
         // Act
         TrainingDto result = trainingService.getTrainingById(1L);
@@ -109,10 +107,6 @@ public class TrainingServiceUnitTest {
         // Assert
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getName()).isEqualTo("Training1");
-        assertThat(result.getLocation()).isEqualTo("Location1");
-        assertThat(result.getPrice()).isEqualTo(100.0);
-        assertThat(result.getTrainingInGroup()).isTrue();
     }
 
     @Test
@@ -123,7 +117,7 @@ public class TrainingServiceUnitTest {
         // Act & Assert
         assertThatThrownBy(() -> trainingService.getTrainingById(3L))
                 .isInstanceOf(RecordNotFoundException.class)
-                .hasMessageContaining("Training met id: 3 niet gevonden!");
+                .hasMessageContaining("Training with id: 3 not found.");
     }
 
     @Test
@@ -138,11 +132,10 @@ public class TrainingServiceUnitTest {
         Training training3 = new Training();
         training3.setId(3L);
         training3.setName("Training3");
-        training3.setLocation("Location3");
-        training3.setPrice(150.0);
-        training3.setTrainingInGroup(true);
 
+        when(trainingMapper.transferToTraining(inputDto)).thenReturn(training3);
         when(trainingRepository.save(any(Training.class))).thenReturn(training3);
+        when(trainingMapper.transferToDto(training3)).thenReturn(new TrainingDto());
 
         // Act
         TrainingDto result = trainingService.addTraining(inputDto);
@@ -150,10 +143,6 @@ public class TrainingServiceUnitTest {
         // Assert
         assertThat(result).isNotNull();
         verify(trainingRepository, times(1)).save(any(Training.class));
-        assertThat(result.getName()).isEqualTo("Training3");
-        assertThat(result.getLocation()).isEqualTo("Location3");
-        assertThat(result.getPrice()).isEqualTo(150.0);
-        assertThat(result.getTrainingInGroup()).isTrue();
     }
 
     @Test
@@ -173,14 +162,12 @@ public class TrainingServiceUnitTest {
         inputDto.setPrice(300.0);
         inputDto.setTrainingInGroup(true);
 
-        Training updatedTraining = new Training();
-        updatedTraining.setId(1L);
-        updatedTraining.setLocation("New Location");
-        updatedTraining.setPrice(300.0);
-        updatedTraining.setTrainingInGroup(true);
+        TrainingDto dto = new TrainingDto();
+        dto.setId(1L);
+        dto.setLocation("New Location");
+        dto.setPrice(300.0);
 
-        when(trainingRepository.findById(1L)).thenReturn(Optional.of(training1));
-        when(trainingRepository.save(any(Training.class))).thenReturn(updatedTraining);
+        when(trainingMapper.trainingInputMapper(1L, inputDto)).thenReturn(dto);
 
         // Act
         TrainingDto result = trainingService.updateTraining(1L, inputDto);
@@ -189,7 +176,6 @@ public class TrainingServiceUnitTest {
         assertThat(result).isNotNull();
         assertThat(result.getLocation()).isEqualTo("New Location");
         assertThat(result.getPrice()).isEqualTo(300.0);
-        assertThat(result.getTrainingInGroup()).isTrue();
     }
 
     @Test
@@ -205,7 +191,7 @@ public class TrainingServiceUnitTest {
         // Act & Assert
         assertThatThrownBy(() -> trainingService.updateTraining(3L, inputDto))
                 .isInstanceOf(RecordNotFoundException.class)
-                .hasMessageContaining("Training met id:3 niet gevonden");
+                .hasMessageContaining("Training with id:3 not found.");
     }
 
     @Test
