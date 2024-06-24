@@ -1,19 +1,11 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NegativeOrZero;
-import jakarta.validation.constraints.Size;
-
 public class ContactFormDto {
 
     private Long id;
-    @Size(min = 2, max = 50)
     private String firstName;
-    @Size(min = 2, max = 50)
     private String lastName;
-    @Email(message = "You must enter a valid email address")
     private String email;
-    @NegativeOrZero(message = "Number must be positive")
     private Integer mobileNumber;
     private String message;
 

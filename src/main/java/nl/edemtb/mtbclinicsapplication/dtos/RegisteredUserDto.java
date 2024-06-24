@@ -1,10 +1,7 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.Size;
 import nl.edemtb.mtbclinicsapplication.models.Authority;
-
 import java.util.Set;
 
 public class RegisteredUserDto {
@@ -12,13 +9,9 @@ public class RegisteredUserDto {
     private String username;
     @Size(min = 8, max = 20, message = "password must be must be between 8-20 characters")
     private String password;
-    @Size(max = 20, message = "Name must be between 0-20 characters")
     private String firstName;
-    @Size(max = 20, message = "last name must be between 0-20 characters")
     private String lastName;
-    @Email(message = "You must enter a valid email address")
     private String email;
-    @NegativeOrZero(message = "Number must be positive")
     private Integer mobileNumber;
     private Boolean isActive;
     private String apikey;
@@ -28,9 +21,7 @@ public class RegisteredUserDto {
         return apikey;
     }
 
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
+    public void setApikey(String apikey) {this.apikey = apikey;}
 
     public Set<Authority> getAuthorities() {
         return authorities;
