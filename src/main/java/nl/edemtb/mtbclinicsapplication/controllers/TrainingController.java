@@ -25,7 +25,7 @@ import java.util.Objects;
 @RestController
 public class TrainingController {
 
-        private final TrainingService trainingService;
+    private final TrainingService trainingService;
     private final PictureService pictureService;
 
     public TrainingController(TrainingService trainingService, PictureService pictureService) {
@@ -39,6 +39,7 @@ public class TrainingController {
         List<TrainingDto> trainings = trainingService.getAllTrainings();
         return ResponseEntity.ok(trainings);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<TrainingDto> getTrainingById(@PathVariable Long id) {
 
@@ -52,6 +53,7 @@ public class TrainingController {
         TrainingDto dto = trainingService.addTraining(inputDto);
         return ResponseEntity.created(null).body(dto);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTraining(@PathVariable Long id) {
         trainingService.deleteTraining(id);
@@ -63,6 +65,7 @@ public class TrainingController {
         TrainingDto dto = trainingService.updateTraining(id, updateTraining);
         return ResponseEntity.ok().body(dto);
     }
+
     @PostMapping("/{id}/picture")
     public ResponseEntity<Training> addPictureToTraining(@PathVariable("id") Long id,
                                                          @RequestBody MultipartFile file)
@@ -78,13 +81,14 @@ public class TrainingController {
         return ResponseEntity.created(URI.create(url)).body(training);
 
     }
+
     @GetMapping("/{id}/picture")
     public ResponseEntity<Resource> getTrainingPicture(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
         Resource resource = trainingService.getPictureFromTraining(id);
 
         String image;
 
-        try{
+        try {
             image = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
 

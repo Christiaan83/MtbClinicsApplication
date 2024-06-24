@@ -31,15 +31,17 @@ public class ContactFormService {
         }
         return dtos;
     }
+
     public ContactFormDto getContactFormById(Long id) {
         Optional<ContactForm> contactForm = contactFormRepository.findById(id);
 
-        if(contactForm.isPresent()) {
+        if (contactForm.isPresent()) {
             return contactFormMapper.transferToDto(contactForm.get());
-        }else{
-            throw new RecordNotFoundException("Geen contact formulier gevonden");
+        } else {
+            throw new RecordNotFoundException("No contact form found");
         }
     }
+
     public ContactFormDto saveContactForm(ContactFormDto contactFormDto) {
 
         ContactForm cf = contactFormMapper.transferToContactForm(contactFormDto);
@@ -47,12 +49,10 @@ public class ContactFormService {
         return contactFormMapper.transferToDto(cf);
     }
 
-    public Boolean deleteContactFormById(Long id) {
+    public void deleteContactFormById(Long id) {
 
-        if(contactFormRepository.existsById(id)) {
+        if (contactFormRepository.existsById(id)) {
             contactFormRepository.deleteById(id);
-            return true;
         }
-        return false;
     }
 }

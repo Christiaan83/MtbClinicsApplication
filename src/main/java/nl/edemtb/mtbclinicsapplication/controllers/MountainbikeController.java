@@ -31,7 +31,6 @@ public class MountainbikeController {
     private final PictureService pictureService;
 
 
-
     public MountainbikeController(MountainbikeService mountainbikeService, PictureService pictureService) {
         this.mountainbikeService = mountainbikeService;
         this.pictureService = pictureService;
@@ -54,13 +53,6 @@ public class MountainbikeController {
         return ResponseEntity.ok().body(mtb);
     }
 
-    @GetMapping("/search/size/{size}")
-
-    public ResponseEntity<List<MountainbikeDto>> searchBySize(@PathVariable("size") String size) {
-
-       var mtbs = mountainbikeService.searchBySize(size);
-        return ResponseEntity.ok().body(mtbs);
-    }
 
     @GetMapping("/search")
     public ResponseEntity<List<MountainbikeDto>> searchBySizeAndForAdult(
@@ -111,13 +103,13 @@ public class MountainbikeController {
     }
 
     @GetMapping("/{id}/picture")
-    public ResponseEntity<Resource> getMtbPicture(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
+    public ResponseEntity<Resource> getMtbPicture(@PathVariable("id") Long id, HttpServletRequest request) {
 
         Resource resource = mountainbikeService.getPictureFromMountainbike(id);
 
         String image;
 
-        try{
+        try {
             image = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
 

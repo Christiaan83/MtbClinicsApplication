@@ -8,11 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContactFormMapper {
 
-    private final ContactFormRepository contactFormRepository;
-
-    public ContactFormMapper(ContactFormRepository contactFormRepository) {
-        this.contactFormRepository = contactFormRepository;
-    }
 
     public ContactFormDto transferToDto(ContactForm contactForm) {
         var dto = new ContactFormDto();

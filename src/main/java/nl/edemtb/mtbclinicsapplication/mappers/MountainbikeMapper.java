@@ -5,13 +5,14 @@ import nl.edemtb.mtbclinicsapplication.dtos.mountainbike.MountainbikeInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class MountainbikeMapper {
 
 
-    public Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
+    public static Mountainbike transferToMountainbike(MountainbikeInputDto dto) {
         if (dto == null) {
             return null;
         }
@@ -48,4 +49,15 @@ public class MountainbikeMapper {
 
         return dto;
     }
+
+    public List<MountainbikeDto> transferMtbListToDtoList(List<Mountainbike> mountainbikes) {
+        List<MountainbikeDto> mtbDtoList = new ArrayList<>();
+
+        for (Mountainbike mtb : mountainbikes) {
+            MountainbikeDto dto = transferToDto(mtb);
+            mtbDtoList.add(dto);
+        }
+        return mtbDtoList;
+    }
 }
+

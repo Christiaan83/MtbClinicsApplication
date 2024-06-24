@@ -58,13 +58,13 @@ public class RouteMapper {
         List<RouteDto> routeDtoList = new ArrayList<>();
 
         for (Route route : routes) {
-           RouteDto dto = transferToDto(route);
-           routeDtoList.add(dto);
+            RouteDto dto = transferToDto(route);
+            routeDtoList.add(dto);
         }
         return routeDtoList;
     }
 
-    public RouteDto routeInputMapper(Long id, RouteInputDto inputDto){
+    public RouteDto routeInputMapper(Long id, RouteInputDto inputDto) {
 
         Route route = routeRepository.findById(id).get();
         if (inputDto.getName() != null) {

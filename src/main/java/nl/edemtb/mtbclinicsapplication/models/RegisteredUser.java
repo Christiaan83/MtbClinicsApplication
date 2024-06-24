@@ -1,8 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 
 import java.util.HashSet;
 import java.util.List;

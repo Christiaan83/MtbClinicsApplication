@@ -2,6 +2,7 @@ package nl.edemtb.mtbclinicsapplication.controllers;
 
 import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
+import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.services.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class BookingController {
         BookingDto booking = bookingService.getBookingById(id);
         return ResponseEntity.ok(booking);
     }
+
     @GetMapping("/user/{username}")
     public ResponseEntity<Collection<BookingDto>> getBookingsByUsername(@PathVariable("username") String username) {
         Collection<BookingDto> bookings = bookingService.getBookingsByUsername(username);
@@ -60,7 +62,12 @@ public class BookingController {
 
     @PutMapping("/{id}/training/{trainingId}/user/{username}")
 
-    public void assignTrainingAndUserToBooking(@PathVariable("id") Long id, @PathVariable("trainingId") Long trainingId, @PathVariable("username") String username) {
-        bookingService.assignTrainingAndUserToBooking(id, trainingId, username);
+    public ResponseEntity<Booking> assignTrainingAndUserToBooking(
+            @PathVariable("id") Long id,
+            @PathVariable("trainingId") Long trainingId,
+            @PathVariable("username") String username) {
+
+        Booking updatedBooking = bookingService.assignTrainingAndUserToBooking(id, trainingId, username);
+        return ResponseEntity.ok().body(updatedBooking);
     }
 }

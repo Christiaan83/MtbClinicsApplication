@@ -1,8 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.mappers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.models.Booking;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;
@@ -49,22 +47,22 @@ public class BookingMapper {
         if (booking.getTraining() != null) {
             dto.setTrainingDto(trainingMapper.transferToDto(booking.getTraining()));
         }
-        if (booking.getUser() != null){
+        if (booking.getUser() != null) {
             dto.setUserDto(registeredUserMapper.fromRegisteredUser(booking.getUser()));
         }
 
         return dto;
     }
 
-  public List<BookingDto> transferToBookingDtoList(List<Booking> bookings) {
+    public List<BookingDto> transferToBookingDtoList(List<Booking> bookings) {
         if (bookings == null) return null;
         List<BookingDto> dtos = new ArrayList<>();
 
         for (Booking booking : bookings) {
             dtos.add(transferToBookingDto(booking));
         }
-      return dtos;
-  }
+        return dtos;
+    }
 
     public BookingDto bookingInputMapper(Long id, BookingDto bookingDto) {
 
@@ -72,9 +70,13 @@ public class BookingMapper {
 
         if (optionalBooking.isPresent()) {
             Booking booking = optionalBooking.get();
-            booking.setBookingDate(bookingDto.getBookingDate());
-            booking.setMessage(bookingDto.getMessage());
 
+            if (bookingDto.getBookingDate() != null) {
+                booking.setBookingDate(bookingDto.getBookingDate());
+            }
+            if (bookingDto.getMessage() != null) {
+                booking.setMessage(bookingDto.getMessage());
+            }
             Booking savedBooking = bookingRepository.save(booking);
             return transferToBookingDto(savedBooking);
         } else {

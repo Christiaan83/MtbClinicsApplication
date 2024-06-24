@@ -1,11 +1,13 @@
 package nl.edemtb.mtbclinicsapplication.dtos;
 
+import jakarta.validation.constraints.Size;
 import nl.edemtb.mtbclinicsapplication.models.Authority;
 import java.util.Set;
 
 public class RegisteredUserDto {
-
+    @Size(max = 20, message = "Username must be between 0-20 characters")
     private String username;
+    @Size(min = 8, max = 20, message = "password must be must be between 8-20 characters")
     private String password;
     private String firstName;
     private String lastName;

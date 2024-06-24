@@ -4,12 +4,10 @@ import jakarta.validation.Valid;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalDto;
 import nl.edemtb.mtbclinicsapplication.dtos.rental.RentalInputDto;
 import nl.edemtb.mtbclinicsapplication.models.Rental;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.services.RentalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RequestMapping("/rentals")
@@ -57,8 +55,13 @@ public class RentalController {
     }
 
     @PutMapping("/{id}/mountainbike/{mtbId}/user/{userId}")
-    public void assignMountainBikeAndUnregisteredUserToRental(@PathVariable("id") Long id, @PathVariable("mtbId") Long mtbId, @PathVariable("userId") Long userId) {
-        rentalService.assignMtbAndUnregisteredUserToRental(id, mtbId, userId);
+    public ResponseEntity<Rental> assignMountainBikeAndUnregisteredUserToRental(
+            @PathVariable("id") Long id,
+            @PathVariable("mtbId") Long mtbId,
+            @PathVariable("userId") Long userId) {
+
+        Rental updateRental = rentalService.assignMtbAndUnregisteredUserToRental(id, mtbId, userId);
+        return ResponseEntity.ok().body(updateRental);
     }
 
-  }
+}

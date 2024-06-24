@@ -4,9 +4,7 @@ package nl.edemtb.mtbclinicsapplication.dtos.training;
 import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 public class TrainingDto {
 

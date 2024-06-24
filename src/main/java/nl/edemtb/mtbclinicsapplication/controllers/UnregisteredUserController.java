@@ -1,7 +1,6 @@
 package nl.edemtb.mtbclinicsapplication.controllers;
 
 import nl.edemtb.mtbclinicsapplication.dtos.UnregisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.models.UnregisteredUser;
 import nl.edemtb.mtbclinicsapplication.services.UnregisteredUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,8 @@ public class UnregisteredUserController {
 
     private final UnregisteredUserService unregisteredUserService;
 
-    public UnregisteredUserController(UnregisteredUserService unregisteredUserService, UnregisteredUserService unregisteredUserService1) {
-        this.unregisteredUserService = unregisteredUserService1;
+    public UnregisteredUserController(UnregisteredUserService unregisteredUserService) {
+        this.unregisteredUserService = unregisteredUserService;
     }
 
     @GetMapping()

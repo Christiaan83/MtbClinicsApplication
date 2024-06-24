@@ -49,12 +49,10 @@ public class UnregisteredUserService {
         return unregisteredUserMapper.transferToDto(unregisteredUser);
     }
 
-    public Boolean deleteUnregisteredUser(Long id) {
+    public void deleteUnregisteredUser(Long id) {
         if (unregisteredUserRepository.existsById(id)) {
             unregisteredUserRepository.deleteById(id);
-            return true;
         }
-        return false;
     }
 
     public UnregisteredUserDto updateUnregisteredUser(Long id, UnregisteredUserDto dto) {

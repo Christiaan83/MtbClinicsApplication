@@ -7,7 +7,6 @@ import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 

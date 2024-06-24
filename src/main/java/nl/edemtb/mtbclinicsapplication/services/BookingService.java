@@ -2,13 +2,9 @@ package nl.edemtb.mtbclinicsapplication.services;
 
 import jakarta.transaction.Transactional;
 import nl.edemtb.mtbclinicsapplication.dtos.BookingDto;
-import nl.edemtb.mtbclinicsapplication.dtos.RegisteredUserDto;
-import nl.edemtb.mtbclinicsapplication.dtos.training.TrainingDto;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
-import nl.edemtb.mtbclinicsapplication.exceptions.UsernameNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.BookingMapper;
 import nl.edemtb.mtbclinicsapplication.models.Booking;
-import nl.edemtb.mtbclinicsapplication.models.RegisteredUser;
 import nl.edemtb.mtbclinicsapplication.repositories.BookingRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.RegisteredUserRepository;
 import nl.edemtb.mtbclinicsapplication.repositories.TrainingRepository;
@@ -39,13 +35,14 @@ public class BookingService {
     public BookingDto getBookingById(Long id) {
         Optional<Booking> bookingOptional = bookingRepository.findById(id);
 
-        if(bookingOptional.isPresent()) {
+        if (bookingOptional.isPresent()) {
             Booking booking = bookingOptional.get();
             return bookingMapper.transferToBookingDto(booking);
-        }else {
-            throw new RecordNotFoundException("Booking niet gevonden");
+        } else {
+            throw new RecordNotFoundException("Booking not found");
         }
     }
+
     public BookingDto createBooking(BookingDto bookingDto) {
 
         Booking booking = bookingMapper.transferToBooking(bookingDto);
@@ -55,40 +52,42 @@ public class BookingService {
 
     public BookingDto updateBooking(Long id, BookingDto bookingDto) {
 
-        if(!bookingRepository.existsById(id)) {
-            throw new RecordNotFoundException("Booking niet gevonden");
-        }else {
+        if (!bookingRepository.existsById(id)) {
+            throw new RecordNotFoundException("Booking not found");
+        } else {
             return bookingMapper.bookingInputMapper(id, bookingDto);
         }
     }
+
     public void deleteBooking(Long id) {
-        if(bookingRepository.existsById(id)) {
-          bookingRepository.deleteById(id);
+        if (bookingRepository.existsById(id)) {
+            bookingRepository.deleteById(id);
         }
     }
 
-    public void assignTrainingAndUserToBooking(Long id, Long trainingId, String username) {
+    public Booking assignTrainingAndUserToBooking(Long id, Long trainingId, String username) {
 
         var optionalBooking = bookingRepository.findById(id);
         var optionalTraining = trainingRepository.findById(trainingId);
         var optionalUser = registeredUserRepository.findById(username);
 
-        if(optionalBooking.isPresent() && optionalTraining.isPresent() && optionalUser.isPresent() ){
+        if (optionalBooking.isPresent() && optionalTraining.isPresent() && optionalUser.isPresent()) {
             var booking = optionalBooking.get();
             var training = optionalTraining.get();
             var user = optionalUser.get();
 
             booking.setTraining(training);
             booking.setUser(user);
-            bookingRepository.save(booking);
-        }else {
+            return bookingRepository.save(booking);
+        } else {
             throw new RecordNotFoundException();
         }
     }
+
     @Transactional()
     public Collection<BookingDto> getBookingsByUsername(String username) {
         Set<BookingDto> bookingDtos = new HashSet<>();
-        List<Booking> bookings = bookingRepository.findAllByUser_username(username); // Assuming 'user' is the name of the relation in Booking to RegisteredUser
+        List<Booking> bookings = bookingRepository.findAllByUser_username(username);
 
         for (Booking booking : bookings) {
             bookingDtos.add(bookingMapper.transferToBookingDto(booking));

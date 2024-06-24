@@ -7,7 +7,6 @@ import nl.edemtb.mtbclinicsapplication.enums.Difficulty;
 import nl.edemtb.mtbclinicsapplication.enums.RouteType;
 import nl.edemtb.mtbclinicsapplication.exceptions.RecordNotFoundException;
 import nl.edemtb.mtbclinicsapplication.mappers.RouteMapper;
-import nl.edemtb.mtbclinicsapplication.models.Mountainbike;
 import nl.edemtb.mtbclinicsapplication.models.Picture;
 import nl.edemtb.mtbclinicsapplication.models.Route;
 import nl.edemtb.mtbclinicsapplication.repositories.PictureUploadRepository;
@@ -50,14 +49,6 @@ public class RoutesService {
         }
     }
 
-    public List<RouteDto> searchByPlace(String place) {
-        var routeList = routeRepository.findAllRoutesByPlaceEqualsIgnoreCaseAndAvailable(place, true);
-        if (routeList.isEmpty()) {
-            throw new RecordNotFoundException("No route found in " + place + ".");
-        } else {
-            return routeMapper.transferRouteListToDtoList(routeList);
-        }
-    }
 
     public List<RouteDto> search(String place, RouteType routeType, Difficulty difficulty, String province) {
         var routeList = routeRepository.findAvailableRoutes(place, routeType, difficulty, province);
@@ -89,7 +80,7 @@ public class RoutesService {
     }
 
     @Transactional
-    public Resource getPictureFromRoute(Long id) throws FileNotFoundException {
+    public Resource getPictureFromRoute(Long id) {
         Optional<Route> optionalRoute = routeRepository.findById(id);
         if (optionalRoute.isEmpty()) {
             throw new RecordNotFoundException("Route with id: " + id + " not found.");

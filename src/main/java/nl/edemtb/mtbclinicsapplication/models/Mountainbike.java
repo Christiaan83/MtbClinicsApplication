@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "mountainbikes")

@@ -14,7 +14,7 @@ public class BookingDto {
     private String message;
 
     private TrainingDto trainingDto;
-    private RegisteredUserDto  userDto;
+    private RegisteredUserDto userDto;
 
     public String getMessage() {
         return message;
