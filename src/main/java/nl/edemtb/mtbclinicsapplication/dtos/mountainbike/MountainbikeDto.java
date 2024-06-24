@@ -16,7 +16,6 @@ public class MountainbikeDto {
     private Picture picture;
 
 
-
     public Picture getPicture() {
         return picture;
     }

@@ -64,4 +64,4 @@ public class RentalController {
         return ResponseEntity.ok().body(updateRental);
     }
 
-  }
+}

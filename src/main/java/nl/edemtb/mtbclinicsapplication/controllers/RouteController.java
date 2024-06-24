@@ -100,7 +100,7 @@ public class RouteController {
     }
 
     @GetMapping("/{id}/picture")
-    public ResponseEntity<Resource> getStudentPhoto(@PathVariable("id") Long id, HttpServletRequest request) throws FileNotFoundException {
+    public ResponseEntity<Resource> getRoutePhoto(@PathVariable("id") Long id, HttpServletRequest request) {
         Resource resource = routesService.getPictureFromRoute(id);
 
         String image;

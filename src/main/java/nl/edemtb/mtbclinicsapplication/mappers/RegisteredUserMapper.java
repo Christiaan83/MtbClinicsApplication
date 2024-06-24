@@ -19,65 +19,65 @@ public class RegisteredUserMapper {
     }
 
 
-    public static RegisteredUserDto fromRegisteredUser(RegisteredUser registereduser){
+    public static RegisteredUserDto fromRegisteredUser(RegisteredUser registereduser) {
 
-    var registeredUserDto = new RegisteredUserDto();
+        var registeredUserDto = new RegisteredUserDto();
 
-    registeredUserDto.setUsername(registereduser.getUsername());
-    registeredUserDto.setPassword(registereduser.getPassword());
-    registeredUserDto.setFirstName(registereduser.getFirstName());
-    registeredUserDto.setLastName(registereduser.getLastName());
-    registeredUserDto.setActive(registereduser.getActive());
-    registeredUserDto.setApikey(registereduser.getApikey());
-    registeredUserDto.setEmail(registereduser.getEmail());
-    registeredUserDto.setMobileNumber(registereduser.getMobileNumber());
-    registeredUserDto.setAuthorities(registereduser.getAuthorities());
+        registeredUserDto.setUsername(registereduser.getUsername());
+        registeredUserDto.setPassword(registereduser.getPassword());
+        registeredUserDto.setFirstName(registereduser.getFirstName());
+        registeredUserDto.setLastName(registereduser.getLastName());
+        registeredUserDto.setActive(registereduser.getActive());
+        registeredUserDto.setApikey(registereduser.getApikey());
+        registeredUserDto.setEmail(registereduser.getEmail());
+        registeredUserDto.setMobileNumber(registereduser.getMobileNumber());
+        registeredUserDto.setAuthorities(registereduser.getAuthorities());
 
-    return registeredUserDto;
-}
-
-public RegisteredUser toRegisteredUser(RegisteredUserDto userDto) {
-
-    var registeredUser = new RegisteredUser();
-
-    registeredUser.setUsername(userDto.getUsername());
-    registeredUser.setPassword(passwordConfiguration.passwordEncoder().encode(userDto.getPassword()));
-    registeredUser.setFirstName(userDto.getFirstName());
-    registeredUser.setLastName(userDto.getLastName());
-    registeredUser.setActive(userDto.getActive());
-    registeredUser.setApikey(userDto.getApikey());
-    registeredUser.setEmail(userDto.getEmail());
-    registeredUser.setMobileNumber(userDto.getMobileNumber());
-    registeredUser.setApikey(userDto.getApikey());
-    registeredUser.setAuthorities(userDto.getAuthorities());
-
-    return registeredUser;
-}
-
-
-public void userInputMapper(String username, RegisteredUserDto newUser) {
-
-    RegisteredUser user = registeredUserRepository.findById(username).get();
-
-    if (newUser.getFirstName() != null) {
-        user.setFirstName(newUser.getFirstName());
+        return registeredUserDto;
     }
-    if (newUser.getLastName() != null) {
-        user.setLastName(newUser.getLastName());
+
+    public RegisteredUser toRegisteredUser(RegisteredUserDto userDto) {
+
+        var registeredUser = new RegisteredUser();
+
+        registeredUser.setUsername(userDto.getUsername());
+        registeredUser.setPassword(passwordConfiguration.passwordEncoder().encode(userDto.getPassword()));
+        registeredUser.setFirstName(userDto.getFirstName());
+        registeredUser.setLastName(userDto.getLastName());
+        registeredUser.setActive(userDto.getActive());
+        registeredUser.setApikey(userDto.getApikey());
+        registeredUser.setEmail(userDto.getEmail());
+        registeredUser.setMobileNumber(userDto.getMobileNumber());
+        registeredUser.setApikey(userDto.getApikey());
+        registeredUser.setAuthorities(userDto.getAuthorities());
+
+        return registeredUser;
     }
-    if (newUser.getEmail() != null) {
-        user.setEmail(newUser.getEmail());
+
+
+    public void userInputMapper(String username, RegisteredUserDto newUser) {
+
+        RegisteredUser user = registeredUserRepository.findById(username).get();
+
+        if (newUser.getFirstName() != null) {
+            user.setFirstName(newUser.getFirstName());
+        }
+        if (newUser.getLastName() != null) {
+            user.setLastName(newUser.getLastName());
+        }
+        if (newUser.getEmail() != null) {
+            user.setEmail(newUser.getEmail());
+        }
+        if (newUser.getUsername() != null) {
+            user.setUsername(newUser.getUsername());
+        }
+        if (newUser.getMobileNumber() != null) {
+            user.setMobileNumber(newUser.getMobileNumber());
+        }
+        if (newUser.getActive() != null) {
+            user.setActive(newUser.getActive());
+        }
+        registeredUserRepository.save(user);
+        fromRegisteredUser(user);
     }
-    if (newUser.getUsername() != null) {
-        user.setUsername(newUser.getUsername());
-    }
-    if (newUser.getMobileNumber() != null) {
-        user.setMobileNumber(newUser.getMobileNumber());
-    }
-    if (newUser.getActive() != null) {
-        user.setActive(newUser.getActive());
-    }
-    registeredUserRepository.save(user);
-    fromRegisteredUser(user);
-}
 }

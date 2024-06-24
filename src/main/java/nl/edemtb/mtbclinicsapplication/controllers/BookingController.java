@@ -33,6 +33,7 @@ public class BookingController {
         BookingDto booking = bookingService.getBookingById(id);
         return ResponseEntity.ok(booking);
     }
+
     @GetMapping("/user/{username}")
     public ResponseEntity<Collection<BookingDto>> getBookingsByUsername(@PathVariable("username") String username) {
         Collection<BookingDto> bookings = bookingService.getBookingsByUsername(username);

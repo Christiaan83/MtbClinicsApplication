@@ -25,7 +25,6 @@ public class MountainbikeService {
     private final PictureUploadRepository uploadRepository;
 
 
-
     public MountainbikeService(MountainbikeRepository mountainbikeRepository, MountainbikeMapper mountainbikeMapper, PictureService pictureService, PictureUploadRepository uploadRepository) {
         this.mountainbikeRepository = mountainbikeRepository;
         this.mountainbikeMapper = mountainbikeMapper;
@@ -51,17 +50,17 @@ public class MountainbikeService {
 
 
     public List<MountainbikeDto> searchBySizeAndForAdult(String size, Boolean forAdult, Boolean fullSuspension) {
-       List<Mountainbike> mtblist = mountainbikeRepository.searchBySizeAndForAdult(size, forAdult, fullSuspension);
+        List<Mountainbike> mtblist = mountainbikeRepository.searchBySizeAndForAdult(size, forAdult, fullSuspension);
 
-            return mountainbikeMapper.transferMtbListToDtoList(mtblist);
-        }
+        return mountainbikeMapper.transferMtbListToDtoList(mtblist);
+    }
 
     public MountainbikeDto addMountainbike(MountainbikeInputDto dto) {
 
-        Mountainbike mtb = mountainbikeMapper.transferToMountainbike(dto);
+        Mountainbike mtb = MountainbikeMapper.transferToMountainbike(dto);
         mountainbikeRepository.save(mtb);
 
-        return mountainbikeMapper.transferToDto(mtb);
+        return MountainbikeMapper.transferToDto(mtb);
     }
 
     public void deleteMountainbike(@RequestBody Long id) {
@@ -79,13 +78,13 @@ public class MountainbikeService {
 
             Mountainbike mtb = mountainbikeRepository.findById(id).get();
 
-            if(inputDto.getAmount() != null) {
+            if (inputDto.getAmount() != null) {
                 mtb.setAmount(inputDto.getAmount());
             }
-            if(inputDto.getAvailable() != null) {
+            if (inputDto.getAvailable() != null) {
                 mtb.setAvailable(inputDto.getAvailable());
             }
-            if(inputDto.getPricePerDayPart() != null){
+            if (inputDto.getPricePerDayPart() != null) {
                 mtb.setPricePerDayPart(inputDto.getPricePerDayPart());
             }
             mtb.setAvailable(mtb.getAmount() >= 1);
@@ -100,26 +99,27 @@ public class MountainbikeService {
     @Transactional
     public Resource getPictureFromMountainbike(Long id) {
         Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
-        if(optionalMtb.isEmpty()){
-            throw new RecordNotFoundException("Mountainbike " + id+ " not found.");
+        if (optionalMtb.isEmpty()) {
+            throw new RecordNotFoundException("Mountainbike " + id + " not found.");
         }
         Picture picture = optionalMtb.get().getPicture();
-        if(picture == null){
+        if (picture == null) {
             throw new RecordNotFoundException("Mountainbike" + id + " had no photo.");
         }
         return pictureService.downLoadPicture(picture.getFileName());
     }
+
     @Transactional
-    public Mountainbike assignPictureToMountainbike(String filename, Long id){
+    public Mountainbike assignPictureToMountainbike(String filename, Long id) {
         Optional<Mountainbike> optionalMtb = mountainbikeRepository.findById(id);
         Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
 
-        if(optionalMtb.isPresent() && optionalPicture.isPresent()){
+        if (optionalMtb.isPresent() && optionalPicture.isPresent()) {
             Picture picture = optionalPicture.get();
             Mountainbike mtb = optionalMtb.get();
             mtb.setPicture(picture);
             return mountainbikeRepository.save(mtb);
-        }else{
+        } else {
             throw new RecordNotFoundException("Mountainbike or picture not found.");
         }
     }

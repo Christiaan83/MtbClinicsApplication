@@ -41,7 +41,8 @@ public class RegisteredUserController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<RegisteredUserDto> createUser(@RequestBody RegisteredUserDto dto) {;
+    public ResponseEntity<RegisteredUserDto> createUser(@RequestBody RegisteredUserDto dto) {
+        ;
 
         String newUsername = registeredUserService.createRegisteredUser(dto);
         registeredUserService.addAuthority(newUsername, "ROLE_USER");
@@ -77,8 +78,7 @@ public class RegisteredUserController {
             String authorityName = (String) fields.get("authority");
             registeredUserService.addAuthority(username, authorityName);
             return ResponseEntity.ok().build();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new BadRequestException();
         }
     }

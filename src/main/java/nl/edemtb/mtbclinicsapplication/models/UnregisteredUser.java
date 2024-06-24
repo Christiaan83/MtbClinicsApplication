@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "unregistered_users")
-public class UnregisteredUser extends BasicUser{
+public class UnregisteredUser extends BasicUser {
     @Id
     @GeneratedValue(generator = "sequence-generator4")
     @GenericGenerator(name = "sequence-generator4",
@@ -25,9 +25,11 @@ public class UnregisteredUser extends BasicUser{
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public List<Rental> getRentals() {
         return rentals;
     }

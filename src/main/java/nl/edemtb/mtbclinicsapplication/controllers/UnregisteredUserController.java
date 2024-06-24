@@ -13,8 +13,8 @@ public class UnregisteredUserController {
 
     private final UnregisteredUserService unregisteredUserService;
 
-    public UnregisteredUserController(UnregisteredUserService unregisteredUserService, UnregisteredUserService unregisteredUserService1) {
-        this.unregisteredUserService = unregisteredUserService1;
+    public UnregisteredUserController(UnregisteredUserService unregisteredUserService) {
+        this.unregisteredUserService = unregisteredUserService;
     }
 
     @GetMapping()

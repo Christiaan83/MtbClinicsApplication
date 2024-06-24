@@ -35,13 +35,14 @@ public class BookingService {
     public BookingDto getBookingById(Long id) {
         Optional<Booking> bookingOptional = bookingRepository.findById(id);
 
-        if(bookingOptional.isPresent()) {
+        if (bookingOptional.isPresent()) {
             Booking booking = bookingOptional.get();
             return bookingMapper.transferToBookingDto(booking);
-        }else {
-            throw new RecordNotFoundException("Booking niet gevonden");
+        } else {
+            throw new RecordNotFoundException("Booking not found");
         }
     }
+
     public BookingDto createBooking(BookingDto bookingDto) {
 
         Booking booking = bookingMapper.transferToBooking(bookingDto);
@@ -51,15 +52,16 @@ public class BookingService {
 
     public BookingDto updateBooking(Long id, BookingDto bookingDto) {
 
-        if(!bookingRepository.existsById(id)) {
-            throw new RecordNotFoundException("Booking niet gevonden");
-        }else {
+        if (!bookingRepository.existsById(id)) {
+            throw new RecordNotFoundException("Booking not found");
+        } else {
             return bookingMapper.bookingInputMapper(id, bookingDto);
         }
     }
+
     public void deleteBooking(Long id) {
-        if(bookingRepository.existsById(id)) {
-          bookingRepository.deleteById(id);
+        if (bookingRepository.existsById(id)) {
+            bookingRepository.deleteById(id);
         }
     }
 
@@ -81,6 +83,7 @@ public class BookingService {
             throw new RecordNotFoundException();
         }
     }
+
     @Transactional()
     public Collection<BookingDto> getBookingsByUsername(String username) {
         Set<BookingDto> bookingDtos = new HashSet<>();

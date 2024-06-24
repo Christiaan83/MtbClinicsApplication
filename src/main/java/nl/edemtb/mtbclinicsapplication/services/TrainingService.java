@@ -45,7 +45,7 @@ public class TrainingService {
             Training training = trainingOptional.get();
             return trainingMapper.transferToDto(training);
         } else {
-            throw new RecordNotFoundException("Training met id: " + id + " niet gevonden!");
+            throw new RecordNotFoundException("Training with id: " + id + " not found.");
         }
     }
 
@@ -67,33 +67,34 @@ public class TrainingService {
         if (trainingRepository.findById(id).isPresent()) {
             return trainingMapper.trainingInputMapper(id, inputDto);
         } else {
-            throw new RecordNotFoundException("Training met id:" + id + " niet gevonden");
+            throw new RecordNotFoundException("Training with id:" + id + " not found.");
         }
     }
 
     @Transactional
     public Resource getPictureFromTraining(Long id) throws FileNotFoundException {
         Optional<Training> optionalTraining = trainingRepository.findById(id);
-        if(optionalTraining.isEmpty()){
+        if (optionalTraining.isEmpty()) {
             throw new RecordNotFoundException("Training with id: " + id + " not found.");
         }
         Picture picture = optionalTraining.get().getPicture();
-        if(picture == null){
+        if (picture == null) {
             throw new RecordNotFoundException("Training with id: " + id + " had no photo.");
         }
         return pictureService.downLoadPicture(picture.getFileName());
     }
+
     @Transactional
-    public Training assignPhotoToTraining(String filename,Long id){
+    public Training assignPhotoToTraining(String filename, Long id) {
         Optional<Training> optionalTraining = trainingRepository.findById(id);
         Optional<Picture> optionalPicture = uploadRepository.findByFileName(filename);
 
-        if(optionalTraining.isPresent() && optionalPicture.isPresent()){
+        if (optionalTraining.isPresent() && optionalPicture.isPresent()) {
             Picture picture = optionalPicture.get();
             Training training = optionalTraining.get();
             training.setPicture(picture);
             return trainingRepository.save(training);
-        }else{
+        } else {
             throw new RecordNotFoundException("Training or picture not found.");
         }
     }

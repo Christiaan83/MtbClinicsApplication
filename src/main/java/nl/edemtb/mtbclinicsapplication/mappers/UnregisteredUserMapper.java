@@ -13,6 +13,7 @@ public class UnregisteredUserMapper {
     public UnregisteredUserMapper(UnregisteredUserRepository unregisteredUserRepository) {
         this.unregisteredUserRepository = unregisteredUserRepository;
     }
+
     public UnregisteredUserDto transferToDto(UnregisteredUser unregisteredUser) {
 
         UnregisteredUserDto dto = new UnregisteredUserDto();
@@ -38,21 +39,21 @@ public class UnregisteredUserMapper {
         return unregisteredUser;
     }
 
-    public UnregisteredUserDto inputMapper(Long id, UnregisteredUserDto dto){
+    public UnregisteredUserDto inputMapper(Long id, UnregisteredUserDto dto) {
 
         unregisteredUserRepository.findById(id);
         UnregisteredUser unregisteredUser = unregisteredUserRepository.findById(id).get();
 
-        if(dto.getFirstName() != null){
+        if (dto.getFirstName() != null) {
             unregisteredUser.setFirstName(dto.getFirstName());
         }
-        if(dto.getLastName() != null){
+        if (dto.getLastName() != null) {
             unregisteredUser.setLastName(dto.getLastName());
         }
-        if(dto.getEmail() != null){
+        if (dto.getEmail() != null) {
             unregisteredUser.setEmail(dto.getEmail());
         }
-        if(dto.getMobileNumber() != null){
+        if (dto.getMobileNumber() != null) {
             unregisteredUser.setMobileNumber(dto.getMobileNumber());
         }
         return transferToDto((unregisteredUserRepository.save(unregisteredUser)));

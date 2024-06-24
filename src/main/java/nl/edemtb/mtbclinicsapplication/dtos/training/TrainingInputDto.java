@@ -18,11 +18,11 @@ public class TrainingInputDto {
     private String location;
     @NotBlank(message = "description is required")
     private String description;
-    @NotNull (message = "price is required")
+    @NotNull(message = "price is required")
     private Double price;
-    @NotNull (message = "startTime is required")
+    @NotNull(message = "startTime is required")
     private LocalTime startTime;
-    @NotNull (message = "endTime is required")
+    @NotNull(message = "endTime is required")
     private LocalTime endTime;
     private Boolean trainingInGroup;
 
@@ -81,7 +81,6 @@ public class TrainingInputDto {
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
-
 
     public Boolean getTrainingInGroup() {
         return trainingInGroup;

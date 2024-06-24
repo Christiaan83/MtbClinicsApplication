@@ -25,14 +25,15 @@ public class PictureService {
     private final PictureUploadRepository uploadRepository;
 
     public PictureService(@Value("${my.upload_location}") String fileStorageLocation, PictureUploadRepository uploadRepository) throws IOException {
-        fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();;
+        fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
+        ;
         this.fileStorageLocation = fileStorageLocation;
         this.uploadRepository = uploadRepository;
 
         Files.createDirectories(fileStoragePath);
     }
 
-    public String storePicture(MultipartFile file) throws IOException{
+    public String storePicture(MultipartFile file) throws IOException {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Path filePath = fileStoragePath.resolve(fileName);
@@ -55,7 +56,7 @@ public class PictureService {
             throw new RuntimeException("Issue in reading the file", e);
         }
 
-        if(resource.exists()&& resource.isReadable()) {
+        if (resource.exists() && resource.isReadable()) {
             return resource;
         } else {
             throw new RuntimeException("the file doesn't exist or not readable");

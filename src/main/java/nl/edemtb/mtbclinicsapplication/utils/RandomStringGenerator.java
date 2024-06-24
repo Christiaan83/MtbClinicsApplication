@@ -1,4 +1,5 @@
 package nl.edemtb.mtbclinicsapplication.utils;
+
 import java.util.Random;
 
 public class RandomStringGenerator {
